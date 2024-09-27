@@ -1,0 +1,199 @@
+{
+    "name": "Input",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
+            "actions": [
+                {
+                    "name": "MouseClick",
+                    "type": "Button",
+                    "id": "dcd1ceea-61b3-4b36-96bc-57eb7f28ea4b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseHold",
+                    "type": "Button",
+                    "id": "159f429a-93bd-4db0-938d-8ac62410c3c9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WASD",
+                    "type": "Value",
+                    "id": "d5fbf87b-3bd0-4dee-9f38-0795afd80b4d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MouseScroll",
+                    "type": "Value",
+                    "id": "0f8ec44a-be8c-41f7-ab44-5e12433a39a8",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "115064bc-5924-43b4-bab9-92b8d37c2fc8",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00e8f427-8c05-484d-b7ca-22345c17537b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MouseHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "45b5c843-2aac-4c34-807e-c4d4a71e0768",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WASD",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "fa47653a-d459-42f8-a22c-ff2cdb40890a",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "WASD",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3a809fed-d3ea-41a4-a9dd-4f0d723d1eed",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "WASD",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "52353b60-9a3c-4335-9b55-5718e747a28e",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "WASD",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "e6813715-4e52-47ca-934d-7ef58e8dd988",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "WASD",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "50ea1fb5-9a9d-459b-94eb-4205e5eb23db",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MouseScroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard&Mouse",
+            "bindingGroup": "Keyboard&Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Touch",
+            "bindingGroup": "Touch",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Joystick",
+            "bindingGroup": "Joystick",
+            "devices": [
+                {
+                    "devicePath": "<Joystick>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "XR",
+            "bindingGroup": "XR",
+            "devices": [
+                {
+                    "devicePath": "<XRController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
