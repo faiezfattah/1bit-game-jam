@@ -1,5 +1,6 @@
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class Turret : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class Turret : MonoBehaviour
     [SerializeField] private float range = 2f;
     [SerializeField] private float shootInterval = 1f;
     [SerializeField] private float bulletSpeed = 1f;
-    [SerializeField] private float damage = 1f;
+    [SerializeField] private float bulletLifeTime = 2f;
+    [SerializeField] private int damage = 1;
 
     private CircleCollider2D ShootingArea;
     private float shootTimer;
@@ -26,8 +28,12 @@ public class Turret : MonoBehaviour
     }
     void Update()
     {
-        if (state == TurretState.Shooting)
-            ShootingState();
+        switch (state)
+        {
+            case TurretState.Shooting:
+                ShootingState();
+                break;
+        }
     }
 
     virtual protected void ShootingState()
@@ -40,8 +46,8 @@ public class Turret : MonoBehaviour
             if (shootTimer < 0)
             {
                 Shoot(target);
+                shootTimer = shootInterval;
             }
-            shootTimer = shootInterval;
         }
         else state = TurretState.Idle;
 
@@ -66,9 +72,9 @@ public class Turret : MonoBehaviour
     }
     private void Shoot(Transform enemy)
     {
+        // TODO: add object pooling for bullets
         Bullet bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
-        bulletInstance.GetComponent<Bullet>().Setup(bulletSpeed, damage, enemy);
-        Debug.Log("shooting Enemy");
+        bulletInstance.GetComponent<Bullet>().Setup(bulletSpeed, damage, bulletLifeTime, enemy);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

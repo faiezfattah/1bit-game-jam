@@ -11,7 +11,7 @@ public class CameraManager : MonoBehaviour
     {
         // prevent error 
         if (mainCamera != null)
-            mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            mainCamera = GetComponent<Camera>();
     }
     private void Update()
     {

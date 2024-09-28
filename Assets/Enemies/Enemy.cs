@@ -6,10 +6,12 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float speed = 1f;
     [SerializeField] private float attackRange = 2f;
+    [SerializeField] private int maxHealth = 3;
 
     private Vector3 dir;
     private Rigidbody2D rb;
     private float distance;
+    private int currentHealth;
     void Start()
     {
         if (tower == null)
@@ -17,9 +19,10 @@ public class Enemy : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
         dir = (tower.position - transform.position).normalized;
+        currentHealth = maxHealth;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         distance = Vector2.Distance(transform.position, tower.position);
 
@@ -40,6 +43,16 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         StopMove();
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth < 0)
+            Die();
+    }
+    private void Die()
+    {
+        Destroy(gameObject);
     }
     private void OnDrawGizmosSelected()
     {
