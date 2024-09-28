@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731725509137e2d4a99a5c074e71113d, type: 3}
+  m_Name: Single Lvl 2
+  m_EditorClassIdentifier: 
+  turretPrefab: {fileID: 5032525179562827513, guid: f71799472b8eefb4a809f9292350999c, type: 3}
+  turretName: Single Turret
+  bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
+  range: 3
+  attackInterval: 0.5
+  bulletSpeed: 1.5
+  bulletLifeTime: 3
+  rotationSpeed: 45
+  damage: 1
+  nextTurretData: {fileID: 11400000, guid: c6eca235402cc4e409686047e58dc8e8, type: 2}

@@ -8,6 +8,7 @@ TagManager:
   - Building
   - Tower
   - Grid
+  - Canvas
   layers:
   - Default
   - TransparentFX
@@ -42,8 +43,20 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Backgroun 2
+    uniqueID: 531249223
+    locked: 0
+  - name: Backgroun 1
+    uniqueID: 827502909
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground 1
+    uniqueID: 1079772995
+    locked: 0
+  - name: Foreground 2
+    uniqueID: 797253717
     locked: 0
   m_RenderingLayers:
   - Default
