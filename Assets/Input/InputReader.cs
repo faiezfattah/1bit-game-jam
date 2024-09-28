@@ -35,17 +35,18 @@ public class InputReader : ScriptableObject, Input.IPlayerActions
     }
     public void OnMouseClick(InputAction.CallbackContext context)
     {
-        MouseClickEvent?.Invoke();
+        if(context.performed)
+            MouseClickEvent?.Invoke();
     }
     public void OnMouseHold(InputAction.CallbackContext context)
     {
-        MouseHoldEvent?.Invoke();
+        if (context.performed)
+            MouseHoldEvent?.Invoke();
     }
     public void OnMouseScroll(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ToString());
-        float input = context.ReadValue<float>();
-        MouseScrollEvent?.Invoke(input);
+        float input = context.ReadValue<Vector2>().y;
+        MouseScrollEvent?.Invoke(-input);
     }
 
     private void EnableInput()

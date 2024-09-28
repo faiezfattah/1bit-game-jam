@@ -16,4 +16,6 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
         this.target = target;
     }
+
+    //TODO: Detect collision and damage the collider;
 }

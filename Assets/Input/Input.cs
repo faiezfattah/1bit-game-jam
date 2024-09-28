@@ -58,7 +58,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""name"": ""MouseScroll"",
                     ""type"": ""Value"",
                     ""id"": ""0f8ec44a-be8c-41f7-ab44-5e12433a39a8"",
-                    ""expectedControlType"": ""Integer"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true

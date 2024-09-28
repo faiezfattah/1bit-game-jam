@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    // might move it to camera
     [SerializeField] private Camera mainCamera;
     [SerializeField] private InputReader inputReader;
     [SerializeField] private float speed = 5;

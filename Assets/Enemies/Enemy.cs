@@ -34,12 +34,11 @@ public class Enemy : MonoBehaviour
     }
     private void StopMove()
     {
-        // because of kinematic body
+        // because of kinematic body it need to be explicitly stopped
         rb.linearVelocity = new Vector2(0, 0);
     }
     private void Attack()
     {
-        Debug.Log(distance);
         StopMove();
     }
     private void OnDrawGizmosSelected()
