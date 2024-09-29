@@ -4,7 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
+  - turretData: {instanceID: 0}
+  - upgradeUI: {fileID: 8298979782942998460, guid: ecc5ade51c5f19c488612216c4e27fb6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretPrefab: {fileID: 5032525179562827513, guid: f71799472b8eefb4a809f9292350999c, type: 3}
   turretName: Single Turret
+  ironPrice: 1
   bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
   range: 2
   attackInterval: 1
@@ -21,4 +22,6 @@ MonoBehaviour:
   bulletLifeTime: 2
   rotationSpeed: 30
   damage: 1
+  woodPrice: 10
+  level: 1
   nextTurretData: {fileID: 11400000, guid: 5277b38a2bf202f4e825a9723b9cbe1a, type: 2}

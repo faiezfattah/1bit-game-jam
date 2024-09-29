@@ -139,3 +139,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   turretData: {fileID: 11400000, guid: c1b0f1cc80082ef4ca55f9ecb6fd6671, type: 2}
+  upgradeUI: {fileID: 8298979782942998460, guid: ecc5ade51c5f19c488612216c4e27fb6, type: 3}

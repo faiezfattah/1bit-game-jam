@@ -21,4 +21,7 @@ MonoBehaviour:
   bulletLifeTime: 4
   rotationSpeed: 60
   damage: 2
+  woodPrice: 30
+  ironPrice: 20
+  level: 3
   nextTurretData: {fileID: 0}

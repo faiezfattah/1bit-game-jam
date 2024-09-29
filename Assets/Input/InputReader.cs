@@ -27,7 +27,9 @@ public class InputReader : ScriptableObject, Input.IPlayerActions
     {
         DisableInput();
     }
-
+    /// <summary>
+    /// Calling with a vector2
+    /// </summary>
     public void OnWASD(InputAction.CallbackContext context)
     {
         Vector2 moveInput = context.ReadValue<Vector2>();

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TurretSelect : MonoBehaviour
 {
-    // implement scriptable object message channel here
+    [SerializeField] private GameObjectChannel relay;
     public void SendTurret(GameObject turret)
     {
-        Debug.Log("implement turent data sending to manager here");
+        relay.RaiseEvent(turret);
     }
 }

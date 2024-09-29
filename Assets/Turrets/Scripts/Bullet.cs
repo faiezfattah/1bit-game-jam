@@ -33,7 +33,6 @@ public class Bullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             Destroy(gameObject);
-            Debug.Log("Bullet Hit");
         }
     }
 }

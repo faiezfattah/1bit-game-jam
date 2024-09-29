@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class CameraManager : MonoBehaviour
 {
     // might move it to camera
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] private PixelPerfectCamera mainCamera;
     [SerializeField] private InputReader inputReader;
     [SerializeField] private float speed = 5;
     private Vector2 dir;
@@ -11,7 +12,7 @@ public class CameraManager : MonoBehaviour
     {
         // prevent error 
         if (mainCamera != null)
-            mainCamera = GetComponent<Camera>();
+            mainCamera = GetComponent<PixelPerfectCamera>();
     }
     private void Update()
     {
@@ -25,7 +26,8 @@ public class CameraManager : MonoBehaviour
     }
     private void ZoomCamera(float value)
     {
-        mainCamera.orthographicSize += value;
+        int valueInt = Mathf.RoundToInt(value);
+        mainCamera.assetsPPU -= valueInt;
     }
     private void CameraMoveDirection(Vector2 value)
     {

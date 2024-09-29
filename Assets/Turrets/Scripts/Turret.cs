@@ -5,7 +5,8 @@ public abstract class Turret : MonoBehaviour
 {
     protected enum TurretState { Idle, Attacking };
     [SerializeField] protected TurretState state;
-    [SerializeField] protected TurretData turretData;
+    [SerializeField] public TurretData turretData;
+    [SerializeField] public GameObject upgradeUI;
 
     protected static LayerMask enemyLayer;
     protected CircleCollider2D attackArea;
@@ -57,7 +58,11 @@ public abstract class Turret : MonoBehaviour
         Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turretData.rotationSpeed * Time.deltaTime);
     }
-
+    public GameObject OpenUpgradeMenu()
+    {
+        upgradeUI.GetComponent<UpgradeMenu>().Setup(turretData.level);
+        return upgradeUI;
+    }
     protected virtual void OnDrawGizmosSelected()
     {
         if (turretData != null)
