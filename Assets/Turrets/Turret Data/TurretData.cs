@@ -13,7 +13,7 @@ public class TurretData : ScriptableObject
     [SerializeField] public float bulletLifeTime = 2f;
     [SerializeField] public float rotationSpeed = 30f;
     [SerializeField] public int damage = 1;
-    [SerializeField] public int woodPrice = 10;
+    [SerializeField] public int coalPrice = 10;
     [SerializeField] public int ironPrice = 1;
     [SerializeField] public TurretData nextTurretData;
 }

@@ -69,9 +69,9 @@ public class BuildManager : MonoBehaviour
     private void RequestUpgrade()
     {
         int iron = currentTuret.turretData.nextTurretData.ironPrice;
-        int wood = currentTuret.turretData.nextTurretData.woodPrice;
+        int coal = currentTuret.turretData.nextTurretData.coalPrice;
 
-        bool tryPayment = economy.Pay(wood, iron);
+        bool tryPayment = economy.Pay(coal, iron);
 
         if (tryPayment)
         {
@@ -85,7 +85,7 @@ public class BuildManager : MonoBehaviour
     {
         TurretData data = turret.GetComponent<Turret>().turretData;
 
-        bool tryPayment = economy.Pay(data.woodPrice, data.ironPrice);
+        bool tryPayment = economy.Pay(data.coalPrice, data.ironPrice);
 
         if (tryPayment)
         {
@@ -99,11 +99,15 @@ public class BuildManager : MonoBehaviour
     }
     private void SellTurret()
     {
-        economy.AddWood(Mathf.FloorToInt(currentTuret.turretData.woodPrice / 4));
+        economy.AddCoal(Mathf.FloorToInt(currentTuret.turretData.coalPrice / 4));
         economy.AddIron(Mathf.FloorToInt(currentTuret.turretData.ironPrice / 4));
 
+        Debug.Log(currentTuret.turretData.ironPrice);
+
+        Destroy(currentTuret.gameObject);
         currentTuret = null;
         turretPlacement.Remove(selectedLocation);
+        CloseMenu();
     }
     private void PaymentFailed()
     {

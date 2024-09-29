@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18cff155862c88440a9f8b48a4ef69f3, type: 3}
   m_Name: PlayerEconomy
   m_EditorClassIdentifier: 
-  woodCount: 9990
-  ironCount: 9999
+  coalCount: 9640
+  ironCount: 9972
