@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  turretData: {fileID: 11400000, guid: c1b0f1cc80082ef4ca55f9ecb6fd6671, type: 2}
+  turretData: {fileID: 11400000, guid: e14f4b78091c8a245a5d810273a27500, type: 2}
   upgradeUI: {fileID: 8298979782942998460, guid: ecc5ade51c5f19c488612216c4e27fb6, type: 3}
   pointer1: {fileID: 3263273156872777799}
   pointer2: {fileID: 5426958295445509876}

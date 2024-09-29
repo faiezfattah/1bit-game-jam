@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731725509137e2d4a99a5c074e71113d, type: 3}
+  m_Name: Double Lvl 2
+  m_EditorClassIdentifier: 
+  turretPrefab: {fileID: 8871531617660945897, guid: 33b2a0c31d17c8e42932f07b84fb5137, type: 3}
+  turretName: Double Turret
+  level: 2
+  bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
+  range: 2
+  attackInterval: 1
+  bulletSpeed: 2.5
+  bulletLifeTime: 2
+  rotationSpeed: 30
+  damage: 2
+  coalPrice: 20
+  ironPrice: 20
+  nextTurretData: {fileID: 11400000, guid: 62c27f8591b627844af3302026023cd5, type: 2}

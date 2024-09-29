@@ -1,21 +1,29 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     static Transform tower;
+    static TowerHealth towerHealth;
 
     [SerializeField] private float speed = 1f;
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private int maxHealth = 3;
+    [SerializeField] private int damage = 1;
+    [SerializeField] private float attackRate = 1;
 
     private Vector3 dir;
     private Rigidbody2D rb;
     private float distance;
     private int currentHealth;
+    private bool isAttacking = false;
     void Start()
     {
         if (tower == null)
             tower = GameObject.FindGameObjectWithTag("Tower").GetComponent<Transform>();
+        if (towerHealth == null)
+            towerHealth = GameObject.FindGameObjectWithTag("Tower").GetComponent<TowerHealth>();
+
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
         dir = (tower.position - transform.position).normalized;
@@ -43,6 +51,18 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         StopMove();
+        if (!isAttacking)
+            StartCoroutine(AttackCoroutine());
+    }
+    private IEnumerator AttackCoroutine()
+    {
+        isAttacking = true;
+        while (isAttacking)
+        {
+            towerHealth.TakeDamage(damage);
+            Debug.Log("attacking");
+            yield return new WaitForSeconds(attackRate);
+        }
     }
     public void TakeDamage(int damage)
     {
