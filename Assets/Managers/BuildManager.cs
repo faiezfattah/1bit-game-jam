@@ -15,6 +15,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private VoidChannel upgradeRelay;
     [SerializeField] private VoidChannel sellRelay;
     [SerializeField] private PlayerEconomy economy;
+    [SerializeField] private PlayerBuild build;
     [SerializeField] private GameObject buildPickerUI;
     [SerializeField] private GameObject paymentFailedUI;
     [SerializeField] private GameObject UICanvas;
@@ -25,9 +26,6 @@ public class BuildManager : MonoBehaviour
     private Turret currentTuret;
     private GameObject currentUI;
     private bool isUIOpen = false;
-
-    //TODO: move dict to player data
-    private Dictionary<Vector3Int, Turret> turretPlacement = new Dictionary<Vector3Int, Turret>();
     void Update()
     {
         PlacePointer(SelectedGridOnWorld());
@@ -40,16 +38,18 @@ public class BuildManager : MonoBehaviour
     private void Input()
     {
         //Debug.Log("mouse down on: " + ReadSelectecGrid());
-        if (turretPlacement.ContainsKey(ReadSelectecGrid()))
-            OpenUpgradeMenu(SelectedGridOnWorld());
-        else OpenTurretMenu(SelectedGridOnWorld());
+        bool hasTurret = build.CheckTurret(ReadSelectecGrid());
+        Debug.Log(hasTurret);
+        if (hasTurret == false)
+            OpenTurretMenu(SelectedGridOnWorld());
+        else OpenUpgradeMenu(SelectedGridOnWorld());
     }
     public void OpenUpgradeMenu(Vector3 gridLocation)
     {
         DisablePointer();
         isUIOpen = true;
 
-        Turret turret = turretPlacement[selectedLocation];
+        Turret turret = build.GetTurret(selectedLocation);
         currentTuret = turret.GetComponent<Turret>();
         currentUI = Instantiate(turret.OpenUpgradeMenu(), gridLocation, Quaternion.identity, UICanvas.transform);
 
@@ -90,7 +90,8 @@ public class BuildManager : MonoBehaviour
         if (tryPayment)
         {
             GameObject turretInstance = Instantiate(turret, grid.GetCellCenterWorld(selectedLocation), Quaternion.identity);
-            turretPlacement[selectedLocation] = turretInstance.GetComponent<Turret>();
+            build.AddTurret(selectedLocation, turretInstance.GetComponent<Turret>());
+            Debug.Log("buld on: " + selectedLocation);
         }
         if (!tryPayment)
             PaymentFailed();
@@ -106,7 +107,7 @@ public class BuildManager : MonoBehaviour
 
         Destroy(currentTuret.gameObject);
         currentTuret = null;
-        turretPlacement.Remove(selectedLocation);
+        build.RemoveTurret(selectedLocation);
         CloseMenu();
     }
     private void PaymentFailed()
