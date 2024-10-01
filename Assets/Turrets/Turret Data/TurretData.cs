@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TurretData", menuName = "Game/Turret Data")]
 public class TurretData : ScriptableObject
 {
-    [SerializeField] public GameObject turretPrefab;
     [SerializeField] public string turretName;
     [SerializeField] public int level = 1;
     [SerializeField] public GameObject bullet;

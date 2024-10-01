@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 public class IronMiner : MonoBehaviour
 {
     [SerializeField] private PlayerEconomy economy;
+    [SerializeField] private TurretData turretData;
 
     public float gatherRadius = 1f;
     public float gatherInterval = 1f;

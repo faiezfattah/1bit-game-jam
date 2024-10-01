@@ -83,7 +83,7 @@ public class BuildManager : MonoBehaviour
 
     private void PlaceTurret(GameObject turret)
     {
-        TurretData data = turret.GetComponent<Turret>().turretData;
+        TurretData data = turret.GetComponent<Turret>().turretData; // TODO: doesnt work for non-turret (shit)
 
         bool tryPayment = economy.Pay(data.coalPrice, data.ironPrice);
 

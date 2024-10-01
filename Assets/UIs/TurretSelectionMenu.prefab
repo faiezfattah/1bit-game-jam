@@ -660,11 +660,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 3968780971425912146}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7089330383495566853}
+        m_TargetAssemblyTypeName: TurretSelect, Assembly-CSharp
+        m_MethodName: SendTurret
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7846326020310268479, guid: c57fea3bfbd6fa74ca6bc08916864f99, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8457548074077245465
 GameObject:
   m_ObjectHideFlags: 0
