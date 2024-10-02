@@ -16,7 +16,7 @@ public class DoubleTurret : Turret
             if (attackTimer <= 0)
             {
                 StartCoroutine(ShootRoutine(target));
-                attackTimer = turretData.attackInterval;
+                attackTimer = data.attackInterval;
             }
         }
         else state = TurretState.Idle;
@@ -24,13 +24,13 @@ public class DoubleTurret : Turret
     private void Shoot(Transform enemy, Vector2 position)
     {
         // TODO: object pooling here
-        Bullet bulletInstance = Instantiate(turretData.bullet, position, Quaternion.identity).GetComponent<Bullet>();
-        bulletInstance.GetComponent<Bullet>().Setup(turretData.bulletSpeed, turretData.damage, turretData.bulletLifeTime, enemy);
+        Bullet bulletInstance = Instantiate(data.bullet, position, Quaternion.identity).GetComponent<Bullet>();
+        bulletInstance.GetComponent<Bullet>().Setup(data.bulletSpeed, data.damage, data.bulletLifeTime, enemy);
     }
     private IEnumerator ShootRoutine(Transform enemy)
     {
         Shoot(enemy, pointer1.transform.position);
-        yield return new WaitForSeconds(turretData.attackInterval / 5);
+        yield return new WaitForSeconds(data.attackInterval / 5);
         Shoot(enemy, pointer2.transform.position);
     }
 }

@@ -1,21 +1,17 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class IronMiner : MonoBehaviour
+public class IronMiner : Build
 {
     [SerializeField] private PlayerEconomy economy;
-    [SerializeField] private TurretData turretData;
-
-    public float gatherRadius = 1f;
-    public float gatherInterval = 1f;
-    public int gatherAmount = 1;
+    [SerializeField] private int gatherAmount = 1;
 
     private static Tilemap resourceTilemap;
     private float gatherTimer;
     void Start()
     {
         resourceTilemap = GameObject.FindGameObjectWithTag("ResourceMap").GetComponent<Tilemap>();
-        gatherTimer = gatherInterval;
+        gatherTimer = data.attackInterval;
     }
 
     void Update()
@@ -24,7 +20,7 @@ public class IronMiner : MonoBehaviour
         if (gatherTimer <= 0)
         {
             GatherResources();
-            gatherTimer = gatherInterval;
+            gatherTimer = data.attackInterval;
         }
     }
     void GatherResources()
@@ -37,11 +33,10 @@ public class IronMiner : MonoBehaviour
             {
                 switch (tile.type)
                 {
-                    case ResourceTile.resourceType.wood:
-                        Debug.Log("wood detected");
+                    case ResourceTile.resourceType.coal:
+                        economy.AddIron(gatherAmount);
                         break;
                     case ResourceTile.resourceType.iron:
-                        Debug.Log("iron detected");
                         economy.AddIron(gatherAmount);
                         break;
                 }
@@ -51,7 +46,7 @@ public class IronMiner : MonoBehaviour
     Vector3Int[] GetNeighborTiles()
     {
         Vector3Int centerTile = resourceTilemap.WorldToCell(transform.position);
-        int radius = Mathf.CeilToInt(gatherRadius);
+        int radius = Mathf.CeilToInt(data.range);
         Vector3Int[] neighbors = new Vector3Int[(radius * 2 + 1) * (radius * 2 + 1)];
         int index = 0;
         for (int x = -radius; x <= radius; x++)

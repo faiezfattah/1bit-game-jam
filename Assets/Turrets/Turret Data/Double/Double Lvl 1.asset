@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731725509137e2d4a99a5c074e71113d, type: 3}
   m_Name: Double Lvl 1
   m_EditorClassIdentifier: 
-  turretPrefab: {fileID: 8871531617660945897, guid: 33b2a0c31d17c8e42932f07b84fb5137, type: 3}
-  turretName: Double Turret
+  prefabs: {fileID: 8871531617660945897, guid: 33b2a0c31d17c8e42932f07b84fb5137, type: 3}
+  turretName: DoubleTurret_1
   level: 1
   bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
   range: 1
@@ -24,4 +24,4 @@ MonoBehaviour:
   damage: 1
   coalPrice: 10
   ironPrice: 10
-  nextTurretData: {fileID: 11400000, guid: 28e2e762d87d1a14abcbd3aec02c4106, type: 2}
+  nextData: {fileID: 0}

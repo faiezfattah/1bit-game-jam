@@ -638,12 +638,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 977908078}
   inputReader: {fileID: 11400000, guid: 2a2feb3b7d497fb4cb025944db16ec44, type: 2}
-  creationRelay: {fileID: 11400000, guid: c2c91054d0882dc49882b0ed0a2a6986, type: 2}
+  creationRelay: {fileID: 11400000, guid: 146000c6005c27b419d97f97b63d2220, type: 2}
   upgradeRelay: {fileID: 11400000, guid: 786d9ab066746194891c07b3f578d109, type: 2}
   sellRelay: {fileID: 11400000, guid: 820862cf088c11340ad7847a4cc97375, type: 2}
   economy: {fileID: 11400000, guid: a0f594e514edb674583ee8fa7a19c2de, type: 2}
   build: {fileID: 11400000, guid: d516be12fc7fb4c4494caa730be81a88, type: 2}
   buildPickerUI: {fileID: 3493722122934907708, guid: 073d535fe8d2e844c99d2e4a764164aa, type: 3}
+  upgradeUI: {fileID: 8298979782942998460, guid: ecc5ade51c5f19c488612216c4e27fb6, type: 3}
   paymentFailedUI: {fileID: 3034161317322305667, guid: b92a1ee35c183f34a97e3d51eb535094, type: 3}
   UICanvas: {fileID: 1720940654}
   pointer: {fileID: 840832205}
@@ -841,13 +842,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696dc341286aa9b419be45a4d4c15c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: 2a2feb3b7d497fb4cb025944db16ec44, type: 2}
   gameTime: {fileID: 11400000, guid: 322daaf06f6fffb4f956422321dfcaf1, type: 2}
+  economy: {fileID: 11400000, guid: a0f594e514edb674583ee8fa7a19c2de, type: 2}
+  build: {fileID: 11400000, guid: d516be12fc7fb4c4494caa730be81a88, type: 2}
   regularEnemy:
   - {fileID: 8808794065879569959, guid: 492b94ead7d0fd1468b5f048e5517514, type: 3}
   bossEnemy: []
   pointer:
   - {fileID: 187750894}
   - {fileID: 1560756531}
+  spawnInterval: 0.5
   minEnemy: 5
 --- !u!1 &1560756531
 GameObject:

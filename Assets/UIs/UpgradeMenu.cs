@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UpgradeMenu : MonoBehaviour
@@ -43,6 +44,7 @@ public class UpgradeMenu : MonoBehaviour
     }
     public void OnSell()
     {
+        Destroy(this.gameObject);
         sellRelay.RaiseEvent();
     }
 }

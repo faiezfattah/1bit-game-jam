@@ -165,9 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1993ffe87b65e40885efedf78040b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: e14f4b78091c8a245a5d810273a27500, type: 2}
   state: 0
-  turretData: {fileID: 11400000, guid: e14f4b78091c8a245a5d810273a27500, type: 2}
-  upgradeUI: {fileID: 8298979782942998460, guid: ecc5ade51c5f19c488612216c4e27fb6, type: 3}
   pointer1: {fileID: 3263273156872777799}
   pointer2: {fileID: 5426958295445509876}
 --- !u!58 &6031919320877310791

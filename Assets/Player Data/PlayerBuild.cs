@@ -5,36 +5,37 @@ using static UnityEngine.GraphicsBuffer;
 [CreateAssetMenu(fileName = "PlayerBuild", menuName = "Player/Build")]
 public class PlayerBuild : ScriptableObject
 {
-    public Dictionary<Vector3Int, Turret> turretPlacement = new Dictionary<Vector3Int, Turret>();
+    public Dictionary<Vector3Int, GameObject> buildPlacement = new Dictionary<Vector3Int, GameObject>();
     private void OnEnable()
     {
         // debugging purposes
-        turretPlacement.Clear();
+        buildPlacement.Clear();
     }
 
-    public bool AddTurret(Vector3Int position, Turret turret)
+    public bool AddBuild(Vector3Int position, GameObject build)
     {
-        if (turretPlacement.ContainsKey(position) == false)
+        if (buildPlacement.ContainsKey(position) == false)
         {
-            turretPlacement[position] = turret;
+            buildPlacement[position] = build;
             return true;
         }
         else return false;
     }
     public bool CheckTurret(Vector3Int position)
     {
-        return turretPlacement.ContainsKey(position);
+        return buildPlacement.ContainsKey(position);
     }
-    public Turret GetTurret(Vector3Int position)
+    public GameObject GetBuild(Vector3Int position)
     {
-        if (turretPlacement.ContainsKey(position))
+        if (buildPlacement.ContainsKey(position))
         {
-            return turretPlacement[position];
+            return buildPlacement[position];
         }
         else return null;
     }
     public void RemoveTurret(Vector3Int position)
     {
-        turretPlacement.Remove(position);
+        Destroy(buildPlacement[position]);
+        buildPlacement.Remove(position);
     }
 }

@@ -1,12 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class Turret : MonoBehaviour
+public abstract class Turret : Build
 {
     protected enum TurretState { Idle, Attacking };
     [SerializeField] protected TurretState state;
-    [SerializeField] public TurretData turretData;
-    [SerializeField] public GameObject upgradeUI;
 
     protected static LayerMask enemyLayer;
     protected CircleCollider2D attackArea;
@@ -16,7 +14,7 @@ public abstract class Turret : MonoBehaviour
         enemyLayer = LayerMask.GetMask("Enemy");
         state = TurretState.Idle;
         attackArea = GetComponent<CircleCollider2D>();
-        attackArea.radius = turretData.range;
+        attackArea.radius = data.range;
     }
 
     protected virtual void Update()
@@ -32,7 +30,7 @@ public abstract class Turret : MonoBehaviour
     {
         float maxDistance = 0f;
         Transform furthestEnemy = null;
-        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, turretData.range, enemyLayer);
+        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, data.range, enemyLayer);
         foreach (Collider2D enemy in enemiesInRange)
         {
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
@@ -56,18 +54,13 @@ public abstract class Turret : MonoBehaviour
         Vector3 direction = target.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 180f;
         Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turretData.rotationSpeed * Time.deltaTime);
-    }
-    public GameObject OpenUpgradeMenu()
-    {
-        upgradeUI.GetComponent<UpgradeMenu>().Setup(turretData.level);
-        return upgradeUI;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, data.rotationSpeed * Time.deltaTime);
     }
     protected virtual void OnDrawGizmosSelected()
     {
-        if (turretData != null)
+        if (data != null)
         {
-            Gizmos.DrawWireSphere(transform.position, turretData.range);
+            Gizmos.DrawWireSphere(transform.position, data.range);
         }
     }
 }

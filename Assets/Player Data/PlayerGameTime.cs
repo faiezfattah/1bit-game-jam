@@ -8,7 +8,7 @@ public class PlayerGameTime : ScriptableObject
 
     public float dayTime = 0;
     public float maxDayTimeInSeconds = 100f;
-    public float dayCount = 0;
+    public int dayCount = 0;
 
     public UnityAction onDayOver;
  
@@ -30,6 +30,7 @@ public class PlayerGameTime : ScriptableObject
     }
     public void TriggerDayOver()
     {
+        Debug.Log("dayover triggered, " + dayCount);
         onDayOver?.Invoke();
     }
 }

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731725509137e2d4a99a5c074e71113d, type: 3}
   m_Name: Single Lvl 3
   m_EditorClassIdentifier: 
-  turretPrefab: {fileID: 5032525179562827513, guid: f71799472b8eefb4a809f9292350999c, type: 3}
-  turretName: Single Turret
+  prefabs: {fileID: 5032525179562827513, guid: f71799472b8eefb4a809f9292350999c, type: 3}
+  turretName: SingleTurret_3
+  level: 3
   bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
   range: 4
   attackInterval: 0.25
@@ -21,7 +22,6 @@ MonoBehaviour:
   bulletLifeTime: 4
   rotationSpeed: 60
   damage: 2
-  woodPrice: 30
+  coalPrice: 10
   ironPrice: 20
-  level: 3
-  nextTurretData: {fileID: 0}
+  nextData: {fileID: 0}

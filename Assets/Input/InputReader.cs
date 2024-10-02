@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
 public class InputReader : ScriptableObject, Input.IPlayerActions
@@ -10,6 +11,7 @@ public class InputReader : ScriptableObject, Input.IPlayerActions
     public event UnityAction<Vector2> MoveEvent;
     public event UnityAction MouseClickEvent;
     public event UnityAction MouseHoldEvent;
+    public event UnityAction EscapeEvent;
     public event UnityAction<float> MouseScrollEvent;
 
     private void OnEnable()
@@ -49,6 +51,11 @@ public class InputReader : ScriptableObject, Input.IPlayerActions
     {
         float input = context.ReadValue<Vector2>().y;
         MouseScrollEvent?.Invoke(-input);
+    }
+    public void OnEscape(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            EscapeEvent?.Invoke();
     }
 
     private void EnableInput()

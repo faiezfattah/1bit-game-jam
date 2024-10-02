@@ -6,24 +6,30 @@ using System.Transactions;
 using NUnit.Framework.Constraints;
 using System.Collections;
 using System;
+using Unity.VisualScripting;
+using UnityEngine.Rendering.Universal;
 
 public class BuildManager : MonoBehaviour
 {
     [SerializeField] private Grid grid;
     [SerializeField] private InputReader inputReader;
-    [SerializeField] private GameObjectChannel creationRelay;
+    [Header("relays ----")]
+    [SerializeField] private BuildDataChannel creationRelay;
     [SerializeField] private VoidChannel upgradeRelay;
     [SerializeField] private VoidChannel sellRelay;
+    [Header("player datas ----")]
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
+    [Header("uis ----")]
     [SerializeField] private GameObject buildPickerUI;
+    [SerializeField] private GameObject upgradeUI;
     [SerializeField] private GameObject paymentFailedUI;
     [SerializeField] private GameObject UICanvas;
     [SerializeField] private GameObject pointer;
 
 
     private Vector3Int selectedLocation;
-    private Turret currentTuret;
+    private GameObject currentBuild;
     private GameObject currentUI;
     private bool isUIOpen = false;
     void Update()
@@ -39,21 +45,27 @@ public class BuildManager : MonoBehaviour
     {
         //Debug.Log("mouse down on: " + ReadSelectecGrid());
         bool hasTurret = build.CheckTurret(ReadSelectecGrid());
-        Debug.Log(hasTurret);
+
         if (hasTurret == false)
             OpenTurretMenu(SelectedGridOnWorld());
         else OpenUpgradeMenu(SelectedGridOnWorld());
     }
     public void OpenUpgradeMenu(Vector3 gridLocation)
     {
-        DisablePointer();
-        isUIOpen = true;
+        if (isUIOpen == false){
+            DisablePointer();
+            isUIOpen = true;
 
-        Turret turret = build.GetTurret(selectedLocation);
-        currentTuret = turret.GetComponent<Turret>();
-        currentUI = Instantiate(turret.OpenUpgradeMenu(), gridLocation, Quaternion.identity, UICanvas.transform);
+            currentBuild = build.GetBuild(selectedLocation);
+            BuildData data = currentBuild.GetComponent<Build>().data;
+            if (data == null) Debug.Log("upgrade data null");
 
-        selectedLocation = grid.WorldToCell(gridLocation);
+            upgradeUI.GetComponent<UpgradeMenu>().Setup(data.level);
+
+            selectedLocation = grid.WorldToCell(gridLocation);
+            currentUI = Instantiate(upgradeUI, gridLocation, Quaternion.identity, UICanvas.transform);
+        }
+
     }
     private void OpenTurretMenu(Vector3 gridLocation)
     {
@@ -61,36 +73,40 @@ public class BuildManager : MonoBehaviour
         {
             DisablePointer();
             isUIOpen = true;
-            currentUI = Instantiate(buildPickerUI, gridLocation, Quaternion.identity, UICanvas.transform);
 
             selectedLocation = grid.WorldToCell(gridLocation);
+            currentUI = Instantiate(buildPickerUI, gridLocation, Quaternion.identity, UICanvas.transform);
+
         }
     }
     private void RequestUpgrade()
     {
-        int iron = currentTuret.turretData.nextTurretData.ironPrice;
-        int coal = currentTuret.turretData.nextTurretData.coalPrice;
+        BuildData data = currentBuild.GetComponent<Build>().data;
+        Debug.Log(data.coalPrice);
+        Debug.Log(data.ironPrice);
+        int iron = data.nextData.ironPrice;
+        int coal = data.nextData.coalPrice;
 
         bool tryPayment = economy.Pay(coal, iron);
 
         if (tryPayment)
         {
-            currentTuret.turretData = currentTuret.turretData.nextTurretData;
+            currentBuild.GetComponent<Build>().data = currentBuild.GetComponent<Build>().data.nextData;
             CloseMenu();
         }
         if (!tryPayment) PaymentFailed();
     }
 
-    private void PlaceTurret(GameObject turret)
+    private void PlaceBuild(Build building)
     {
-        TurretData data = turret.GetComponent<Turret>().turretData; // TODO: doesnt work for non-turret (shit)
+        BuildData buildingData = building.data;
 
-        bool tryPayment = economy.Pay(data.coalPrice, data.ironPrice);
+        bool tryPayment = economy.Pay(buildingData.coalPrice, buildingData.ironPrice);
 
         if (tryPayment)
         {
-            GameObject turretInstance = Instantiate(turret, grid.GetCellCenterWorld(selectedLocation), Quaternion.identity);
-            build.AddTurret(selectedLocation, turretInstance.GetComponent<Turret>());
+            GameObject buildInstance = Instantiate(buildingData.prefabs, grid.GetCellCenterWorld(selectedLocation), Quaternion.identity);
+            build.AddBuild(selectedLocation, buildInstance);
             Debug.Log("buld on: " + selectedLocation);
         }
         if (!tryPayment)
@@ -100,35 +116,25 @@ public class BuildManager : MonoBehaviour
     }
     private void SellTurret()
     {
-        economy.AddCoal(Mathf.FloorToInt(currentTuret.turretData.coalPrice / 4));
-        economy.AddIron(Mathf.FloorToInt(currentTuret.turretData.ironPrice / 4));
+        BuildData data = currentBuild.GetComponent<Build>().data;
+        if (data == null) Debug.Log("selling data nul");
 
-        Debug.Log(currentTuret.turretData.ironPrice);
+        economy.AddCoal(Mathf.FloorToInt(data.coalPrice / 4));
+        economy.AddIron(Mathf.FloorToInt(data.ironPrice / 4));
 
-        Destroy(currentTuret.gameObject);
-        currentTuret = null;
         build.RemoveTurret(selectedLocation);
         CloseMenu();
     }
     private void PaymentFailed()
     {
-        StartCoroutine(PaymentFailedRoutine());
-    }
-    private IEnumerator PaymentFailedRoutine()
-    {
-        CloseMenu();
-        yield return new WaitForSeconds(0.1f);
-        currentUI = Instantiate(paymentFailedUI, UICanvas.transform);
-        yield return new WaitForSeconds(1f);
-        CloseMenu();
-
+        Debug.Log("payment failed");
     }
     private void CloseMenu()
     {
         if (isUIOpen)
         {
             isUIOpen = false;
-            Destroy(currentUI);
+            if (currentUI != null) Destroy(currentUI);
             currentUI = null;
             EnablePointer();
         }
@@ -163,7 +169,7 @@ public class BuildManager : MonoBehaviour
     {
         inputReader.MouseClickEvent += Input;
         inputReader.MoveEvent += CloseOnMove;
-        creationRelay.OnEvenRaised += PlaceTurret;
+        creationRelay.OnEventRaised += PlaceBuild;
         upgradeRelay.OnEvenRaised += RequestUpgrade;
         sellRelay.OnEvenRaised += SellTurret;
     }
@@ -171,7 +177,7 @@ public class BuildManager : MonoBehaviour
     {
         inputReader.MouseClickEvent -= Input;
         inputReader.MoveEvent -= CloseOnMove;
-        creationRelay.OnEvenRaised -= PlaceTurret;
+        creationRelay.OnEventRaised -= PlaceBuild;
         upgradeRelay.OnEvenRaised -= RequestUpgrade;
         sellRelay.OnEvenRaised -= SellTurret;
     }

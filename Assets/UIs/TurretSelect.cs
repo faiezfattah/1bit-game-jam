@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TurretSelect : MonoBehaviour
 {
-    [SerializeField] private GameObjectChannel relay;
-    public void SendTurret(GameObject turret)
+    [SerializeField] private BuildDataChannel relay;
+    public void SendBuild(GameObject build)
     {
-        relay.RaiseEvent(turret);
+        relay.RaiseEvent(build.GetComponent<Build>());
     }
 }

@@ -14,7 +14,7 @@ public class SingleTurret : Turret
             if (attackTimer <= 0)
             {
                 Shoot(target);
-                attackTimer = turretData.attackInterval;
+                attackTimer = data.attackInterval;
             }
         }
         else state = TurretState.Idle;
@@ -22,7 +22,7 @@ public class SingleTurret : Turret
     private void Shoot(Transform enemy)
     {
         // TODO: add object pooling for bullets
-        Bullet bulletInstance = Instantiate(turretData.bullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
-        bulletInstance.GetComponent<Bullet>().Setup(turretData.bulletSpeed, turretData.damage, turretData.bulletLifeTime, enemy);
+        Bullet bulletInstance = Instantiate(data.bullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
+        bulletInstance.GetComponent<Bullet>().Setup(data.bulletSpeed, data.damage, data.bulletLifeTime, enemy);
     }
 }
