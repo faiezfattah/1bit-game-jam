@@ -23,6 +23,8 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+    min-height: 100px;
+    max-width: 200px;
 }
 
 .unity-button:hover {
@@ -37,6 +39,7 @@
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
+    opacity: 0.5;
 }
 
 .unity-text-element {
@@ -52,4 +55,9 @@
 }
 
 .button-quit {
+}
+
+.button-mainmenu {
+    width: 100%;
+    min-width: 100%;
 }

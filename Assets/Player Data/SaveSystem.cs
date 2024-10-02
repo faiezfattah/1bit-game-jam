@@ -55,10 +55,11 @@ public static class SaveSystem
         for (int i = 0; i < data.buildPositions.Count; i++) {
             Vector3Int position = data.buildPositions[i].ToVector3Int();
             string buildingName = data.buildingData[i];
-            BuildData buildData = Resources.Load<BuildData>($"Assets/Turrets/Resources/{buildingName}");
+            BuildData buildData = Resources.Load<BuildData>($"{buildingName}");
 
             if (buildData != null) {
                 build.buildPlacement.Add(position, buildData);
+                Debug.Log("buildPlacement Updated " + position + " " + buildData);
             }
 
             else {

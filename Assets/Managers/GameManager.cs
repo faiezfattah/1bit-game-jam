@@ -9,9 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerGameTime gameTime;
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
-    [Header("mainscreen relay--------")]
+    [Header("relays------------------")]
     [SerializeField] private VoidChannel playRelay;
-    [SerializeField] private VoidChannel continueRelay;
+    [SerializeField] private VoidChannel loadRelay;
+    [SerializeField] private VoidChannel saveRelay;
+    [SerializeField] private VoidChannel unpauseRelay;
+    [SerializeField] private VoidChannel rebuildRelay;
     [Header("factory-----------------")]
     [SerializeField] private GameObject[] regularEnemy;
     [SerializeField] private GameObject[] bossEnemy;
@@ -65,17 +68,33 @@ public class GameManager : MonoBehaviour
         Pause();
         SaveSystem.ResetPlayer(build, economy, gameTime);
     }
+    private void HandleSave() {
+        Debug.Log("saved player data");
+        SaveSystem.SavePlayer(build, economy, gameTime);
+    }
+    private void HandleLoad() {
+        SaveSystem.LoadPlayer(build, economy, gameTime);
+        build.GetBuildsDictionary();
+        rebuildRelay.RaiseEvent();
+        Pause();
+    }
     private void OnEnable()
     {
         gameTime.onDayOver += SpawnEnemy;
         inputReader.EscapeEvent += Pause;
+        unpauseRelay.OnEvenRaised += Pause;
         playRelay.OnEvenRaised += HandlePlay;
+        saveRelay.OnEvenRaised += HandleSave;
+        loadRelay.OnEvenRaised += HandleLoad;
     }
     private void OnDisable()
     {
         gameTime.onDayOver -= SpawnEnemy;
         inputReader.EscapeEvent -= Pause;
+        unpauseRelay.OnEvenRaised -= Pause;
         playRelay.OnEvenRaised -= HandlePlay;
+        saveRelay.OnEvenRaised -= HandleSave;
+        loadRelay.OnEvenRaised -= HandleLoad;
     }
 }
 

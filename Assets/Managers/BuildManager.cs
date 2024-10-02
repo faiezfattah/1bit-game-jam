@@ -18,7 +18,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private VoidChannel upgradeRelay;
     [SerializeField] private VoidChannel sellRelay;
     [SerializeField] private VoidChannel playRelay;
-    [SerializeField] private VoidChannel loadRelay;
+    [SerializeField] private VoidChannel rebuildRelay;
     [Header("player datas ----")]
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
@@ -156,11 +156,20 @@ public class BuildManager : MonoBehaviour
     }
     private void HandleLoad() {
         ClearExistingBuildings();
+        Debug.Log("HandeLoad called");
+
         foreach (Vector3Int Key in build.buildPlacement.Keys) {
+
+            Debug.Log("instantiatin builds: " + build.buildPlacement[Key]);
+
             GameObject building = build.buildPlacement[Key].prefabs;
-            build.GetComponent<Build>().data = build.buildPlacement[Key];
+            Debug.Log("got the game object");
+            building.GetComponent<Build>().data = build.buildPlacement[Key];
+            Debug.Log("reassign the data");
             Instantiate(building, grid.GetCellCenterWorld(Key), Quaternion.identity);
+            Debug.Log("instantiated");
             GameObjectPlacement.Add(Key, building);
+            Debug.Log("added to local dictionary");
         }
     }
     private void ClearExistingBuildings() {
@@ -204,7 +213,7 @@ public class BuildManager : MonoBehaviour
         upgradeRelay.OnEvenRaised += RequestUpgrade;
         sellRelay.OnEvenRaised += SellTurret;
         playRelay.OnEvenRaised += HandlePlay;
-        loadRelay.OnEvenRaised += HandleLoad;
+        rebuildRelay.OnEvenRaised += HandleLoad;
     }
     private void OnDisable()
     {
@@ -214,6 +223,6 @@ public class BuildManager : MonoBehaviour
         upgradeRelay.OnEvenRaised -= RequestUpgrade;
         sellRelay.OnEvenRaised -= SellTurret;
         playRelay.OnEvenRaised -= HandlePlay;
-        loadRelay.OnEvenRaised -= HandleLoad;
+        rebuildRelay.OnEvenRaised -= HandleLoad;
     }
 }

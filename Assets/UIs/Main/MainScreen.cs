@@ -32,7 +32,7 @@ public partial class MainScreen : MonoBehaviour
         playRelay.RaiseEvent();
     }
     private void OnContinueButtonClicked() {
-        Debug.Log("continue");
+        gameObject.SetActive(false);
         continueRelay.RaiseEvent();
     }
     private void OnQuitButtonClicked() { 

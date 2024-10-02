@@ -37,4 +37,10 @@ public class PlayerBuild : ScriptableObject
     {
         buildPlacement.Remove(position);
     }
+    public void GetBuildsDictionary() {
+        foreach (Vector3Int Key in buildPlacement.Keys) {
+            Debug.Log("manual key lookup: " + buildPlacement[Key]);
+            Debug.Log("GetBuild Method" + GetBuild(Key));
+        }
+    }
 }
