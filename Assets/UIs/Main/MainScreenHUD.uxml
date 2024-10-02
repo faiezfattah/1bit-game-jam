@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIs/Main/MainScreen.uss?fileID=7433441132597879392&amp;guid=a7f3286eaf9efa840be29fc2c6989b59&amp;type=3#MainScreen" />
+    <ui:VisualElement name="Panel" class="panel" style="flex-grow: 1; border-top-width: 8px; border-right-width: 8px; border-bottom-width: 8px; border-left-width: 8px;">
+        <ui:VisualElement name="VisualElement" class="menu" style="flex-grow: 1; width: 30%;">
+            <ui:Label text="Tower&#10;Defense" style="font-size: 128px; color: rgb(255, 255, 255); margin-bottom: 10%; word-spacing: 0; -unity-paragraph-spacing: -40px;" />
+            <ui:Button text="Play" name="playButton" class="button-play" />
+            <ui:Button text="Continue" name="continueButton" class="button-continue" />
+            <ui:Button text="Quit" name="quitButton" class="button-quit" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

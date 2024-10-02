@@ -27,6 +27,8 @@ public class PlayerGameTime : ScriptableObject
     public void ResetGameTime()
     {
         gameTime = 0;
+        dayTime = 0;
+        dayCount = 0;
     }
     public void TriggerDayOver()
     {

@@ -5,20 +5,17 @@ using UnityEngine;
 public class PlayerData
 {
     // resources
-    public int ironCount;
-    public int coalCount;
+    public int ironCount = 0;
+    public int coalCount = 0;
 
     // gametime
-    public float totalGameTime;
-    public float dayTime;
-    public int dayCount;
+    public float totalGameTime = 0;
+    public float dayTime = 0;
+    public int dayCount = 0;
 
     // builds
     public List<Vector3IntSerializable> buildPositions = new List<Vector3IntSerializable>();
     public List<string> buildingData = new List<string>();
-
-    public float[] vector3int = new float[3];
-    public string[] building = new string[2]; // turret name, lvl ["Miner", "2"]
 
     public PlayerData(PlayerBuild build, PlayerEconomy economy, PlayerGameTime gameTime)
     {
@@ -32,7 +29,7 @@ public class PlayerData
         foreach (var entry in build.buildPlacement)
         {
             buildPositions.Add(new Vector3IntSerializable(entry.Key));
-            buildingData.Add(entry.Value.GetComponent<Build>().data.name);
+            buildingData.Add((entry.Value.name));
         }
     }
 }

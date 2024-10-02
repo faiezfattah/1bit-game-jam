@@ -17,6 +17,8 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private BuildDataChannel creationRelay;
     [SerializeField] private VoidChannel upgradeRelay;
     [SerializeField] private VoidChannel sellRelay;
+    [SerializeField] private VoidChannel playRelay;
+    [SerializeField] private VoidChannel loadRelay;
     [Header("player datas ----")]
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
@@ -27,9 +29,9 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject UICanvas;
     [SerializeField] private GameObject pointer;
 
+    private Dictionary<Vector3Int, GameObject> GameObjectPlacement = new Dictionary<Vector3Int, GameObject>();
 
     private Vector3Int selectedLocation;
-    private GameObject currentBuild;
     private GameObject currentUI;
     private bool isUIOpen = false;
     void Update()
@@ -40,6 +42,8 @@ public class BuildManager : MonoBehaviour
     {
         if (grid == null)
             grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<Grid>();
+        DisablePointer();
+        isUIOpen = true;
     }
     private void Input()
     {
@@ -56,8 +60,7 @@ public class BuildManager : MonoBehaviour
             DisablePointer();
             isUIOpen = true;
 
-            currentBuild = build.GetBuild(selectedLocation);
-            BuildData data = currentBuild.GetComponent<Build>().data;
+            BuildData data = build.GetBuild(selectedLocation);
             if (data == null) Debug.Log("upgrade data null");
 
             upgradeUI.GetComponent<UpgradeMenu>().Setup(data.level);
@@ -81,17 +84,20 @@ public class BuildManager : MonoBehaviour
     }
     private void RequestUpgrade()
     {
-        BuildData data = currentBuild.GetComponent<Build>().data;
-        Debug.Log(data.coalPrice);
-        Debug.Log(data.ironPrice);
+        BuildData data = build.buildPlacement[selectedLocation]; 
+
+        //Debug.Log(data.coalPrice);
+        //Debug.Log(data.ironPrice);
+
         int iron = data.nextData.ironPrice;
         int coal = data.nextData.coalPrice;
 
         bool tryPayment = economy.Pay(coal, iron);
-
+        GameObject currentBuild = GameObjectPlacement[selectedLocation];
         if (tryPayment)
         {
-            currentBuild.GetComponent<Build>().data = currentBuild.GetComponent<Build>().data.nextData;
+            currentBuild.GetComponent<Build>().data = data.nextData;
+            build.buildPlacement[selectedLocation] = data.nextData;
             CloseMenu();
         }
         if (!tryPayment) PaymentFailed();
@@ -106,7 +112,10 @@ public class BuildManager : MonoBehaviour
         if (tryPayment)
         {
             GameObject buildInstance = Instantiate(buildingData.prefabs, grid.GetCellCenterWorld(selectedLocation), Quaternion.identity);
+
             build.AddBuild(selectedLocation, buildInstance);
+            GameObjectPlacement[selectedLocation] = buildInstance;
+
             Debug.Log("buld on: " + selectedLocation);
         }
         if (!tryPayment)
@@ -116,13 +125,14 @@ public class BuildManager : MonoBehaviour
     }
     private void SellTurret()
     {
-        BuildData data = currentBuild.GetComponent<Build>().data;
+        BuildData data = build.buildPlacement[selectedLocation];
         if (data == null) Debug.Log("selling data nul");
 
         economy.AddCoal(Mathf.FloorToInt(data.coalPrice / 4));
         economy.AddIron(Mathf.FloorToInt(data.ironPrice / 4));
 
         build.RemoveTurret(selectedLocation);
+        Destroy(GameObjectPlacement[selectedLocation]);
         CloseMenu();
     }
     private void PaymentFailed()
@@ -138,6 +148,27 @@ public class BuildManager : MonoBehaviour
             currentUI = null;
             EnablePointer();
         }
+    }
+    private void HandlePlay() {
+        isUIOpen = false;
+        EnablePointer();
+        GameObjectPlacement.Clear();
+    }
+    private void HandleLoad() {
+        ClearExistingBuildings();
+        foreach (Vector3Int Key in build.buildPlacement.Keys) {
+            GameObject building = build.buildPlacement[Key].prefabs;
+            build.GetComponent<Build>().data = build.buildPlacement[Key];
+            Instantiate(building, grid.GetCellCenterWorld(Key), Quaternion.identity);
+            GameObjectPlacement.Add(Key, building);
+        }
+    }
+    private void ClearExistingBuildings() {
+        Build[] existingBuildings = FindObjectsByType<Build>(FindObjectsSortMode.None);
+        foreach (Build building in existingBuildings) {
+            Destroy(building.gameObject);
+        }
+        GameObjectPlacement.Clear();
     }
     private void CloseOnMove(Vector2 move)
     {
@@ -172,6 +203,8 @@ public class BuildManager : MonoBehaviour
         creationRelay.OnEventRaised += PlaceBuild;
         upgradeRelay.OnEvenRaised += RequestUpgrade;
         sellRelay.OnEvenRaised += SellTurret;
+        playRelay.OnEvenRaised += HandlePlay;
+        loadRelay.OnEvenRaised += HandleLoad;
     }
     private void OnDisable()
     {
@@ -180,5 +213,7 @@ public class BuildManager : MonoBehaviour
         creationRelay.OnEventRaised -= PlaceBuild;
         upgradeRelay.OnEvenRaised -= RequestUpgrade;
         sellRelay.OnEvenRaised -= SellTurret;
+        playRelay.OnEvenRaised -= HandlePlay;
+        loadRelay.OnEvenRaised -= HandleLoad;
     }
 }

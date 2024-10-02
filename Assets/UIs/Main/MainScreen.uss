@@ -1,0 +1,55 @@
+.panel {
+    background-color: rgba(255, 0, 0, 0);
+    align-items: center;
+    align-content: center;
+    -unity-background-image-tint-color: rgb(255, 0, 0);
+}
+
+.menu {
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
+
+.unity-button {
+    align-self: stretch;
+    width: 100%;
+    height: 10%;
+    padding-bottom: 0;
+    margin-bottom: 5%;
+    color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.unity-button:hover {
+    color: rgb(255, 255, 255);
+    -unity-text-outline-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.unity-text-element {
+    font-size: 64px;
+    -unity-text-align: middle-center;
+    letter-spacing: 0;
+}
+
+.button-play {
+}
+
+.button-continue {
+}
+
+.button-quit {
+}

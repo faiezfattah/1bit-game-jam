@@ -15,6 +15,13 @@ public static class SaveSystem
         formatter.Serialize(stream, data);
         stream.Close();
     }
+    public static void ResetPlayer(PlayerBuild build, PlayerEconomy economy, PlayerGameTime gameTime) {
+        PlayerData data = new PlayerData(build, economy, gameTime);
+
+        gameTime.ResetGameTime();
+        economy.ResetEconomy();
+        build.buildPlacement.Clear();
+    }
     public static PlayerData LoadPlayer(PlayerBuild build, PlayerEconomy economy, PlayerGameTime gameTime)
     {
         string path = Application.persistentDataPath + "/player.ffw";
@@ -26,24 +33,7 @@ public static class SaveSystem
             PlayerData data = formatter.Deserialize(stream) as PlayerData;
             stream.Close();
 
-
-            // Rebuild the player build placements
-            for (int i = 0; i < data.buildPositions.Count; i++)
-            {
-                Vector3Int position = data.buildPositions[i].ToVector3Int();
-                string buildingName = data.buildingData[i];
-
-                // Load the ScriptableObject by name (from Resources, AssetDatabase, etc.)
-                BuildData buildData = Resources.Load<BuildData>("Buildings/" + buildingName); // TODO: RESOURCE FOLDER Assuming the SO is in Resources folder
-                if (buildingName != null)
-                {
-                    // Instantiate the building using the prefab in the ScriptableObject
-                    GameObject building = Object.Instantiate(buildData.prefabs, position, Quaternion.identity);
-                    building.GetComponent<Build>().data = buildData;
-                    build.buildPlacement.Add(position, building);
-                }
-
-            }
+            RebuildBuildDictionary(data, build);
 
             gameTime.dayCount = data.dayCount;
             gameTime.dayTime = data.dayTime;
@@ -58,6 +48,22 @@ public static class SaveSystem
         {
             Debug.LogError("Save file not found in " + path);
             return null;
+        }
+    }
+    private static void RebuildBuildDictionary(PlayerData data, PlayerBuild build) {
+        build.buildPlacement.Clear();
+        for (int i = 0; i < data.buildPositions.Count; i++) {
+            Vector3Int position = data.buildPositions[i].ToVector3Int();
+            string buildingName = data.buildingData[i];
+            BuildData buildData = Resources.Load<BuildData>($"Assets/Turrets/Resources/{buildingName}");
+
+            if (buildData != null) {
+                build.buildPlacement.Add(position, buildData);
+            }
+
+            else {
+                Debug.LogWarning($"BuildData not found for {buildingName}");
+            }
         }
     }
 }

@@ -4,10 +4,14 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("player------------------")]
     [SerializeField] private InputReader inputReader;
     [SerializeField] private PlayerGameTime gameTime;
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
+    [Header("mainscreen relay--------")]
+    [SerializeField] private VoidChannel playRelay;
+    [SerializeField] private VoidChannel continueRelay;
     [Header("factory-----------------")]
     [SerializeField] private GameObject[] regularEnemy;
     [SerializeField] private GameObject[] bossEnemy;
@@ -17,6 +21,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int minEnemy = 5;
 
     private bool isPaused = false;
+    private void Start() {
+        Pause();
+    }
     private void SpawnEnemy()
     { 
         StartCoroutine(SpawningRoutine());
@@ -34,14 +41,12 @@ public class GameManager : MonoBehaviour
 
         int enemiesToSpawn = minEnemy + gameTime.dayCount;
 
-        for (int i = 0; i < minEnemy; i++)
-        {
+        for (int i = 0; i < minEnemy; i++) { 
             Instantiate(spawningEnemy, spawningPoint.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(spawnInterval);
         }
     }
-    private void Update()
-    {
+    private void Update() {
         gameTime.UpdateGameTime();
     }
 
@@ -51,20 +56,26 @@ public class GameManager : MonoBehaviour
     }
     private void Pause()
     {
-        isPaused = !isPaused;
-
         if (isPaused) Time.timeScale = 1f;
-        if (!isPaused)Time.timeScale = 0f;
+        if (!isPaused) Time.timeScale = 0f;
+
+        isPaused = !isPaused;
+    }
+    private void HandlePlay() {
+        Pause();
+        SaveSystem.ResetPlayer(build, economy, gameTime);
     }
     private void OnEnable()
     {
         gameTime.onDayOver += SpawnEnemy;
         inputReader.EscapeEvent += Pause;
+        playRelay.OnEvenRaised += HandlePlay;
     }
     private void OnDisable()
     {
         gameTime.onDayOver -= SpawnEnemy;
         inputReader.EscapeEvent -= Pause;
+        playRelay.OnEvenRaised -= HandlePlay;
     }
 }
 

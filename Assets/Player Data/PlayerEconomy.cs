@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerEconomy : ScriptableObject
 {
     // TODO: need to notify at changes, use void event 
+    [SerializeField] public int startingCoal = 10;
+    [SerializeField] public int startingIron = 10;
     [SerializeField] public int coalCount = 0;
     [SerializeField] public int ironCount = 0;
 
@@ -26,5 +28,9 @@ public class PlayerEconomy : ScriptableObject
     {
         if (value > 0)
             ironCount += value;
+    }
+    public void ResetEconomy() {
+        coalCount = startingCoal;
+        ironCount = startingIron;
     }
 }

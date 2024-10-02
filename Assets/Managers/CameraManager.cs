@@ -21,7 +21,7 @@ public class CameraManager : MonoBehaviour
     }
     private void MoveCamera()
     {
-        Vector2 movement = dir * speed * Time.deltaTime;
+        Vector2 movement = speed * Time.deltaTime * dir;
         mainCamera.transform.Translate(movement);
     }
     private void ZoomCamera(float value)

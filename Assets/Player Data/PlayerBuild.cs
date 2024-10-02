@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 [CreateAssetMenu(fileName = "PlayerBuild", menuName = "Player/Build")]
 public class PlayerBuild : ScriptableObject
 {
-    public Dictionary<Vector3Int, GameObject> buildPlacement = new Dictionary<Vector3Int, GameObject>();
+    public Dictionary<Vector3Int, BuildData> buildPlacement = new Dictionary<Vector3Int, BuildData>();
     private void OnEnable()
     {
         // debugging purposes
@@ -16,7 +16,7 @@ public class PlayerBuild : ScriptableObject
     {
         if (buildPlacement.ContainsKey(position) == false)
         {
-            buildPlacement[position] = build;
+            buildPlacement[position] = build.GetComponent<Build>().data;
             return true;
         }
         else return false;
@@ -25,7 +25,7 @@ public class PlayerBuild : ScriptableObject
     {
         return buildPlacement.ContainsKey(position);
     }
-    public GameObject GetBuild(Vector3Int position)
+    public BuildData GetBuild(Vector3Int position)
     {
         if (buildPlacement.ContainsKey(position))
         {
@@ -35,7 +35,6 @@ public class PlayerBuild : ScriptableObject
     }
     public void RemoveTurret(Vector3Int position)
     {
-        Destroy(buildPlacement[position]);
         buildPlacement.Remove(position);
     }
 }

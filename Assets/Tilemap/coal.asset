@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8192426bf568d8c49b743f3f686ac3f5, type: 3}
-  m_Name: PlayerGameTime
+  m_Script: {fileID: 11500000, guid: 27f6c205bf3a36149805ebf19bae3eae, type: 3}
+  m_Name: coal
   m_EditorClassIdentifier: 
-  gameTime: 1.7702475
-  dayTime: 1.7702475
-  maxDayTimeInSeconds: 100
-  dayCount: 100
+  type: 1
+  sprite: {fileID: 21300000, guid: 5625f1b626fe1d24baae293b26363b17, type: 3}
