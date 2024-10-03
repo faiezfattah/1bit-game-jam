@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 [CreateAssetMenu(fileName = "PlayerBuild", menuName = "Player/Build")]
 public class PlayerBuild : ScriptableObject
 {
+    public int maxTowerHealth = 100;
+    public int currentTowerHealth;
+
     public Dictionary<Vector3Int, BuildData> buildPlacement = new Dictionary<Vector3Int, BuildData>();
     private void OnEnable()
     {
@@ -12,14 +16,17 @@ public class PlayerBuild : ScriptableObject
         buildPlacement.Clear();
     }
 
-    public bool AddBuild(Vector3Int position, GameObject build)
+    public void AddBuild(Vector3Int position, GameObject build)
     {
         if (buildPlacement.ContainsKey(position) == false)
         {
             buildPlacement[position] = build.GetComponent<Build>().data;
-            return true;
         }
-        else return false;
+    }
+    public void UpdateBuild(Vector3Int position, GameObject build) {
+        if (buildPlacement.ContainsKey(position)) {
+            buildPlacement[position] = build.GetComponent<Build>().data;
+        }
     }
     public bool CheckTurret(Vector3Int position)
     {
@@ -42,5 +49,9 @@ public class PlayerBuild : ScriptableObject
             Debug.Log("manual key lookup: " + buildPlacement[Key]);
             Debug.Log("GetBuild Method" + GetBuild(Key));
         }
+    }
+    public void ResetBuild() {
+        buildPlacement.Clear();
+        currentTowerHealth = maxTowerHealth;
     }
 }

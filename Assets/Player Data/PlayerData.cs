@@ -5,15 +5,17 @@ using UnityEngine;
 public class PlayerData
 {
     // resources
-    public int ironCount = 0;
-    public int coalCount = 0;
+    public int ironCount;
+    public int coalCount;
 
     // gametime
-    public float totalGameTime = 0;
-    public float dayTime = 0;
-    public int dayCount = 0;
+    public float totalGameTime;
+    public float dayTime;
+    public int dayCount;
 
     // builds
+    public int towerHP;
+
     public List<Vector3IntSerializable> buildPositions = new List<Vector3IntSerializable>();
     public List<string> buildingData = new List<string>();
 
@@ -25,6 +27,8 @@ public class PlayerData
         totalGameTime = gameTime.gameTime;
         dayTime = gameTime.dayTime;
         dayCount = gameTime.dayCount;
+
+        towerHP = build.currentTowerHealth;
 
         foreach (var entry in build.buildPlacement)
         {

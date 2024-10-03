@@ -33,22 +33,23 @@ public class BuildManager : MonoBehaviour
 
     private Vector3Int selectedLocation;
     private GameObject currentUI;
-    private bool isUIOpen = false;
-    void Update()
-    {
-        PlacePointer(SelectedGridOnWorld());
+    private bool isUIOpen = true;
+    void Update() {
+        if (isUIOpen) PlacePointer(grid.GetCellCenterWorld(selectedLocation));
+        if (!isUIOpen) PlacePointer(SelectedGridOnWorld());
     }
     private void Start()
     {
         if (grid == null)
             grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<Grid>();
-        DisablePointer();
-        isUIOpen = true;
+        //DisablePointer();
     }
-    private void Input()
+    private void HandleMouseDown()
     {
         //Debug.Log("mouse down on: " + ReadSelectecGrid());
         bool hasTurret = build.CheckTurret(ReadSelectecGrid());
+
+        if (!isUIOpen) selectedLocation = grid.WorldToCell(ReadSelectecGrid());
 
         if (hasTurret == false)
             OpenTurretMenu(SelectedGridOnWorld());
@@ -56,7 +57,7 @@ public class BuildManager : MonoBehaviour
     }
     public void OpenUpgradeMenu(Vector3 gridLocation)
     {
-        if (isUIOpen == false){
+        if (!isUIOpen){
             DisablePointer();
             isUIOpen = true;
 
@@ -64,27 +65,22 @@ public class BuildManager : MonoBehaviour
             if (data == null) Debug.Log("upgrade data null");
 
             upgradeUI.GetComponent<UpgradeMenu>().Setup(data.level);
-
-            selectedLocation = grid.WorldToCell(gridLocation);
             currentUI = Instantiate(upgradeUI, gridLocation, Quaternion.identity, UICanvas.transform);
         }
-
     }
     private void OpenTurretMenu(Vector3 gridLocation)
     {
         if (!isUIOpen)
         {
-            DisablePointer();
             isUIOpen = true;
 
-            selectedLocation = grid.WorldToCell(gridLocation);
             currentUI = Instantiate(buildPickerUI, gridLocation, Quaternion.identity, UICanvas.transform);
-
         }
     }
     private void RequestUpgrade()
     {
-        BuildData data = build.buildPlacement[selectedLocation]; 
+        BuildData data = build.GetBuild(selectedLocation);
+        GameObject currentBuild = GameObjectPlacement[selectedLocation];
 
         //Debug.Log(data.coalPrice);
         //Debug.Log(data.ironPrice);
@@ -93,11 +89,11 @@ public class BuildManager : MonoBehaviour
         int coal = data.nextData.coalPrice;
 
         bool tryPayment = economy.Pay(coal, iron);
-        GameObject currentBuild = GameObjectPlacement[selectedLocation];
         if (tryPayment)
         {
             currentBuild.GetComponent<Build>().data = data.nextData;
-            build.buildPlacement[selectedLocation] = data.nextData;
+            build.UpdateBuild(selectedLocation, currentBuild);
+            GameObjectPlacement[selectedLocation] = currentBuild;
             CloseMenu();
         }
         if (!tryPayment) PaymentFailed();
@@ -207,7 +203,7 @@ public class BuildManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        inputReader.MouseClickEvent += Input;
+        inputReader.MouseClickEvent += HandleMouseDown;
         inputReader.MoveEvent += CloseOnMove;
         creationRelay.OnEventRaised += PlaceBuild;
         upgradeRelay.OnEvenRaised += RequestUpgrade;
@@ -217,7 +213,7 @@ public class BuildManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        inputReader.MouseClickEvent -= Input;
+        inputReader.MouseClickEvent -= HandleMouseDown;
         inputReader.MoveEvent -= CloseOnMove;
         creationRelay.OnEventRaised -= PlaceBuild;
         upgradeRelay.OnEvenRaised -= RequestUpgrade;
