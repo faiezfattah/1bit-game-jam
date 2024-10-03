@@ -34,7 +34,7 @@ public class IronMiner : Build
                 switch (tile.type)
                 {
                     case ResourceTile.resourceType.coal:
-                        economy.AddIron(gatherAmount);
+                        economy.AddCoal(gatherAmount);
                         break;
                     case ResourceTile.resourceType.iron:
                         economy.AddIron(gatherAmount);

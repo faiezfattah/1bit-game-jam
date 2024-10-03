@@ -1,8 +1,8 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UIs/Main/MainScreen.uss?fileID=7433441132597879392&amp;guid=a7f3286eaf9efa840be29fc2c6989b59&amp;type=3#MainScreen" />
-    <ui:VisualElement style="flex-grow: 1;">
-        <ui:VisualElement style="flex-grow: 1; align-items: flex-start; width: 30%; padding-left: 16px; padding-right: 0; padding-top: 0; justify-content: center; background-color: rgba(0, 0, 0, 0);">
-            <ui:Label text="Paused" style="margin-bottom: 128px;" />
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1; align-items: flex-start; width: 30%; padding-left: 16px; padding-right: 0; padding-top: 0; justify-content: center; background-color: rgb(0, 0, 0);">
+            <ui:Label text="Paused" style="margin-bottom: 128px; color: rgb(255, 255, 255); -unity-font-style: bold;" />
             <ui:Button text="save" name="save" />
             <ui:Button text="unpause" name="unpause" style="width: 322px; max-width: none;" />
             <ui:Button text="quit" name="quit" />

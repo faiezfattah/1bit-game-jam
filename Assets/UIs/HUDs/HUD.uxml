@@ -1,0 +1,37 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIs/HUDs/HUD.uss?fileID=7433441132597879392&amp;guid=5d4610536b30f7046b6b0a5fa112b7d0&amp;type=3#HUD" />
+    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:ProgressBar title="tower-health-bar" data-source-path="dayTime" name="tower-health-bar" picking-mode="Ignore">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="currentTowerHealth" data-source="project://database/Assets/Player%20Data/PlayerBuild.asset?fileID=11400000&amp;guid=d516be12fc7fb4c4494caa730be81a88&amp;type=2#PlayerBuild" binding-mode="ToTarget" />
+                <ui:DataBinding property="highValue" data-source-path="maxTowerHealth" data-source="project://database/Assets/Player%20Data/PlayerBuild.asset?fileID=11400000&amp;guid=d516be12fc7fb4c4494caa730be81a88&amp;type=2#PlayerBuild" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:ProgressBar>
+    </ui:VisualElement>
+    <ui:VisualElement picking-mode="Ignore" name="VisualElement" style="flex-grow: 1; flex-direction: row; align-items: flex-end;">
+        <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; flex-basis: auto; align-self: flex-end; align-items: stretch; align-content: flex-start; background-color: rgba(0, 0, 0, 0);">
+            <ui:ProgressBar value="22" title="day-progress-bar" name="day-progress-bar" picking-mode="Ignore">
+                <Bindings>
+                    <ui:DataBinding property="value" data-source-path="dayTime" data-source="project://database/Assets/Player%20Data/PlayerGameTime.asset?fileID=11400000&amp;guid=322daaf06f6fffb4f956422321dfcaf1&amp;type=2#PlayerGameTime" binding-mode="ToTarget" />
+                    <ui:DataBinding property="highValue" data-source-path="maxDayTimeInSeconds" data-source="project://database/Assets/Player%20Data/PlayerGameTime.asset?fileID=11400000&amp;guid=322daaf06f6fffb4f956422321dfcaf1&amp;type=2#PlayerGameTime" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:ProgressBar>
+            <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="flex-grow: 0;">
+                <ui:Label text="Coal:" picking-mode="Ignore" class="economy-text" />
+                <ui:Label text="ssssss" picking-mode="Ignore" class="economy-text">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="coalCount" data-source="project://database/Assets/Player%20Data/PlayerEconomy.asset?fileID=11400000&amp;guid=a0f594e514edb674583ee8fa7a19c2de&amp;type=2#PlayerEconomy" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="flex-grow: 0;">
+                <ui:Label text="Iron&#10;" picking-mode="Ignore" class="economy-text" style="height: auto; flex-grow: 0;" />
+                <ui:Label text="Label" picking-mode="Ignore" class="economy-text" style="height: auto; flex-grow: 0;">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="ironCount" data-source="project://database/Assets/Player%20Data/PlayerEconomy.asset?fileID=11400000&amp;guid=a0f594e514edb674583ee8fa7a19c2de&amp;type=2#PlayerEconomy" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

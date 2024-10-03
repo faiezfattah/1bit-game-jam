@@ -2,18 +2,19 @@ using UnityEngine;
 
 public class TowerHealth : MonoBehaviour
 {
-    [SerializeField] public int maxHealth = 100;
-
-    private int currentHealth;
+    [SerializeField] PlayerBuild build;
+    [SerializeField] VoidChannel gameoverRelay;
+    // TODO: trigger gameover
     private void Start()
     {
-        currentHealth = maxHealth;
+        build.currentTowerHealth = build.maxTowerHealth;
     }
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        if (currentHealth < 0)
+        build.currentTowerHealth -= damage;
+        if (build.currentTowerHealth < 0) {
             Die();
+        }
     }
     private void Die()
     {

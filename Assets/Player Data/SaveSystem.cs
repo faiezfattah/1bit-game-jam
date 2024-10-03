@@ -20,7 +20,7 @@ public static class SaveSystem
 
         gameTime.ResetGameTime();
         economy.ResetEconomy();
-        build.buildPlacement.Clear();
+        build.ResetBuild();
     }
     public static PlayerData LoadPlayer(PlayerBuild build, PlayerEconomy economy, PlayerGameTime gameTime)
     {
@@ -41,6 +41,8 @@ public static class SaveSystem
 
             economy.ironCount = data.ironCount;
             economy.coalCount = data.coalCount;
+
+            build.currentTowerHealth = data.towerHP;
 
             return data;
         }
