@@ -8,6 +8,8 @@ using System.Collections;
 using System;
 using Unity.VisualScripting;
 using UnityEngine.Rendering.Universal;
+using UnityEditor;
+using static UnityEngine.Rendering.HableCurve;
 
 public class BuildManager : MonoBehaviour
 {
@@ -28,8 +30,11 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject paymentFailedUI;
     [SerializeField] private GameObject UICanvas;
     [SerializeField] private GameObject pointer;
+    [SerializeField] private GameObject CircleArea;
 
     private Dictionary<Vector3Int, GameObject> GameObjectPlacement = new Dictionary<Vector3Int, GameObject>();
+
+    private LineRenderer circle;
 
     private Vector3Int selectedLocation;
     private GameObject currentUI;
@@ -40,6 +45,7 @@ public class BuildManager : MonoBehaviour
     }
     private void Start()
     {
+        circle = CircleArea.GetComponent<LineRenderer>();
         if (grid == null)
             grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<Grid>();
         //DisablePointer();
@@ -64,6 +70,7 @@ public class BuildManager : MonoBehaviour
             BuildData data = build.GetBuild(selectedLocation);
             if (data == null) Debug.Log("upgrade data null");
 
+            EnableCircle(gridLocation, data.range);
             upgradeUI.GetComponent<UpgradeMenu>().Setup(data.level);
             currentUI = Instantiate(upgradeUI, gridLocation, Quaternion.identity, UICanvas.transform);
         }
@@ -73,8 +80,8 @@ public class BuildManager : MonoBehaviour
         if (!isUIOpen)
         {
             isUIOpen = true;
-
             currentUI = Instantiate(buildPickerUI, gridLocation, Quaternion.identity, UICanvas.transform);
+            
         }
     }
     private void RequestUpgrade()
@@ -143,6 +150,7 @@ public class BuildManager : MonoBehaviour
             if (currentUI != null) Destroy(currentUI);
             currentUI = null;
             EnablePointer();
+            DisableCircle();
         }
     }
     private void HandlePlay() {
@@ -182,6 +190,25 @@ public class BuildManager : MonoBehaviour
     private void PlacePointer(Vector3 gridLocation)
     {
         pointer.transform.position = gridLocation;
+    }
+    void EnableCircle(Vector3 worldSpace, float radius = 2) {
+        float angle = 0f;
+        for (int i = 0; i < circle.positionCount; i++) {
+            float x = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
+            float y = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
+
+            circle.SetPosition(i, new Vector3(x, y, 0));
+
+            angle += (360f / circle.positionCount);
+        }
+        circle.useWorldSpace = false;
+        circle.GetComponent<Transform>().position = worldSpace;
+        Debug.Log(worldSpace);
+        Debug.Log(circle.transform.position);
+        circle.enabled = true;
+    }
+    void DisableCircle() {
+        circle.enabled = false;
     }
     private void DisablePointer()
     {

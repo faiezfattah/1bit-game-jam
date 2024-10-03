@@ -1,10 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class IronMiner : Build
+public class Miner : Build
 {
     [SerializeField] private PlayerEconomy economy;
-    [SerializeField] private int gatherAmount = 1;
+    [SerializeField] private int coalPoint = 0;
+    [SerializeField] private int ironPoint = 0;
+    [SerializeField] private int maxGatherPoint = 5;
 
     private static Tilemap resourceTilemap;
     private float gatherTimer;
@@ -22,6 +25,14 @@ public class IronMiner : Build
             GatherResources();
             gatherTimer = data.attackInterval;
         }
+        while (ironPoint > maxGatherPoint) {
+            ironPoint -= maxGatherPoint;
+            economy.AddIron(1);
+        }
+        while (coalPoint > maxGatherPoint) {
+            coalPoint -= maxGatherPoint;
+            economy.AddCoal(1);
+        }
     }
     void GatherResources()
     {
@@ -34,10 +45,10 @@ public class IronMiner : Build
                 switch (tile.type)
                 {
                     case ResourceTile.resourceType.coal:
-                        economy.AddCoal(gatherAmount);
+                        coalPoint++;
                         break;
                     case ResourceTile.resourceType.iron:
-                        economy.AddIron(gatherAmount);
+                        ironPoint++;
                         break;
                 }
             }

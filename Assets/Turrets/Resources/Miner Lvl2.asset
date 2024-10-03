@@ -17,7 +17,7 @@ MonoBehaviour:
   level: 2
   bullet: {fileID: 0}
   range: 2
-  attackInterval: 1
+  attackInterval: 4
   bulletSpeed: 0
   bulletLifeTime: 0
   rotationSpeed: 0
