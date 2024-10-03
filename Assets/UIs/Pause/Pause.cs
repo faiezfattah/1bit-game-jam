@@ -44,26 +44,21 @@ public class Pause : MonoBehaviour {
     }
 
     private void OnSaveButtonClicked() {
-        Debug.Log("Save button clicked");
         saveRelay.RaiseEvent();
     }
 
     private void OnContinueButtonClicked() {
-        Debug.Log("Continue button clicked");
         unpauseRelay.RaiseEvent();
         HandlePause();
     }
 
     private void OnQuitButtonClicked() {
-        Debug.Log("Quit button clicked");
         Application.Quit();
     }
 
     private void OnDisable() {
-        Debug.Log("Pause OnDisable called");
         if (inputReader != null) {
             inputReader.EscapeEvent -= HandlePause;
-            Debug.Log("Escape event unsubscribed");
         }
 
         if (saveButton != null) saveButton.clicked -= OnSaveButtonClicked;

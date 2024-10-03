@@ -1,28 +1,13 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class SingleTurret : Turret
 {
-    protected float attackTimer = 0;
-    protected override void AttackState()
+    //TODO: add nozzle pointer
+    protected override void Shoot(Transform target)
     {
-        attackTimer -= Time.deltaTime;
-        Transform target = GetTarget();
-        if (target != null)
-        {
-            RotateToTarget(target);
-            if (attackTimer <= 0)
-            {
-                Shoot(target);
-                attackTimer = data.attackInterval;
-            }
-        }
-        else state = TurretState.Idle;
-    }
-    private void Shoot(Transform enemy)
-    {
-        // TODO: add object pooling for bullets
-        Bullet bulletInstance = Instantiate(data.bullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
-        bulletInstance.GetComponent<Bullet>().Setup(data.bulletSpeed, data.damage, data.bulletLifeTime, enemy);
+        GameObject bullet = bulletPool.Get();
+        bullet.GetComponent<Bullet>().FiringInit(target, transform.position);
     }
 }
