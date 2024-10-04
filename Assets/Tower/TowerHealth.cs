@@ -18,6 +18,7 @@ public class TowerHealth : MonoBehaviour
     }
     private void Die()
     {
+        gameoverRelay.RaiseEvent();
         Debug.Log("Tower destroyed");
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731725509137e2d4a99a5c074e71113d, type: 3}
   m_Name: Double Lvl 2
   m_EditorClassIdentifier: 
-  prefabs: {fileID: 8871531617660945897, guid: 33b2a0c31d17c8e42932f07b84fb5137, type: 3}
+  prefabs: {fileID: 8871531617660945897, guid: be390a212abab90478ab9dc1b956d85d, type: 3}
   turretName: DoubleTurret_2
   level: 2
   bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}

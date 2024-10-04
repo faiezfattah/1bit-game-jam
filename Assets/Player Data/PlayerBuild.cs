@@ -40,7 +40,7 @@ public class PlayerBuild : ScriptableObject
         }
         else return null;
     }
-    public void RemoveTurret(Vector3Int position)
+    public void RemoveBuild(Vector3Int position)
     {
         buildPlacement.Remove(position);
     }

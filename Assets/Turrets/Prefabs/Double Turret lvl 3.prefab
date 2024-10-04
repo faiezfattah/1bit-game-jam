@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 3521251766040543379}
   - component: {fileID: 6031919320877310791}
   m_Layer: 0
-  m_Name: Double Turret
+  m_Name: Double Turret lvl 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b274c09cec2af1d4b930132fca8d239a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1c4a38232ec99645bdf7faafe728869, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1993ffe87b65e40885efedf78040b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: e14f4b78091c8a245a5d810273a27500, type: 2}
+  data: {fileID: 11400000, guid: 62c27f8591b627844af3302026023cd5, type: 2}
   state: 0
   maxBulletPool: 100
   pointer1: {fileID: 3263273156872777799}

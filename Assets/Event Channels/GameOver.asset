@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18cff155862c88440a9f8b48a4ef69f3, type: 3}
-  m_Name: PlayerEconomy
+  m_Script: {fileID: 11500000, guid: cba648083c8c0a241b4c8d2b098f22d8, type: 3}
+  m_Name: GameOver
   m_EditorClassIdentifier: 
-  startingCoal: 50
-  startingIron: 50
-  coalCount: 2200
-  ironCount: 2199

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 647687741747115946}
   - component: {fileID: 757231442114207756}
   m_Layer: 6
-  m_Name: Single Turret
+  m_Name: Single Turret lvl 2
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 1079772995
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 185207c35a798804d9324f84aa211b28, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c2daf3e14c858a43afbe7c9fbf55587, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -137,6 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd097aef3fccc0545a7f08c275645a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: c1b0f1cc80082ef4ca55f9ecb6fd6671, type: 2}
+  data: {fileID: 11400000, guid: 5277b38a2bf202f4e825a9723b9cbe1a, type: 2}
   state: 0
   maxBulletPool: 100

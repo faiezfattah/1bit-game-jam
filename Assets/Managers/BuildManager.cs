@@ -98,9 +98,12 @@ public class BuildManager : MonoBehaviour
         bool tryPayment = economy.Pay(coal, iron);
         if (tryPayment)
         {
-            currentBuild.GetComponent<Build>().data = data.nextData;
-            build.UpdateBuild(selectedLocation, currentBuild);
-            GameObjectPlacement[selectedLocation] = currentBuild;
+            //currentBuild.GetComponent<Build>().data = data.nextData;
+            Destroy(currentBuild);
+            GameObject replace = Instantiate(data.nextData.prefabs, grid.CellToWorld(selectedLocation), Quaternion.identity);
+            GameObjectPlacement[selectedLocation] = replace;
+            build.UpdateBuild(selectedLocation, replace);
+
             CloseMenu();
         }
         if (!tryPayment) PaymentFailed();
@@ -134,7 +137,7 @@ public class BuildManager : MonoBehaviour
         economy.AddCoal(Mathf.FloorToInt(data.coalPrice / 4));
         economy.AddIron(Mathf.FloorToInt(data.ironPrice / 4));
 
-        build.RemoveTurret(selectedLocation);
+        build.RemoveBuild(selectedLocation);
         Destroy(GameObjectPlacement[selectedLocation]);
         CloseMenu();
     }
