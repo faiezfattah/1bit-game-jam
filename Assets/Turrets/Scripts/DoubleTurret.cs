@@ -12,9 +12,15 @@ public class DoubleTurret : Turret
         StartCoroutine(ShootRoutine(target));
     }
     private IEnumerator ShootRoutine(Transform target) {
+
+        if (target == null) yield break;
+
         GameObject bullet = bulletPool.Get();
         bullet.GetComponent<Bullet>().FiringInit(target, pointer1.transform.position);
         yield return new WaitForSeconds(secondShotCooldown);
+
+        if (target == null) yield break;
+
         bullet = bulletPool.Get();
         bullet.GetComponent<Bullet>().FiringInit(target, pointer2.transform.position);
     }

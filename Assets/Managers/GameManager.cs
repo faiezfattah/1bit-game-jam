@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] bossEnemy;
     [SerializeField] private GameObject[] pointer;
     [Header("settings ---------------")]
-    [SerializeField] private float spawnInterval = 0.5f;
-    [SerializeField] private int minEnemy = 5;
+    [SerializeField] private float spawnInterval = 1f;
+    [SerializeField] private int minEnemy = 3;
 
     private bool isPaused = false;
     private void Start() {

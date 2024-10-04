@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Pool;
-using UnityEditor;
 
 public abstract class Turret : Build
 {
@@ -12,16 +11,16 @@ public abstract class Turret : Build
     protected CircleCollider2D attackArea;
 
     private int minBulletPool;
-    [SerializeField] protected int maxBulletPool = 100;
+    [SerializeField] protected int maxBulletPool = 10000;
     protected ObjectPool<GameObject> bulletPool;
     protected float attackTimer = 0;
     protected virtual void Start()
     {
         enemyLayer = LayerMask.GetMask("Enemy");
         state = TurretState.Idle;
-        attackArea = GetComponent<CircleCollider2D>();
-        attackArea.radius = data.range;
 
+        if (attackArea == null) attackArea = GetComponent<CircleCollider2D>();
+        attackArea.radius = data.range;
 
         minBulletPool = Mathf.FloorToInt(data.bulletSpeed * data.attackInterval * data.range);
 
@@ -39,19 +38,19 @@ public abstract class Turret : Build
 
     protected virtual void Update()
     {
+        if (attackArea.radius != data.range)
+            attackArea.radius = data.range;
         if (state == TurretState.Attacking)
-        {
             AttackState();
-        }
     }
     protected virtual void AttackState() {
 
         Transform target = GetTarget();
+
         if (target == null) {
             state = TurretState.Idle;
             return;
         }
-        if (target != null) Debug.Log("targetting: ", target);
 
         RotateToTarget(target);
 
