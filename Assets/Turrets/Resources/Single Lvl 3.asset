@@ -16,12 +16,12 @@ MonoBehaviour:
   turretName: SingleTurret_3
   level: 3
   bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
-  range: 4
-  attackInterval: 0.25
-  bulletSpeed: 2
-  bulletLifeTime: 4
+  range: 10
+  attackInterval: 5
+  bulletSpeed: 20
+  bulletLifeTime: 5
   rotationSpeed: 60
-  damage: 2
-  coalPrice: 10
-  ironPrice: 20
+  damage: 10
+  coalPrice: 500
+  ironPrice: 500
   nextData: {fileID: 0}

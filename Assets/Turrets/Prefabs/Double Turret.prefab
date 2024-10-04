@@ -167,8 +167,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: e14f4b78091c8a245a5d810273a27500, type: 2}
   state: 0
+  maxBulletPool: 100
   pointer1: {fileID: 3263273156872777799}
   pointer2: {fileID: 5426958295445509876}
+  secondShotCooldown: 0.2
 --- !u!58 &6031919320877310791
 CircleCollider2D:
   m_ObjectHideFlags: 0
