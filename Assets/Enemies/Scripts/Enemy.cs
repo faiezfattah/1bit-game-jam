@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
         dir = (tower.position - transform.position).normalized;
         currentHealth = maxHealth;
+        RotateSprite();
     }
 
     private void FixedUpdate()
@@ -73,6 +74,12 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+    }
+    private void  RotateSprite() {
+        Vector3 targetOrientation = tower.position - transform.position;
+        Vector3 currentOrientation = Vector3.right;
+        float rotation = Vector3.SignedAngle(currentOrientation, targetOrientation, Vector3.forward);
+        transform.rotation = Quaternion.Euler(0, 0, rotation);
     }
     private void OnDrawGizmosSelected()
     {

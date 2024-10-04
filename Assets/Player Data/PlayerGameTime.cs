@@ -7,7 +7,7 @@ public class PlayerGameTime : ScriptableObject
     public float gameTime = 0;
 
     public float dayTime = 0;
-    public float maxDayTimeInSeconds = 100f;
+    public float maxDayTimeInSeconds = 30f;
     public int dayCount = 0;
 
     public UnityAction onDayOver;
