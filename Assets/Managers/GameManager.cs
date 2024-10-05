@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidChannel saveRelay;
     [SerializeField] private VoidChannel unpauseRelay;
     [SerializeField] private VoidChannel rebuildRelay;
+    [SerializeField] private VoidChannel gameoverRelay;
+    [SerializeField] private VoidChannel restartRelay;
     [Header("factory-----------------")]
     [SerializeField] private GameObject[] regularEnemy;
     [SerializeField] private GameObject[] bossEnemy;
@@ -78,6 +80,10 @@ public class GameManager : MonoBehaviour
         rebuildRelay.RaiseEvent();
         Pause();
     }
+    private void HandleGameOver() {
+        Pause();
+        SaveSystem.ResetPlayer(build, economy, gameTime);
+    }
     private void OnEnable()
     {
         gameTime.onDayOver += SpawnEnemy;
@@ -86,6 +92,7 @@ public class GameManager : MonoBehaviour
         playRelay.OnEvenRaised += HandlePlay;
         saveRelay.OnEvenRaised += HandleSave;
         loadRelay.OnEvenRaised += HandleLoad;
+        gameoverRelay.OnEvenRaised += HandleGameOver;
     }
     private void OnDisable()
     {
@@ -95,6 +102,7 @@ public class GameManager : MonoBehaviour
         playRelay.OnEvenRaised -= HandlePlay;
         saveRelay.OnEvenRaised -= HandleSave;
         loadRelay.OnEvenRaised -= HandleLoad;
+        gameoverRelay.OnEvenRaised -= HandleGameOver;
     }
 }
 

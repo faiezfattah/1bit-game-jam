@@ -1,22 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UIs/HUDs/HUD.uss?fileID=7433441132597879392&amp;guid=5d4610536b30f7046b6b0a5fa112b7d0&amp;type=3#HUD" />
-    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-        <ui:ProgressBar title="tower-health-bar" data-source-path="dayTime" name="tower-health-bar" picking-mode="Ignore">
-            <Bindings>
-                <ui:DataBinding property="value" data-source-path="currentTowerHealth" data-source="project://database/Assets/Player%20Data/PlayerBuild.asset?fileID=11400000&amp;guid=d516be12fc7fb4c4494caa730be81a88&amp;type=2#PlayerBuild" binding-mode="ToTarget" />
-                <ui:DataBinding property="highValue" data-source-path="maxTowerHealth" data-source="project://database/Assets/Player%20Data/PlayerBuild.asset?fileID=11400000&amp;guid=d516be12fc7fb4c4494caa730be81a88&amp;type=2#PlayerBuild" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:ProgressBar>
+    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 26px; align-self: flex-end;">
+        <ui:VisualElement style="flex-grow: 1; align-self: flex-end; width: 106px; height: auto; align-items: flex-end;">
+            <ui:ProgressBar title="tower-health-bar" data-source-path="dayTime" name="tower-health-bar" picking-mode="Ignore" style="height: 25px; width: 66%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; padding-right: 0;">
+                <Bindings>
+                    <ui:DataBinding property="value" data-source-path="currentTowerHealth" data-source="project://database/Assets/Player%20Data/PlayerBuild.asset?fileID=11400000&amp;guid=d516be12fc7fb4c4494caa730be81a88&amp;type=2#PlayerBuild" binding-mode="ToTarget" />
+                    <ui:DataBinding property="highValue" data-source-path="maxTowerHealth" data-source="project://database/Assets/Player%20Data/PlayerBuild.asset?fileID=11400000&amp;guid=d516be12fc7fb4c4494caa730be81a88&amp;type=2#PlayerBuild" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:ProgressBar>
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement picking-mode="Ignore" name="VisualElement" style="flex-grow: 1; flex-direction: row; align-items: flex-end;">
-        <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; flex-basis: auto; align-self: flex-end; align-items: stretch; align-content: flex-start; background-color: rgba(0, 0, 0, 0);">
-            <ui:ProgressBar value="22" title="day-progress-bar" name="day-progress-bar" picking-mode="Ignore">
+        <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; flex-basis: auto; align-self: flex-end; align-items: flex-end; align-content: flex-start; background-color: rgba(0, 0, 0, 0); max-width: 228px;">
+            <ui:ProgressBar value="22" title="day-progress-bar" name="day-progress-bar" picking-mode="Ignore" style="scale: 1 1; transform-origin: left bottom;">
                 <Bindings>
                     <ui:DataBinding property="value" data-source-path="dayTime" data-source="project://database/Assets/Player%20Data/PlayerGameTime.asset?fileID=11400000&amp;guid=322daaf06f6fffb4f956422321dfcaf1&amp;type=2#PlayerGameTime" binding-mode="ToTarget" />
                     <ui:DataBinding property="highValue" data-source-path="maxDayTimeInSeconds" data-source="project://database/Assets/Player%20Data/PlayerGameTime.asset?fileID=11400000&amp;guid=322daaf06f6fffb4f956422321dfcaf1&amp;type=2#PlayerGameTime" binding-mode="ToTarget" />
                 </Bindings>
             </ui:ProgressBar>
-            <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="flex-grow: 0;">
+            <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="flex-grow: 0; position: relative;">
                 <ui:Label text="Coal:" picking-mode="Ignore" class="economy-text" />
                 <ui:Label text="ssssss" picking-mode="Ignore" class="economy-text">
                     <Bindings>
