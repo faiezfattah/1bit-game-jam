@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidChannel gameoverRelay;
     [SerializeField] private VoidChannel restartRelay;
     [Header("factory-----------------")]
+    [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject[] regularEnemy;
     [SerializeField] private GameObject[] bossEnemy;
     [SerializeField] private GameObject[] pointer;
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
     private void HandleGameOver() {
         Pause();
         SaveSystem.ResetPlayer(build, economy, gameTime);
+        Instantiate(gameOverScreen);
     }
     private void OnEnable()
     {

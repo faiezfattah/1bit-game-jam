@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRate = 1;
     [SerializeField] private float dropChance = 0.05f;
 
+    private SpriteRenderer sprite;
     private Vector3 dir;
     private Rigidbody2D rb;
     private float distance;
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
             towerHealth = GameObject.FindGameObjectWithTag("Tower").GetComponent<TowerHealth>();
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
 
         Init();
     }
@@ -77,6 +79,7 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        StartCoroutine(AnimatedTakeDamage());
         currentHealth -= damage;
         if (currentHealth < 0)
             Die();
@@ -90,7 +93,6 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Drops();
-
         Destroy(gameObject);
     }
     private void Drops() {
@@ -108,9 +110,18 @@ public class Enemy : MonoBehaviour
             case 2:
                 economy.AddIron(dropCount);
                 break;
-
         }
-
+    }
+    public void SetSpriteAlpha(float alphaValue)
+    {
+        Color spriteColor = sprite.color;
+        spriteColor.a = alphaValue;
+        sprite.color = spriteColor;
+    }
+    private IEnumerator AnimatedTakeDamage() {
+        SetSpriteAlpha(0.5f);
+        yield return null;
+        SetSpriteAlpha(1f);
     }
     private void OnDrawGizmosSelected()
     {

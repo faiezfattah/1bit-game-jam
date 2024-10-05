@@ -15,8 +15,12 @@ public class GameOver : MonoBehaviour
         restartButton = ui.Q<Button>("restart");
         quitButton = ui.Q<Button>("quit");
 
-        restartButton.clicked += restartRelay.RaiseEvent;
+        restartButton.clicked += HandleRestart;
         quitButton.clicked += HanldeQuit;
+    }
+    private void HandleRestart() {
+        restartRelay.RaiseEvent();
+        Destroy(gameObject);
     }
     private void HanldeQuit() {
         Application.Quit();
