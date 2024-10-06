@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerEconomy", menuName = "Player/Economy")]
 public class PlayerEconomy : ScriptableObject
 {
-    // TODO: need to notify at changes, use void event 
     [SerializeField] public int startingCoal = 10;
     [SerializeField] public int startingIron = 10;
     [SerializeField] public int coalCount = 0;

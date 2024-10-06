@@ -4,7 +4,6 @@ using UnityEngine.Pool;
 
 public class SingleTurret : Turret
 {
-    //TODO: add nozzle pointer
     protected override void Shoot(Transform target)
     {
         GameObject bullet = bulletPool.Get();

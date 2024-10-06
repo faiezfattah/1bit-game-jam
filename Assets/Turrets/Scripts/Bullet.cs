@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     public Transform target = null;
     public Vector3 targetLocation;
     public Action<GameObject> releaseObject;
+    private bool hasHitEnemy;
     private void Update()
     {
         lifeTime -= Time.deltaTime;
@@ -29,6 +30,7 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
         this.lifeTime = lifeTime;
         releaseObject = release;
+        hasHitEnemy = false;
     }
     public void FiringInit(Transform target, Vector2 firingPosition) {
         this.target = target;
@@ -37,10 +39,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (!hasHitEnemy && collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             releaseObject(this.gameObject);
+            hasHitEnemy = true;
         }
     }
 }

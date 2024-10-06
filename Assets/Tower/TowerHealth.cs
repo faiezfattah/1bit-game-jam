@@ -4,7 +4,6 @@ public class TowerHealth : MonoBehaviour
 {
     [SerializeField] PlayerBuild build;
     [SerializeField] VoidChannel gameoverRelay;
-    // TODO: trigger gameover
     private void Start()
     {
         build.currentTowerHealth = build.maxTowerHealth;

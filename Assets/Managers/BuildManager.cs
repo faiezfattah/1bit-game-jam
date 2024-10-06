@@ -21,6 +21,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private VoidChannel sellRelay;
     [SerializeField] private VoidChannel playRelay;
     [SerializeField] private VoidChannel rebuildRelay;
+    [SerializeField] private AudioChannel sfxRelay;
     [Header("player datas ----")]
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
@@ -31,6 +32,11 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject UICanvas;
     [SerializeField] private GameObject pointer;
     [SerializeField] private GameObject CircleArea;
+    [Header("sounds---")]
+    [SerializeField] private AudioClip buildSuccess;
+    [SerializeField] private AudioClip buildFailed;
+    [SerializeField] private AudioClip upgradeSuccess;
+    [SerializeField] private AudioClip openMenu;
 
     private Dictionary<Vector3Int, GameObject> GameObjectPlacement = new Dictionary<Vector3Int, GameObject>();
 
@@ -73,6 +79,8 @@ public class BuildManager : MonoBehaviour
             EnableCircle(gridLocation, data.range);
             upgradeUI.GetComponent<UpgradeMenu>().Setup(data.level);
             currentUI = Instantiate(upgradeUI, gridLocation, Quaternion.identity, UICanvas.transform);
+
+            PlaySFX(openMenu);
         }
     }
     private void OpenTurretMenu(Vector3 gridLocation)
@@ -81,7 +89,8 @@ public class BuildManager : MonoBehaviour
         {
             isUIOpen = true;
             currentUI = Instantiate(buildPickerUI, gridLocation, Quaternion.identity, UICanvas.transform);
-            
+
+            PlaySFX(openMenu);
         }
     }
     private void RequestUpgrade()
@@ -100,9 +109,11 @@ public class BuildManager : MonoBehaviour
         {
             //currentBuild.GetComponent<Build>().data = data.nextData;
             Destroy(currentBuild);
-            GameObject replace = Instantiate(data.nextData.prefabs, grid.CellToWorld(selectedLocation), Quaternion.identity);
+            GameObject replace = Instantiate(data.nextData.prefabs, grid.GetCellCenterWorld(selectedLocation), Quaternion.identity);
             GameObjectPlacement[selectedLocation] = replace;
             build.UpdateBuild(selectedLocation, replace);
+
+            PlaySFX(upgradeSuccess);
 
             CloseMenu();
         }
@@ -123,6 +134,7 @@ public class BuildManager : MonoBehaviour
             GameObjectPlacement[selectedLocation] = buildInstance;
 
             Debug.Log("buld on: " + selectedLocation);
+            PlaySFX(buildSuccess);
         }
         if (!tryPayment)
             PaymentFailed();
@@ -143,7 +155,7 @@ public class BuildManager : MonoBehaviour
     }
     private void PaymentFailed()
     {
-        Debug.Log("payment failed");
+        PlaySFX(buildFailed);
     }
     private void CloseMenu()
     {
@@ -209,6 +221,9 @@ public class BuildManager : MonoBehaviour
         Debug.Log(worldSpace);
         Debug.Log(circle.transform.position);
         circle.enabled = true;
+    }
+    private void PlaySFX(AudioClip clip) {
+        sfxRelay.RaiseEvent(clip);
     }
     void DisableCircle() {
         circle.enabled = false;

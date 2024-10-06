@@ -13,8 +13,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int damage = 1;
-    [SerializeField] private float attackRate = 1;
+    [SerializeField] private float attackRate = 3;
     [SerializeField] private float dropChance = 0.05f;
+    [SerializeField] private int statIncrementOnDayCount = 3;
 
     private SpriteRenderer sprite;
     private Vector3 dir;
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
     private float distance;
     private int currentHealth;
     private bool isAttacking = false;
+    private bool nearTower = false;
     void Start()
     {
         if (gameTime == null) Resources.Load<PlayerGameTime>("Resources/PlayerGameTime");
@@ -38,43 +40,44 @@ public class Enemy : MonoBehaviour
     }
     private void Init() {
         dir = (tower.position - transform.position).normalized;
-        damage += gameTime.dayCount;
-        dropChance = dropChance * gameTime.dayCount;
-        currentHealth = maxHealth;
+
+        int increase = Mathf.FloorToInt(gameTime.dayCount / statIncrementOnDayCount);
+
+        damage += increase;
+        dropChance = dropChance * increase;
+        currentHealth = maxHealth + increase;
+
         RotateSprite();
     }
     private void FixedUpdate()
     {
         distance = Vector2.Distance(transform.position, tower.position);
 
-        if (distance > attackRange)
+        if (distance > attackRange && !nearTower)
             Move();
         if (distance <= attackRange)
+            nearTower = true;
+        if (nearTower)
             Attack();
     }
     private void Move()
     {
-        rb.linearVelocity = dir * speed;
-    }
-    private void StopMove()
-    {
-        // because of kinematic body it need to be explicitly stopped
-        rb.linearVelocity = new Vector2(0, 0);
+        rb.linearVelocity = (dir * speed);
+        Debug.Log("move");
     }
     private void Attack()
     {
-        StopMove();
         if (!isAttacking)
             StartCoroutine(AttackCoroutine());
     }
-    private IEnumerator AttackCoroutine()
-    {
+    private IEnumerator AttackCoroutine() {
         isAttacking = true;
-        while (isAttacking)
-        {
-            towerHealth.TakeDamage(damage);
-            Debug.Log("attacking");
+        while (isAttacking) {
+            dir = (tower.position - transform.position).normalized;
+
+            rb.linearVelocity = (dir * speed);
             yield return new WaitForSeconds(attackRate);
+            Debug.Log("pulling back");
         }
     }
     public void TakeDamage(int damage)
@@ -119,9 +122,15 @@ public class Enemy : MonoBehaviour
         sprite.color = spriteColor;
     }
     private IEnumerator AnimatedTakeDamage() {
-        SetSpriteAlpha(0.5f);
-        yield return null;
+        SetSpriteAlpha(0.1f);
+        yield return new WaitForSeconds(0.5f);
         SetSpriteAlpha(1f);
+    }
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Tower")) {
+            collision.gameObject.GetComponent<TowerHealth>().TakeDamage(damage);
+            rb.linearVelocity = (-dir * speed / 2);
+        }
     }
     private void OnDrawGizmosSelected()
     {
