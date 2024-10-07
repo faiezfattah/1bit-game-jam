@@ -135,6 +135,8 @@ public class BuildManager : MonoBehaviour
         if (!tryPayment)
             PaymentFailed();
 
+        Debug.Log(buildingData.name);
+
         CloseMenu();
     }
     private void SellTurret()
