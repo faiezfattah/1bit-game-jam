@@ -122,7 +122,7 @@ public class Enemy : MonoBehaviour
     }
     private IEnumerator AnimatedTakeDamage() {
         SetSpriteAlpha(0.1f);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         SetSpriteAlpha(1f);
     }
     private void OnCollisionEnter2D(Collision2D collision) {

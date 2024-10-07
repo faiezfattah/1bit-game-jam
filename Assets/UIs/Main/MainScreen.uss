@@ -58,10 +58,12 @@
 .button-mainmenu {
     width: 100%;
     min-width: 100%;
+    color: rgb(217, 185, 129);
 }
 
 .text-override {
     font-size: 12px;
+    -unity-text-outline-color: rgba(217, 185, 129, 0);
 }
 
 .text-2-override {
@@ -80,4 +82,5 @@
     margin-top: 0;
     background-image: url("project://database/Assets/Sprites/UIs/Border%20Recttt3.png?fileID=21300000&guid=094ec1167171ce3438003b222fb6bba7&type=3#Border Recttt3");
     font-size: 8px;
+    color: rgb(217, 185, 130);
 }

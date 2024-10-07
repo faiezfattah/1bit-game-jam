@@ -2,10 +2,10 @@
     <Style src="project://database/Assets/UIs/Main/MainScreen.uss?fileID=7433441132597879392&amp;guid=a7f3286eaf9efa840be29fc2c6989b59&amp;type=3#MainScreen" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; align-items: center; justify-content: space-around; background-color: rgba(0, 0, 0, 0);">
         <ui:VisualElement style="flex-grow: 1; width: 75%; padding-left: 0; padding-right: 0; padding-top: 19px; background-color: rgba(0, 0, 0, 0); max-height: 75%; background-image: url(&quot;project://database/Assets/Sprites/UIs/Border%20Light.png?fileID=21300000&amp;guid=f2698d00fa1ef3947988cc798d14f690&amp;type=3#Border Light&quot;); padding-bottom: 19px; align-items: center; justify-content: center;">
-            <ui:Label text="Paused" class="text-override" style="margin-bottom: 0; color: rgb(255, 255, 255); -unity-font-style: bold; margin-top: 0; margin-right: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
-            <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; max-height: 26px; width: 200px; justify-content: center;">
+            <ui:Label text="Paused" class="text-override" style="margin-bottom: 8px; color: rgb(217, 185, 130); -unity-font-style: bold; margin-top: 0; margin-right: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-definition: url(&quot;project://database/Assets/Sprites/UIs/themevck-text.ttf?fileID=12800000&amp;guid=165f528d8396c44498da37c94028674c&amp;type=3#themevck-text&quot;);" />
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; max-height: 26px; width: 200px; justify-content: center; -unity-font-definition: url(&quot;project://database/Assets/Sprites/UIs/themevck-text.ttf?fileID=12800000&amp;guid=165f528d8396c44498da37c94028674c&amp;type=3#themevck-text&quot;);">
                 <ui:Button text="save" name="save" class="text-override text-2-override button--pause" />
-                <ui:Button text="unpause" name="unpause" class="text-override text-2-override button--pause" />
+                <ui:Button text="unpause" name="unpause" class="text-override text-2-override button--pause" style="width: 100px; max-width: 59px;" />
                 <ui:Button text="quit" name="quit" class="text-override text-2-override button--pause" />
             </ui:VisualElement>
         </ui:VisualElement>

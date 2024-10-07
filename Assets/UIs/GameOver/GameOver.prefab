@@ -65,4 +65,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restartRelay: {fileID: 11400000, guid: 261a07b739946014c8a2513b5a618069, type: 2}
-  quitRelay: {fileID: 11400000, guid: 070c47cdcbaf264439ce75c07f03f859, type: 2}

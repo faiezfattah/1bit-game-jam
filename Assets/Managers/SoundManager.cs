@@ -29,6 +29,9 @@ public class SoundManager : MonoBehaviour
     private void PlaySFX(AudioClip clip) {
         sfxSource.PlayOneShot(clip);
     }
+    private void PlaySFX(AudioClip clip, Vector2 position) {
+        //TODO: make position based audio
+    }
     private void PlayMusic(AudioClip clip) {
         musicSource.clip = clip;
         musicSource.Play();

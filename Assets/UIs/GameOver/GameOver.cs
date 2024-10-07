@@ -11,8 +11,8 @@ public class GameOver : MonoBehaviour
     private Button quitButton;
 
     private void OnEnable() {
-        ui = GetComponent<VisualElement>();
-        restartButton = ui.Q<Button>("restart");
+        ui = GetComponent<UIDocument>().rootVisualElement;
+        restartButton = ui.Q<Button>("restart"); 
         quitButton = ui.Q<Button>("quit");
 
         restartButton.clicked += HandleRestart;

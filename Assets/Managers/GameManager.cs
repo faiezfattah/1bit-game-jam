@@ -52,8 +52,12 @@ public class GameManager : MonoBehaviour
     }
     private void HandleGameOver() {
         Pause();
-        SaveSystem.ResetPlayer(build, economy, gameTime);
         Instantiate(gameOverScreen);
+    }
+    private void HandleRestart() {
+        SaveSystem.ResetPlayer(build, economy, gameTime);
+        SaveSystem.SavePlayer(build, economy, gameTime);
+        Pause();
     }
     private void OnEnable()
     {
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
         saveRelay.OnEvenRaised += HandleSave;
         loadRelay.OnEvenRaised += HandleLoad;
         gameoverRelay.OnEvenRaised += HandleGameOver;
+        restartRelay.OnEvenRaised += HandleRestart;
     }
     private void OnDisable()
     {
@@ -72,6 +77,7 @@ public class GameManager : MonoBehaviour
         saveRelay.OnEvenRaised -= HandleSave;
         loadRelay.OnEvenRaised -= HandleLoad;
         gameoverRelay.OnEvenRaised -= HandleGameOver;
+        restartRelay.OnEvenRaised -= HandleRestart;
     }
 }
 
