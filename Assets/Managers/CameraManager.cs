@@ -6,13 +6,19 @@ public class CameraManager : MonoBehaviour
     // might move it to camera
     [SerializeField] private PixelPerfectCamera mainCamera;
     [SerializeField] private InputReader inputReader;
+    [SerializeField] private GameObject pointer1;
+    [SerializeField] private GameObject pointer2;
     [SerializeField] private float speed = 5;
     private Vector2 dir;
+    private Vector3 minBound;
+    private Vector3 maxBound;
     private void Start()
     {
         // prevent error 
         if (mainCamera != null)
             mainCamera = GetComponent<PixelPerfectCamera>();
+        maxBound = pointer1.transform.position;
+        minBound = pointer2.transform.position;
     }
     private void Update()
     {
@@ -23,6 +29,11 @@ public class CameraManager : MonoBehaviour
     {
         Vector2 movement = speed * Time.deltaTime * dir;
         mainCamera.transform.Translate(movement);
+
+        float clampedX = Mathf.Clamp(transform.position.x, minBound.x, maxBound.x);
+        float clampedY = Mathf.Clamp(transform.position.y, minBound.y, maxBound.y);
+
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
     private void ZoomCamera(float value)
     {

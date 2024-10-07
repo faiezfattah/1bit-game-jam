@@ -17,8 +17,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidChannel rebuildRelay;
     [SerializeField] private VoidChannel gameoverRelay;
     [SerializeField] private VoidChannel restartRelay;
-    [Header("factory-----------------")]
+    [Header("uis-----------------")]
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject mainMenuScreen;
 
     private bool isPaused = false;
     private void Start() {
@@ -57,7 +58,12 @@ public class GameManager : MonoBehaviour
     private void HandleRestart() {
         SaveSystem.ResetPlayer(build, economy, gameTime);
         SaveSystem.SavePlayer(build, economy, gameTime);
+        rebuildRelay.RaiseEvent();
         Pause();
+    }
+    private void HandleQuit() {
+        mainMenuScreen.SetActive(true);
+        SaveSystem.SavePlayer(build, economy, gameTime);
     }
     private void OnEnable()
     {

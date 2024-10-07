@@ -5,6 +5,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 {
     [SerializeField] private PlayerGameTime gameTime;
     [SerializeField] private VoidChannel gameoverRelay;
+    [SerializeField] private VoidChannel restartRelay;
     [Header("enemies ---------------")]
     [SerializeField] private GameObject[] regularEnemy;
     [SerializeField] private GameObject[] bossEnemy;
@@ -32,11 +33,22 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private void SpawnEnemy() {
         StartCoroutine(SpawningRoutine());
     }
-
     private int Randomizer(int max) {
         return Random.Range(0, max);
     }
+    private void KillAllEnemy() {
+        Enemy[] enemy = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+        foreach (Enemy i in enemy) {
+            Destroy(i.gameObject);
+        }
+    }
     private void OnEnable() {
         gameTime.onDayOver += SpawnEnemy;
+        restartRelay.OnEvenRaised += KillAllEnemy;
+    }
+    private void OnDisable() {
+        gameTime.onDayOver -= SpawnEnemy;
+        restartRelay.OnEvenRaised -= KillAllEnemy;
+
     }
 }
