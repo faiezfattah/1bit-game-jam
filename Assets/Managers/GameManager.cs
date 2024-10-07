@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidChannel rebuildRelay;
     [SerializeField] private VoidChannel gameoverRelay;
     [SerializeField] private VoidChannel restartRelay;
+    [SerializeField] private VoidChannel musicRelay;
     [Header("uis-----------------")]
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject mainMenuScreen;
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
         SaveSystem.ResetPlayer(build, economy, gameTime);
         SaveSystem.SavePlayer(build, economy, gameTime);
         rebuildRelay.RaiseEvent();
+        musicRelay.RaiseEvent();
         Pause();
     }
     private void HandleQuit() {

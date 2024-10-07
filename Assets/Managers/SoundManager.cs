@@ -16,6 +16,7 @@ public class SoundManager : MonoBehaviour
     [Header("Global sounds----")]
     [SerializeField] private AudioClip mainMenuMusic;
     [SerializeField] private AudioClip gameMusic;
+    private bool isMusicPlaying;
     private void Awake() {
         if (sfxSource == null)
             sfxSource = gameObject.AddComponent<AudioSource>();
@@ -35,9 +36,17 @@ public class SoundManager : MonoBehaviour
     private void PlayMusic(AudioClip clip) {
         musicSource.clip = clip;
         musicSource.Play();
+        isMusicPlaying = true;
     }
     private void StopMusic() {
-        musicSource?.Stop();
+        if (isMusicPlaying) { 
+            musicSource.Pause(); 
+            isMusicPlaying = false;
+        }
+        else {
+            musicSource.UnPause();
+            isMusicPlaying = true;
+        }
     }
     private void PlayGameMusic() {
         PlayMusic(gameMusic);

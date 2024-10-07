@@ -1371,8 +1371,9 @@ MonoBehaviour:
   rebuildRelay: {fileID: 11400000, guid: f9e0eadc3a286b446aac8efcfe8bd4e6, type: 2}
   gameoverRelay: {fileID: 11400000, guid: 431305508ba7b5642b6aafcedb48524d, type: 2}
   restartRelay: {fileID: 11400000, guid: 261a07b739946014c8a2513b5a618069, type: 2}
+  musicRelay: {fileID: 11400000, guid: af224e6043d8a1d4c936c12ed83df929, type: 2}
   gameOverScreen: {fileID: 4720258858930935735, guid: 7d697d3a86cc61a4eafc3c1e083e779f, type: 3}
-  mainMenuScreen: {fileID: 0}
+  mainMenuScreen: {fileID: 1501774754402106939}
 --- !u!1 &1487071912
 GameObject:
   m_ObjectHideFlags: 0

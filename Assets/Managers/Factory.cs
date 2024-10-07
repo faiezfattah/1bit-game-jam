@@ -25,7 +25,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
         int enemiesToSpawn = minEnemy + gameTime.dayCount;
 
-        for (int i = 0; i < minEnemy; i++) {
+        for (int i = 0; i < enemiesToSpawn; i++) {
             Instantiate(spawningEnemy, spawningPoint.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(spawnInterval);
         }
@@ -49,6 +49,5 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private void OnDisable() {
         gameTime.onDayOver -= SpawnEnemy;
         restartRelay.OnEvenRaised -= KillAllEnemy;
-
     }
 }
