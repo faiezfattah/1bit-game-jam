@@ -98,16 +98,12 @@ public class BuildManager : MonoBehaviour
         BuildData data = build.GetBuild(selectedLocation);
         GameObject currentBuild = GameObjectPlacement[selectedLocation];
 
-        //Debug.Log(data.coalPrice);
-        //Debug.Log(data.ironPrice);
-
         int iron = data.nextData.ironPrice;
         int coal = data.nextData.coalPrice;
 
         bool tryPayment = economy.Pay(coal, iron);
         if (tryPayment)
         {
-            //currentBuild.GetComponent<Build>().data = data.nextData;
             Destroy(currentBuild);
             GameObject replace = Instantiate(data.nextData.prefabs, grid.GetCellCenterWorld(selectedLocation), Quaternion.identity);
             GameObjectPlacement[selectedLocation] = replace;

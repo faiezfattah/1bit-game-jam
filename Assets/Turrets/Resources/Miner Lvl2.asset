@@ -17,11 +17,11 @@ MonoBehaviour:
   level: 2
   bullet: {fileID: 0}
   range: 1
-  attackInterval: 3
+  attackInterval: 1
   bulletSpeed: 0
   bulletLifeTime: 0
   rotationSpeed: 0
   damage: 0
-  coalPrice: 75
-  ironPrice: 75
+  coalPrice: 50
+  ironPrice: 50
   nextData: {fileID: 11400000, guid: 43aea30e64b9d21479b9b2009f0aa538, type: 2}

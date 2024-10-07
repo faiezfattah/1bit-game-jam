@@ -10,7 +10,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [SerializeField] private GameObject[] bossEnemy;
     [SerializeField] private GameObject[] pointer;
     [Header("settings ---------------")]
-    [SerializeField] private float spawnInterval = 1f;
+    [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private int minEnemy = 3;
     IEnumerator SpawningRoutine() {
         // 1. randomize which pointer to be spawned at CHECK

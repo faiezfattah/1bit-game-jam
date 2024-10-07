@@ -20,8 +20,8 @@ MonoBehaviour:
   attackInterval: 0.5
   bulletSpeed: 5
   bulletLifeTime: 5
-  rotationSpeed: 60
+  rotationSpeed: 180
   damage: 3
-  coalPrice: 700
-  ironPrice: 700
+  coalPrice: 200
+  ironPrice: 200
   nextData: {fileID: 0}

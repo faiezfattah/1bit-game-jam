@@ -63,7 +63,6 @@ public class Enemy : MonoBehaviour
     private void Move()
     {
         rb.linearVelocity = (dir * speed);
-        Debug.Log("move");
     }
     private void Attack()
     {

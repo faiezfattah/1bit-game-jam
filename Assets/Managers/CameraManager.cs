@@ -28,6 +28,7 @@ public class CameraManager : MonoBehaviour
     {
         int valueInt = Mathf.RoundToInt(value);
         mainCamera.assetsPPU -= valueInt;
+        mainCamera.assetsPPU = Mathf.Clamp(mainCamera.assetsPPU, 10, 50);
     }
     private void CameraMoveDirection(Vector2 value)
     {
