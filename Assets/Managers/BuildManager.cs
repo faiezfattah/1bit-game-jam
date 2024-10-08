@@ -21,7 +21,6 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private VoidChannel sellRelay;
     [SerializeField] private VoidChannel resetRelay;
     [SerializeField] private AudioChannel sfxRelay;
-    [SerializeField] private FloatEvent circleRequestRelay;
     [Header("player datas ----")]
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
@@ -29,8 +28,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject buildPickerUI;
     [SerializeField] private GameObject upgradeUI;
     [SerializeField] private GameObject UICanvas;
-    [SerializeField] private GameObject pointer;
-    [SerializeField] private GameObject CircleArea;
+    [SerializeField] private Pointer pointer;
     [Header("sounds---")]
     [SerializeField] private AudioClip buildSuccess;
     [SerializeField] private AudioClip buildFailed;
@@ -44,38 +42,33 @@ public class BuildManager : MonoBehaviour
     private Vector3Int selectedLocation;
     private GameObject currentUI;
     private bool isUIOpen = true;
-    void Update() {
-        if (isUIOpen) PlacePointer(grid.GetCellCenterWorld(selectedLocation));
-        if (!isUIOpen) PlacePointer(SelectedGridOnWorld());
-    }
     private void Start()
     {
-        circle = CircleArea.GetComponent<LineRenderer>();
         if (grid == null)
             grid = GameObject.FindGameObjectWithTag("Grid").GetComponent<Grid>();
-        //DisablePointer();
+        pointer.SetOverride(false);
     }
     private void HandleMouseDown()
     {
         //Debug.Log("mouse down on: " + ReadSelectecGrid());
-        bool hasTurret = build.CheckTurret(ReadSelectecGrid());
+        bool hasTurret = build.CheckTurret(pointer.GetGridLocation());
 
-        if (!isUIOpen) selectedLocation = grid.WorldToCell(ReadSelectecGrid());
+        if (!isUIOpen) selectedLocation = pointer.GetGridLocation();
 
         if (hasTurret == false)
-            OpenTurretMenu(SelectedGridOnWorld());
-        else OpenUpgradeMenu(SelectedGridOnWorld());
+            OpenTurretMenu(pointer.GetWorldLocation());
+        else OpenUpgradeMenu(pointer.GetWorldLocation());
     }
     public void OpenUpgradeMenu(Vector3 gridLocation)
     {
         if (!isUIOpen){
-            DisablePointer();
+            pointer.SetOverride(true, selectedLocation);
             isUIOpen = true;
 
             BuildData data = build.GetBuild(selectedLocation);
             if (data == null) Debug.Log("upgrade data null");
 
-            EnableCircle(gridLocation, data.range);
+            pointer.EnableCircle(data.range);
             upgradeUI.GetComponent<UpgradeMenu>().Setup(data.level);
             currentUI = Instantiate(upgradeUI, gridLocation, Quaternion.identity, UICanvas.transform);
 
@@ -90,6 +83,8 @@ public class BuildManager : MonoBehaviour
             currentUI = Instantiate(buildPickerUI, gridLocation, Quaternion.identity, UICanvas.transform);
 
             PlaySFX(openMenu);
+
+            pointer.SetOverride(true, selectedLocation);
         }
     }
     private void RequestUpgrade()
@@ -124,24 +119,19 @@ public class BuildManager : MonoBehaviour
         if (tryPayment)
         {
             GameObject buildInstance = Instantiate(buildingData.prefabs, grid.GetCellCenterWorld(selectedLocation), Quaternion.identity);
-
             build.AddBuild(selectedLocation, buildInstance);
             GameObjectPlacement[selectedLocation] = buildInstance;
-
-            Debug.Log("buld on: " + selectedLocation);
             PlaySFX(buildSuccess);
         }
         if (!tryPayment)
             PaymentFailed();
-
-        Debug.Log(buildingData.name);
 
         CloseMenu();
     }
     private void SellTurret()
     {
         BuildData data = build.buildPlacement[selectedLocation];
-        if (data == null) Debug.Log("selling data nul");
+        if (data == null) Debug.Log("selling data null");
 
         economy.AddCoal(Mathf.FloorToInt(data.coalPrice / 4));
         economy.AddIron(Mathf.FloorToInt(data.ironPrice / 4));
@@ -161,8 +151,8 @@ public class BuildManager : MonoBehaviour
             isUIOpen = false;
             if (currentUI != null) Destroy(currentUI);
             currentUI = null;
-            EnablePointer();
-            DisableCircle();
+            pointer.SetOverride(false);
+            pointer.DisableCircle();
         }
     }
     private void HandleReset() {
@@ -170,21 +160,14 @@ public class BuildManager : MonoBehaviour
         Debug.Log("HandeLoad called");
 
         foreach (Vector3Int Key in build.buildPlacement.Keys) {
-
-            Debug.Log("instantiatin builds: " + build.buildPlacement[Key]);
-
             GameObject building = build.buildPlacement[Key].prefabs;
-            Debug.Log("got the game object");
             building.GetComponent<Build>().data = build.buildPlacement[Key];
-            Debug.Log("reassign the data");
             Instantiate(building, grid.GetCellCenterWorld(Key), Quaternion.identity);
-            Debug.Log("instantiated");
             GameObjectPlacement.Add(Key, building);
-            Debug.Log("added to local dictionary");
         }
 
         isUIOpen = false;
-        EnablePointer();
+        pointer.SetOverride(false);
         GameObjectPlacement.Clear();
     }
     private void ClearExistingBuildings() {
@@ -198,53 +181,12 @@ public class BuildManager : MonoBehaviour
     {
         CloseMenu();
     }
-    private void PlacePointer(Vector3 gridLocation)
-    {
-        pointer.transform.position = gridLocation;
-    }
-    void EnableCircle(Vector3 worldSpace, float radius = 0) {
-        float angle = 0f;
-        for (int i = 0; i < circle.positionCount; i++) {
-            float x = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
-            float y = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
 
-            circle.SetPosition(i, new Vector3(x, y, 0));
 
-            angle += (360f / circle.positionCount);
-        }
-        circle.useWorldSpace = false;
-        circle.GetComponent<Transform>().position = worldSpace;
-        Debug.Log(worldSpace);
-        Debug.Log(circle.transform.position);
-        circle.enabled = true;
-    }
-    void HandleCircleRequest(float radius) {
-        EnableCircle(grid.GetCellCenterWorld(selectedLocation), radius);
-    }
     private void PlaySFX(AudioClip clip) {
         sfxRelay.RaiseEvent(clip);
     }
-    void DisableCircle() {
-        circle.enabled = false;
-    }
-    private void DisablePointer()
-    {
-        pointer.SetActive(false);
-    }
-    private void EnablePointer()
-    {
-        pointer.SetActive(true);
-    }
-    private Vector3Int ReadSelectecGrid()
-    {
-        Vector2 location = Mouse.current.position.value;
-        location = Camera.main.ScreenToWorldPoint(location);
-        return grid.WorldToCell(location);
-    }
-    private Vector3 SelectedGridOnWorld()
-    {
-        return grid.GetCellCenterWorld(ReadSelectecGrid());
-    }
+
     private void OnEnable()
     {
         inputReader.MouseClickEvent += HandleMouseDown;
@@ -253,7 +195,6 @@ public class BuildManager : MonoBehaviour
         upgradeRelay.OnEvenRaised += RequestUpgrade;
         sellRelay.OnEvenRaised += SellTurret;
         resetRelay.OnEvenRaised += HandleReset;
-        circleRequestRelay.OnEventRaised += HandleCircleRequest;
     }
     private void OnDisable()
     {
@@ -263,6 +204,5 @@ public class BuildManager : MonoBehaviour
         upgradeRelay.OnEvenRaised -= RequestUpgrade;
         sellRelay.OnEvenRaised -= SellTurret;
         resetRelay.OnEvenRaised -= HandleReset;
-        circleRequestRelay.OnEventRaised -= HandleCircleRequest;
     }
 }

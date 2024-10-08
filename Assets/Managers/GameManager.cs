@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         }
         if (value == true) { 
             Time.timeScale = 0f;
-            isPaused = !value;
+            isPaused = value;
             musicStop.RaiseEvent(true);
         }
     }
@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
         mainMenuContinue.OnEvenRaised += HandleLoad;
         gameoverRelay.OnEvenRaised += HandleGameOver;
         togglePauseRelay.OnEvenRaised += TogglePause;
+        inputReader.EscapeEvent += TogglePause;
         saveRelay.OnEvenRaised += HandleSave;
         quitRelay.OnEvenRaised += HandlePseudoQuit;
     }
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour
         mainMenuContinue.OnEvenRaised -= HandleLoad;
         gameoverRelay.OnEvenRaised -= HandleGameOver;
         togglePauseRelay.OnEvenRaised -= TogglePause;
+        inputReader.EscapeEvent -= TogglePause;
         saveRelay.OnEvenRaised -= HandleSave;
         quitRelay.OnEvenRaised -= HandlePseudoQuit;
     }

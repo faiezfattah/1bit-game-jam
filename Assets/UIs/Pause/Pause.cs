@@ -42,6 +42,7 @@ public class Pause : MonoBehaviour {
         isPaused = !isPaused;
         uiDoc.enabled = isPaused;
         if (isPaused) SetupUI();
+        Debug.Log("paused");
     }
 
     private void OnSaveButtonClicked() {
