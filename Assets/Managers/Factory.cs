@@ -23,7 +23,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         GameObject spawningEnemy = regularEnemy[Randomizer(regularEnemy.Length)];
 
 
-        int enemiesToSpawn = minEnemy + gameTime.dayCount;
+        int enemiesToSpawn = minEnemy + gameTime.dayCount / 2;
 
         for (int i = 0; i < enemiesToSpawn; i++) {
             Instantiate(spawningEnemy, spawningPoint.transform.position, Quaternion.identity);

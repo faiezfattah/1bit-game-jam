@@ -29,7 +29,6 @@ public class BuildManager : MonoBehaviour
     [Header("uis ----")]
     [SerializeField] private GameObject buildPickerUI;
     [SerializeField] private GameObject upgradeUI;
-    [SerializeField] private GameObject paymentFailedUI;
     [SerializeField] private GameObject UICanvas;
     [SerializeField] private GameObject pointer;
     [SerializeField] private GameObject CircleArea;

@@ -10,6 +10,7 @@ public class TurretSelect : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private ButtonDataHolder btnData;
     public void SendBuild(GameObject build)
     {
+        if (build == null) Debug.Log("sending null build");
         relay.RaiseEvent(build.GetComponent<Build>());
         CloseHoverUI();
     }
