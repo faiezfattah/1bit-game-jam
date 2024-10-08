@@ -8,6 +8,7 @@ public class Pause : MonoBehaviour {
     [SerializeField] private InputReader inputReader;
     [SerializeField] private VoidChannel unpauseRelay;
     [SerializeField] private VoidChannel saveRelay;
+    [SerializeField] private VoidChannel quitRelay;
 
     private Button saveButton;
     private Button unpauseButton;
@@ -53,7 +54,7 @@ public class Pause : MonoBehaviour {
     }
 
     private void OnQuitButtonClicked() {
-        Application.Quit();
+        quitRelay.RaiseEvent();
     }
 
     private void OnDisable() {

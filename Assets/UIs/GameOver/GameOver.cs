@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 public class GameOver : MonoBehaviour
 {
     [SerializeField] private VoidChannel restartRelay;
+    [SerializeField] private VoidChannel quitRelay;
 
     private VisualElement ui;
     private Button restartButton;
@@ -23,7 +24,7 @@ public class GameOver : MonoBehaviour
         Destroy(gameObject);
     }
     private void HanldeQuit() {
-        Application.Quit();
+        quitRelay.RaiseEvent();
     }
 
 }

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidChannel gameoverRelay;
     [SerializeField] private VoidChannel restartRelay;
     [SerializeField] private VoidChannel musicRelay;
+    [SerializeField] private VoidChannel gameoverQuitRelay;
     [Header("uis-----------------")]
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject mainMenuScreen;
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
         saveRelay.OnEvenRaised += HandleSave;
         loadRelay.OnEvenRaised += HandleLoad;
         gameoverRelay.OnEvenRaised += HandleGameOver;
-        restartRelay.OnEvenRaised += HandleRestart;
+        gameoverQuitRelay.OnEvenRaised += HandleQuit;
     }
     private void OnDisable()
     {
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
         loadRelay.OnEvenRaised -= HandleLoad;
         gameoverRelay.OnEvenRaised -= HandleGameOver;
         restartRelay.OnEvenRaised -= HandleRestart;
+        gameoverQuitRelay.OnEvenRaised -= HandleQuit;
     }
 }
 

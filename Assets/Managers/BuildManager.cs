@@ -22,6 +22,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private VoidChannel playRelay;
     [SerializeField] private VoidChannel rebuildRelay;
     [SerializeField] private AudioChannel sfxRelay;
+    [SerializeField] private FloatEvent circleRequestRelay;
     [Header("player datas ----")]
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
@@ -204,7 +205,7 @@ public class BuildManager : MonoBehaviour
     {
         pointer.transform.position = gridLocation;
     }
-    void EnableCircle(Vector3 worldSpace, float radius = 2) {
+    void EnableCircle(Vector3 worldSpace, float radius = 0) {
         float angle = 0f;
         for (int i = 0; i < circle.positionCount; i++) {
             float x = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
@@ -219,6 +220,9 @@ public class BuildManager : MonoBehaviour
         Debug.Log(worldSpace);
         Debug.Log(circle.transform.position);
         circle.enabled = true;
+    }
+    void HandleCircleRequest(float radius) {
+        EnableCircle(grid.GetCellCenterWorld(selectedLocation), radius);
     }
     private void PlaySFX(AudioClip clip) {
         sfxRelay.RaiseEvent(clip);
@@ -253,6 +257,7 @@ public class BuildManager : MonoBehaviour
         sellRelay.OnEvenRaised += SellTurret;
         playRelay.OnEvenRaised += HandlePlay;
         rebuildRelay.OnEvenRaised += HandleLoad;
+        circleRequestRelay.OnEventRaised += HandleCircleRequest;
     }
     private void OnDisable()
     {
@@ -263,5 +268,6 @@ public class BuildManager : MonoBehaviour
         sellRelay.OnEvenRaised -= SellTurret;
         playRelay.OnEvenRaised -= HandlePlay;
         rebuildRelay.OnEvenRaised -= HandleLoad;
+        circleRequestRelay.OnEventRaised -= HandleCircleRequest;
     }
 }
