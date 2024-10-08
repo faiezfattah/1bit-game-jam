@@ -11,11 +11,11 @@ public partial class MainScreen : MonoBehaviour
     public Button playButton;
     public Button continueButton;
     public Button quitButton;
-
-    private void Awake() {
-        ui = GetComponent<UIDocument>().rootVisualElement;
-    }
     private void OnEnable() {
+        Setup();
+    }
+    private void Setup() {
+        ui = GetComponent<UIDocument>().rootVisualElement;
         playButton = ui.Q<Button>("playButton");
         playButton.clicked += OnPlayButtonClicked;
 
@@ -24,8 +24,6 @@ public partial class MainScreen : MonoBehaviour
 
         quitButton = ui.Q<Button>("quitButton");
         quitButton.clicked += OnQuitButtonClicked;
-
-
     }
     private void OnPlayButtonClicked() {
         gameObject.SetActive(false);
@@ -36,6 +34,6 @@ public partial class MainScreen : MonoBehaviour
         continueRelay.RaiseEvent();
     }
     private void OnQuitButtonClicked() { 
-        //Application.Quit();
+        Application.Quit();
     }
 }

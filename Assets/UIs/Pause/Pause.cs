@@ -55,6 +55,7 @@ public class Pause : MonoBehaviour {
 
     private void OnQuitButtonClicked() {
         quitRelay.RaiseEvent();
+        HandlePause();
     }
 
     private void OnDisable() {

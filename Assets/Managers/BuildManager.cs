@@ -19,8 +19,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private BuildDataChannel creationRelay;
     [SerializeField] private VoidChannel upgradeRelay;
     [SerializeField] private VoidChannel sellRelay;
-    [SerializeField] private VoidChannel playRelay;
-    [SerializeField] private VoidChannel rebuildRelay;
+    [SerializeField] private VoidChannel resetRelay;
     [SerializeField] private AudioChannel sfxRelay;
     [SerializeField] private FloatEvent circleRequestRelay;
     [Header("player datas ----")]
@@ -166,12 +165,7 @@ public class BuildManager : MonoBehaviour
             DisableCircle();
         }
     }
-    private void HandlePlay() {
-        isUIOpen = false;
-        EnablePointer();
-        GameObjectPlacement.Clear();
-    }
-    private void HandleLoad() {
+    private void HandleReset() {
         ClearExistingBuildings();
         Debug.Log("HandeLoad called");
 
@@ -188,6 +182,10 @@ public class BuildManager : MonoBehaviour
             GameObjectPlacement.Add(Key, building);
             Debug.Log("added to local dictionary");
         }
+
+        isUIOpen = false;
+        EnablePointer();
+        GameObjectPlacement.Clear();
     }
     private void ClearExistingBuildings() {
         Build[] existingBuildings = FindObjectsByType<Build>(FindObjectsSortMode.None);
@@ -254,8 +252,7 @@ public class BuildManager : MonoBehaviour
         creationRelay.OnEventRaised += PlaceBuild;
         upgradeRelay.OnEvenRaised += RequestUpgrade;
         sellRelay.OnEvenRaised += SellTurret;
-        playRelay.OnEvenRaised += HandlePlay;
-        rebuildRelay.OnEvenRaised += HandleLoad;
+        resetRelay.OnEvenRaised += HandleReset;
         circleRequestRelay.OnEventRaised += HandleCircleRequest;
     }
     private void OnDisable()
@@ -265,8 +262,7 @@ public class BuildManager : MonoBehaviour
         creationRelay.OnEventRaised -= PlaceBuild;
         upgradeRelay.OnEvenRaised -= RequestUpgrade;
         sellRelay.OnEvenRaised -= SellTurret;
-        playRelay.OnEvenRaised -= HandlePlay;
-        rebuildRelay.OnEvenRaised -= HandleLoad;
+        resetRelay.OnEvenRaised -= HandleReset;
         circleRequestRelay.OnEventRaised -= HandleCircleRequest;
     }
 }

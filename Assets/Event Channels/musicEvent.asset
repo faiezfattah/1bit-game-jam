@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cba648083c8c0a241b4c8d2b098f22d8, type: 3}
-  m_Name: MainScreenPlay
+  m_Script: {fileID: 11500000, guid: 3b3b603a6cf60ab498d0d8132ec6df80, type: 3}
+  m_Name: musicEvent
   m_EditorClassIdentifier: 

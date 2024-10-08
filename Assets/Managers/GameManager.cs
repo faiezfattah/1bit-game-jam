@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,38 +11,67 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
     [Header("relays------------------")]
-    [SerializeField] private VoidChannel playRelay;
-    [SerializeField] private VoidChannel loadRelay;
-    [SerializeField] private VoidChannel saveRelay;
-    [SerializeField] private VoidChannel unpauseRelay;
-    [SerializeField] private VoidChannel rebuildRelay;
+    [SerializeField] private VoidChannel mainMenuPlay;
+    [SerializeField] private VoidChannel mainMenuContinue;
+
+    [SerializeField] private AudioChannel musicRelay;
+    [SerializeField] private BoolChannel musicStop;
+
     [SerializeField] private VoidChannel gameoverRelay;
-    [SerializeField] private VoidChannel restartRelay;
-    [SerializeField] private VoidChannel musicRelay;
-    [SerializeField] private VoidChannel gameoverQuitRelay;
+    [SerializeField] private VoidChannel togglePauseRelay;
+    [SerializeField] private VoidChannel quitRelay;
+
+    [SerializeField] private VoidChannel saveRelay;
+
+    [SerializeField] private VoidChannel resetRelay; // reset everything, rebuild everything
     [Header("uis-----------------")]
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject mainMenuScreen;
+    [Header("musics")]
+    [SerializeField] private AudioClip game;
+    [SerializeField] private AudioClip mainMenu;
 
-    private bool isPaused = false;
+    private bool isGameover = false;
+    private GameObject gameoverUIInstancce;
+
+    private bool isPaused = true;
     private void Start() {
-        Pause();
+        if (mainMenu == null) Debug.Log("mainmenu not found");
+        musicRelay.RaiseEvent(mainMenu);
+        Pause(true);
     }
 
     private void Update() {
         gameTime.UpdateGameTime();
     }
 
-    private void Pause()
+    private void Pause(bool value)
     {
-        if (isPaused) Time.timeScale = 1f;
-        if (!isPaused) Time.timeScale = 0f;
-
-        isPaused = !isPaused;
+        if (value == false) { 
+            Time.timeScale = 1f;
+            musicStop.RaiseEvent(false);
+            isPaused = value;
+        }
+        if (value == true) { 
+            Time.timeScale = 0f;
+            isPaused = !value;
+            musicStop.RaiseEvent(true);
+        }
+    }
+    private void TogglePause() {
+        Pause(!isPaused);
     }
     private void HandlePlay() {
-        Pause();
+        if (isGameover) {
+            Destroy(gameoverUIInstancce);
+            isGameover = false;
+        }
+
         SaveSystem.ResetPlayer(build, economy, gameTime);
+        SaveSystem.SavePlayer(build, economy, gameTime);
+        resetRelay.RaiseEvent();
+        musicRelay.RaiseEvent(game);
+        Pause(false);
     }
     private void HandleSave() {
         Debug.Log("saved player data");
@@ -49,45 +79,42 @@ public class GameManager : MonoBehaviour
     }
     private void HandleLoad() {
         SaveSystem.LoadPlayer(build, economy, gameTime);
-        build.GetBuildsDictionary();
-        rebuildRelay.RaiseEvent();
-        Pause();
+        resetRelay.RaiseEvent();
+        musicRelay.RaiseEvent(game);
+        Pause(false);
     }
     private void HandleGameOver() {
-        Pause();
-        Instantiate(gameOverScreen);
+        gameoverUIInstancce = Instantiate(gameOverScreen);
+        isGameover = true;
+        Pause(true);
     }
-    private void HandleRestart() {
-        SaveSystem.ResetPlayer(build, economy, gameTime);
-        SaveSystem.SavePlayer(build, economy, gameTime);
-        rebuildRelay.RaiseEvent();
-        musicRelay.RaiseEvent();
-        Pause();
-    }
-    private void HandleQuit() {
+    private void HandlePseudoQuit() {
         mainMenuScreen.SetActive(true);
         SaveSystem.SavePlayer(build, economy, gameTime);
+        Pause(true);
+        musicRelay.RaiseEvent(mainMenu);
+
+        if (isGameover) {
+            Destroy(gameoverUIInstancce);
+            isGameover = false;
+        }
     }
-    private void OnEnable()
-    {
-        inputReader.EscapeEvent += Pause;
-        unpauseRelay.OnEvenRaised += Pause;
-        playRelay.OnEvenRaised += HandlePlay;
-        saveRelay.OnEvenRaised += HandleSave;
-        loadRelay.OnEvenRaised += HandleLoad;
+
+    private void OnEnable() {
+        mainMenuPlay.OnEvenRaised += HandlePlay;
+        mainMenuContinue.OnEvenRaised += HandleLoad;
         gameoverRelay.OnEvenRaised += HandleGameOver;
-        gameoverQuitRelay.OnEvenRaised += HandleQuit;
+        togglePauseRelay.OnEvenRaised += TogglePause;
+        saveRelay.OnEvenRaised += HandleSave;
+        quitRelay.OnEvenRaised += HandlePseudoQuit;
     }
-    private void OnDisable()
-    {
-        inputReader.EscapeEvent -= Pause;
-        unpauseRelay.OnEvenRaised -= Pause;
-        playRelay.OnEvenRaised -= HandlePlay;
-        saveRelay.OnEvenRaised -= HandleSave;
-        loadRelay.OnEvenRaised -= HandleLoad;
+    private void OnDisable() {
+        mainMenuPlay.OnEvenRaised -= HandlePlay;
+        mainMenuContinue.OnEvenRaised -= HandleLoad;
         gameoverRelay.OnEvenRaised -= HandleGameOver;
-        restartRelay.OnEvenRaised -= HandleRestart;
-        gameoverQuitRelay.OnEvenRaised -= HandleQuit;
+        togglePauseRelay.OnEvenRaised -= TogglePause;
+        saveRelay.OnEvenRaised -= HandleSave;
+        quitRelay.OnEvenRaised -= HandlePseudoQuit;
     }
 }
 

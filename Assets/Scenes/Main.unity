@@ -402,12 +402,8 @@ MonoBehaviour:
   sfxSource: {fileID: 0}
   musicSource: {fileID: 0}
   sfxRelay: {fileID: 11400000, guid: 378f4c96ea2b60841b10b8480bbea9d8, type: 2}
-  gameOverRelay: {fileID: 11400000, guid: 431305508ba7b5642b6aafcedb48524d, type: 2}
-  onGameRelay: {fileID: 11400000, guid: 76a418460864a3f4dab846ed989510bd, type: 2}
-  onContinueGameRelay: {fileID: 11400000, guid: cdc61d8ba93d73b41808b7cc89d3cf53, type: 2}
-  stopMusicRelay: {fileID: 11400000, guid: af224e6043d8a1d4c936c12ed83df929, type: 2}
-  mainMenuMusic: {fileID: 8300000, guid: 0275ebe56fc1e76448ef9136bd76a8d3, type: 3}
-  gameMusic: {fileID: 8300000, guid: 5cf20f7446a0e7a41957c41cd513ed3f, type: 3}
+  musicRelay: {fileID: 11400000, guid: 82500e668b5fb984d825584894686507, type: 2}
+  toggleMusicPlay: {fileID: 11400000, guid: 1e396bffacc786349a77ffa0ed6f05ac, type: 2}
 --- !u!1 &187750894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,15 +1087,13 @@ MonoBehaviour:
   creationRelay: {fileID: 11400000, guid: 146000c6005c27b419d97f97b63d2220, type: 2}
   upgradeRelay: {fileID: 11400000, guid: 786d9ab066746194891c07b3f578d109, type: 2}
   sellRelay: {fileID: 11400000, guid: 820862cf088c11340ad7847a4cc97375, type: 2}
-  playRelay: {fileID: 11400000, guid: 76a418460864a3f4dab846ed989510bd, type: 2}
-  rebuildRelay: {fileID: 11400000, guid: f9e0eadc3a286b446aac8efcfe8bd4e6, type: 2}
+  resetRelay: {fileID: 11400000, guid: 8c6577dfb42f47b43a841446d4a62260, type: 2}
   sfxRelay: {fileID: 11400000, guid: 378f4c96ea2b60841b10b8480bbea9d8, type: 2}
   circleRequestRelay: {fileID: 11400000, guid: 27b2e9bcae2e5144593441bc7929bcb7, type: 2}
   economy: {fileID: 11400000, guid: a0f594e514edb674583ee8fa7a19c2de, type: 2}
   build: {fileID: 11400000, guid: d516be12fc7fb4c4494caa730be81a88, type: 2}
   buildPickerUI: {fileID: 3493722122934907708, guid: 073d535fe8d2e844c99d2e4a764164aa, type: 3}
   upgradeUI: {fileID: 8298979782942998460, guid: ecc5ade51c5f19c488612216c4e27fb6, type: 3}
-  paymentFailedUI: {fileID: 3034161317322305667, guid: b92a1ee35c183f34a97e3d51eb535094, type: 3}
   UICanvas: {fileID: 1720940654}
   pointer: {fileID: 840832205}
   CircleArea: {fileID: 80093922}
@@ -1286,8 +1280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTime: {fileID: 11400000, guid: 322daaf06f6fffb4f956422321dfcaf1, type: 2}
-  gameoverRelay: {fileID: 11400000, guid: 431305508ba7b5642b6aafcedb48524d, type: 2}
-  restartRelay: {fileID: 11400000, guid: 261a07b739946014c8a2513b5a618069, type: 2}
+  resetRelay: {fileID: 11400000, guid: 8c6577dfb42f47b43a841446d4a62260, type: 2}
   regularEnemy:
   - {fileID: 8808794065879569959, guid: 492b94ead7d0fd1468b5f048e5517514, type: 3}
   bossEnemy: []
@@ -1298,6 +1291,7 @@ MonoBehaviour:
   - {fileID: 803747081}
   spawnInterval: 2
   minEnemy: 3
+  dayToIncreaseEnemy: 2
 --- !u!4 &1242691803
 Transform:
   m_ObjectHideFlags: 0
@@ -1365,17 +1359,19 @@ MonoBehaviour:
   gameTime: {fileID: 11400000, guid: 322daaf06f6fffb4f956422321dfcaf1, type: 2}
   economy: {fileID: 11400000, guid: a0f594e514edb674583ee8fa7a19c2de, type: 2}
   build: {fileID: 11400000, guid: d516be12fc7fb4c4494caa730be81a88, type: 2}
-  playRelay: {fileID: 11400000, guid: 76a418460864a3f4dab846ed989510bd, type: 2}
-  loadRelay: {fileID: 11400000, guid: cdc61d8ba93d73b41808b7cc89d3cf53, type: 2}
-  saveRelay: {fileID: 11400000, guid: 486117bd8c2c0fb4a88feb6695ffebf0, type: 2}
-  unpauseRelay: {fileID: 11400000, guid: 820075e9bd9e6174095cf70a273733b5, type: 2}
-  rebuildRelay: {fileID: 11400000, guid: f9e0eadc3a286b446aac8efcfe8bd4e6, type: 2}
+  mainMenuPlay: {fileID: 11400000, guid: 1c756b03fe76aef4cbb0274b6ef8f8d4, type: 2}
+  mainMenuContinue: {fileID: 11400000, guid: 7690c838d1a30344e95e7498b570b3dc, type: 2}
+  musicRelay: {fileID: 11400000, guid: 82500e668b5fb984d825584894686507, type: 2}
+  musicStop: {fileID: 11400000, guid: 1e396bffacc786349a77ffa0ed6f05ac, type: 2}
   gameoverRelay: {fileID: 11400000, guid: 431305508ba7b5642b6aafcedb48524d, type: 2}
-  restartRelay: {fileID: 11400000, guid: 261a07b739946014c8a2513b5a618069, type: 2}
-  musicRelay: {fileID: 11400000, guid: af224e6043d8a1d4c936c12ed83df929, type: 2}
-  gameoverQuitRelay: {fileID: 11400000, guid: ec22445acfb3c9144b7fb2dca0c5708f, type: 2}
+  togglePauseRelay: {fileID: 11400000, guid: edb901ed77e99e3419bbbf39c40b27a1, type: 2}
+  quitRelay: {fileID: 11400000, guid: ec22445acfb3c9144b7fb2dca0c5708f, type: 2}
+  saveRelay: {fileID: 11400000, guid: 84d52bdfc83cf114d89a8da3aee5042e, type: 2}
+  resetRelay: {fileID: 11400000, guid: 8c6577dfb42f47b43a841446d4a62260, type: 2}
   gameOverScreen: {fileID: 4720258858930935735, guid: 7d697d3a86cc61a4eafc3c1e083e779f, type: 3}
   mainMenuScreen: {fileID: 1501774754402106939}
+  game: {fileID: 8300000, guid: 0275ebe56fc1e76448ef9136bd76a8d3, type: 3}
+  mainMenu: {fileID: 8300000, guid: 5cf20f7446a0e7a41957c41cd513ed3f, type: 3}
 --- !u!1 &1487071912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,8 +1597,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: 2a2feb3b7d497fb4cb025944db16ec44, type: 2}
-  unpauseRelay: {fileID: 11400000, guid: 820075e9bd9e6174095cf70a273733b5, type: 2}
-  saveRelay: {fileID: 11400000, guid: 486117bd8c2c0fb4a88feb6695ffebf0, type: 2}
+  unpauseRelay: {fileID: 11400000, guid: edb901ed77e99e3419bbbf39c40b27a1, type: 2}
+  saveRelay: {fileID: 11400000, guid: 84d52bdfc83cf114d89a8da3aee5042e, type: 2}
   quitRelay: {fileID: 11400000, guid: ec22445acfb3c9144b7fb2dca0c5708f, type: 2}
 --- !u!114 &1836287917
 MonoBehaviour:
@@ -3293,8 +3289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c51123865c6853640894d39c00a00934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playRelay: {fileID: 11400000, guid: 76a418460864a3f4dab846ed989510bd, type: 2}
-  continueRelay: {fileID: 11400000, guid: cdc61d8ba93d73b41808b7cc89d3cf53, type: 2}
+  playRelay: {fileID: 11400000, guid: 1c756b03fe76aef4cbb0274b6ef8f8d4, type: 2}
+  continueRelay: {fileID: 11400000, guid: 7690c838d1a30344e95e7498b570b3dc, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -4,8 +4,7 @@ using UnityEngine;
 public class NewMonoBehaviourScript : MonoBehaviour
 {
     [SerializeField] private PlayerGameTime gameTime;
-    [SerializeField] private VoidChannel gameoverRelay;
-    [SerializeField] private VoidChannel restartRelay;
+    [SerializeField] private VoidChannel resetRelay;
     [Header("enemies ---------------")]
     [SerializeField] private GameObject[] regularEnemy;
     [SerializeField] private GameObject[] bossEnemy;
@@ -13,6 +12,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [Header("settings ---------------")]
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private int minEnemy = 3;
+    [SerializeField] private int dayToIncreaseEnemy = 2;
     IEnumerator SpawningRoutine() {
         // 1. randomize which pointer to be spawned at CHECK
         // 2. ramdomize what kind of enemy to be spawned ???
@@ -23,7 +23,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         GameObject spawningEnemy = regularEnemy[Randomizer(regularEnemy.Length)];
 
 
-        int enemiesToSpawn = minEnemy + gameTime.dayCount / 2;
+        int enemiesToSpawn = minEnemy + Mathf.FloorToInt(gameTime.dayCount / dayToIncreaseEnemy);
 
         for (int i = 0; i < enemiesToSpawn; i++) {
             Instantiate(spawningEnemy, spawningPoint.transform.position, Quaternion.identity);
@@ -44,10 +44,10 @@ public class NewMonoBehaviourScript : MonoBehaviour
     }
     private void OnEnable() {
         gameTime.onDayOver += SpawnEnemy;
-        restartRelay.OnEvenRaised += KillAllEnemy;
+        resetRelay.OnEvenRaised += KillAllEnemy;
     }
     private void OnDisable() {
         gameTime.onDayOver -= SpawnEnemy;
-        restartRelay.OnEvenRaised -= KillAllEnemy;
+        resetRelay.OnEvenRaised -= KillAllEnemy;
     }
 }
