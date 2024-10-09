@@ -18,10 +18,10 @@ MonoBehaviour:
   bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
   range: 7
   attackInterval: 2
-  bulletSpeed: 5
-  bulletLifeTime: 3
-  rotationSpeed: 75
+  bulletSpeed: 15
+  bulletLifeTime: 5
+  rotationSpeed: 90
   damage: 4
-  coalPrice: 50
-  ironPrice: 50
+  coalPrice: 100
+  ironPrice: 100
   nextData: {fileID: 11400000, guid: c6eca235402cc4e409686047e58dc8e8, type: 2}

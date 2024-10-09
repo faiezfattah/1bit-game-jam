@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731725509137e2d4a99a5c074e71113d, type: 3}
   m_Name: Miner Lvl3
   m_EditorClassIdentifier: 
-  prefabs: {fileID: 7846326020310268479, guid: c57fea3bfbd6fa74ca6bc08916864f99, type: 3}
+  prefabs: {fileID: 7846326020310268479, guid: 6d1b4202754e4d54cae583c478173cbb, type: 3}
   turretName: Miner_3
   level: 3
   bullet: {fileID: 0}

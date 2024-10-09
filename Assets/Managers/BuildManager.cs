@@ -1,20 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Events;
-using System.Transactions;
-using NUnit.Framework.Constraints;
-using System.Collections;
-using System;
-using Unity.VisualScripting;
-using UnityEngine.Rendering.Universal;
-using UnityEditor;
-using static UnityEngine.Rendering.HableCurve;
+using UnityEngine.Tilemaps;
 
 public class BuildManager : MonoBehaviour
 {
     [SerializeField] private Grid grid;
     [SerializeField] private InputReader inputReader;
+    [SerializeField] private Tilemap tilemap;
     [Header("relays ----")]
     [SerializeField] private BuildDataChannel creationRelay;
     [SerializeField] private VoidChannel upgradeRelay;
@@ -54,6 +46,11 @@ public class BuildManager : MonoBehaviour
         bool hasTurret = build.CheckTurret(pointer.GetGridLocation());
 
         if (!isUIOpen) selectedLocation = pointer.GetGridLocation();
+
+        if (tilemap.GetTile(selectedLocation) != null) {
+            PlaySFX(buildFailed);
+            return;
+        }
 
         if (hasTurret == false)
             OpenTurretMenu(pointer.GetWorldLocation());

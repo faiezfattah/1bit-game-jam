@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: coal
   m_EditorClassIdentifier: 
   type: 1
-  sprite: {fileID: -6019453197366422050, guid: c242393a99672a845b86ae6541762f8c, type: 3}
+  sprite: {fileID: 21300000, guid: f22bcae5dc606964ca40d3c0f76652cc, type: 3}
+  removeTileRelay: {fileID: 11400000, guid: 128aa408886ce5f449d39a2bdccefbdf, type: 2}
+  currentResource: 0

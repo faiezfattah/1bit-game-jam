@@ -16,6 +16,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRate = 3;
     [SerializeField] private float dropChance = 0.05f;
     [SerializeField] private int statIncrementOnDayCount = 3;
+    [Header("Sound")]
+    [SerializeField] private LocalAudioEvent localAudioRelay;
+    [SerializeField] private AudioClip deathClip;
 
     private SpriteRenderer sprite;
     private Vector3 dir;
@@ -95,6 +98,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Drops();
+        localAudioRelay.RaiseEvent(deathClip, transform.position);
         Destroy(gameObject);
     }
     private void Drops() {

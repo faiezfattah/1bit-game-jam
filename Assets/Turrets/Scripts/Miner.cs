@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -5,11 +6,14 @@ using UnityEngine.Tilemaps;
 public class Miner : Build
 {
     [SerializeField] private PlayerEconomy economy;
-    [SerializeField] private int coalPoint = 0;
-    [SerializeField] private int ironPoint = 0;
+    [SerializeField] private ResourceTile.resourceType minerType = ResourceTile.resourceType.coal;
+    [SerializeField] private int point = 0;
+    [SerializeField] private int gatherPointPerTile = 1;
     [SerializeField] private int maxGatherPoint = 5;
 
+
     private static Tilemap resourceTilemap;
+    private static TilemapManager tileManager;
     private float gatherTimer;
     void Start()
     {
@@ -20,18 +24,23 @@ public class Miner : Build
     void Update()
     {
         gatherTimer -= Time.deltaTime;
-        if (gatherTimer <= 0)
-        {
+        if (gatherTimer <= 0) {
             GatherResources();
             gatherTimer = data.attackInterval;
         }
-        while (ironPoint > maxGatherPoint) {
-            ironPoint -= maxGatherPoint;
-            economy.AddIron(1);
+        if (point > maxGatherPoint) {
+            point -= maxGatherPoint;
+            AddToEconomy(1);
         }
-        while (coalPoint > maxGatherPoint) {
-            coalPoint -= maxGatherPoint;
-            economy.AddCoal(1);
+    }
+    private void AddToEconomy(int amount) {
+        switch (minerType) {
+            case ResourceTile.resourceType.coal:
+                economy.AddCoal(amount); 
+                break;
+            case ResourceTile.resourceType.iron:
+                economy.AddIron(amount);
+                break;
         }
     }
     void GatherResources()
@@ -40,17 +49,10 @@ public class Miner : Build
         foreach (Vector3Int tilePos in neighborTiles)
         {
             ResourceTile tile = resourceTilemap.GetTile(tilePos) as ResourceTile;
-            if (tile != null)
+
+            if (tile != null && tile.type == minerType)
             {
-                switch (tile.type)
-                {
-                    case ResourceTile.resourceType.coal:
-                        coalPoint++;
-                        break;
-                    case ResourceTile.resourceType.iron:
-                        ironPoint++;
-                        break;
-                }
+                tileManager.GetResources(gatherPointPerTile);
             }
         }
     }

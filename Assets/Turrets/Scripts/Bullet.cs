@@ -10,6 +10,10 @@ public class Bullet : MonoBehaviour
     public Transform target = null;
     public Vector3 targetLocation;
     public Action<GameObject> releaseObject;
+
+    [SerializeField] private LocalAudioEvent localAudioRelay;
+    [SerializeField] private AudioClip hitSfx;
+
     private bool hasHitEnemy;
     private void Update()
     {
@@ -44,6 +48,7 @@ public class Bullet : MonoBehaviour
             collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
             releaseObject(this.gameObject);
             hasHitEnemy = true;
+            localAudioRelay.RaiseEvent(hitSfx, transform.position);
         }
     }
 }

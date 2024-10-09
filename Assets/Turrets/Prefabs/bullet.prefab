@@ -142,3 +142,5 @@ MonoBehaviour:
   lifeTime: 2
   target: {fileID: 0}
   targetLocation: {x: 0, y: 0, z: 0}
+  localAudioRelay: {fileID: 11400000, guid: 32269dd5b3cef0d49be1026bf92e2c3d, type: 2}
+  hitSfx: {fileID: 8300000, guid: c8949a376391e1049b6c37ba03a27441, type: 3}

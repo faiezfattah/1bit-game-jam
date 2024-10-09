@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731725509137e2d4a99a5c074e71113d, type: 3}
   m_Name: Miner Lvl2
   m_EditorClassIdentifier: 
-  prefabs: {fileID: 7846326020310268479, guid: c57fea3bfbd6fa74ca6bc08916864f99, type: 3}
+  prefabs: {fileID: 7846326020310268479, guid: d57a01258fe91144797d456f9f00785a, type: 3}
   turretName: Miner_2
   level: 2
   bullet: {fileID: 0}
@@ -22,6 +22,6 @@ MonoBehaviour:
   bulletLifeTime: 0
   rotationSpeed: 0
   damage: 0
-  coalPrice: 50
-  ironPrice: 50
+  coalPrice: 100
+  ironPrice: 100
   nextData: {fileID: 11400000, guid: 43aea30e64b9d21479b9b2009f0aa538, type: 2}
