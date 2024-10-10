@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "Resource Tile", menuName = "Tilemap/Resource")]
 public class ResourceTile : TileBase
 {
-    public enum resourceType { iron, coal }
+    public enum resourceType { empty, iron, coal }
     public resourceType type;
     public Sprite sprite;
     

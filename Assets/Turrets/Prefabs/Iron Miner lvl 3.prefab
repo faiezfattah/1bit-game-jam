@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 2cb1eee99bf8ae04aa5aa59f2c50b82e, type: 2}
   economy: {fileID: 11400000, guid: a0f594e514edb674583ee8fa7a19c2de, type: 2}
-  minerType: 0
+  minerType: 1
   point: 0
   gatherPointPerTile: 1
   maxGatherPoint: 5
