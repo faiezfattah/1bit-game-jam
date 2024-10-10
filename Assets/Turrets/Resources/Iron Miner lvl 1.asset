@@ -22,6 +22,6 @@ MonoBehaviour:
   bulletLifeTime: 0
   rotationSpeed: 0
   damage: 0
-  coalPrice: 15
-  ironPrice: 15
+  coalPrice: 50
+  ironPrice: 50
   nextData: {fileID: 11400000, guid: 4713917a539a88248ba3f8d3d69a467c, type: 2}

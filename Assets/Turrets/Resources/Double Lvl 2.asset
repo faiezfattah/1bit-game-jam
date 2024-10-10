@@ -18,7 +18,7 @@ MonoBehaviour:
   bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
   range: 4
   attackInterval: 0.7
-  bulletSpeed: 7
+  bulletSpeed: 8
   bulletLifeTime: 2
   rotationSpeed: 120
   damage: 2
