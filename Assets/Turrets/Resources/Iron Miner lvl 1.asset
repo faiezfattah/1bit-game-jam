@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 731725509137e2d4a99a5c074e71113d, type: 3}
-  m_Name: Miner Lvl1
+  m_Name: Iron Miner lvl 1
   m_EditorClassIdentifier: 
   prefabs: {fileID: 7846326020310268479, guid: c57fea3bfbd6fa74ca6bc08916864f99, type: 3}
   turretName: Miner_1

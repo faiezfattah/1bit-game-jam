@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonDataHolder : MonoBehaviour { 
     public GameObject buildPrefab;
@@ -12,5 +13,7 @@ public class ButtonDataHolder : MonoBehaviour {
         data = buildPrefab.GetComponent<Build>().data;
         range = data.range;
         damage = data.damage;
+
+        GetComponent<Image>().alphaHitTestMinimumThreshold = 0.5f;
     }
 }

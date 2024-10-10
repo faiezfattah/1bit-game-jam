@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
         int increase = Mathf.FloorToInt(gameTime.dayCount / statIncrementOnDayCount);
 
         damage += increase;
-        dropChance = dropChance + increase;
+        dropChance = dropChance + Mathf.FloorToInt(gameTime.dayCount / (statIncrementOnDayCount * statIncrementOnDayCount));
         currentHealth = maxHealth + increase;
 
         RotateSprite();

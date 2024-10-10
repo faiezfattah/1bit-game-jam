@@ -53,6 +53,7 @@ public class SoundManager : MonoBehaviour
         sfxSourceGLobal.PlayOneShot(clip);
     }
     private void PlaySFX(AudioClip clip, Vector3 position) {
+        position.z = -10;
         AudioSource sfx = localSfxPool.Get();
         sfx.transform.position = position;
         sfx.clip = clip;

@@ -19,9 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidChannel gameoverRelay;
     [SerializeField] private VoidChannel togglePauseRelay;
     [SerializeField] private VoidChannel quitRelay;
+    [SerializeField] private VoidChannel restartRelay;
 
     [SerializeField] private VoidChannel saveRelay;
-
     [SerializeField] private VoidChannel resetRelay; // reset everything, rebuild everything
     [Header("uis-----------------")]
     [SerializeField] private GameObject gameOverScreen;
@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
         inputReader.EscapeEvent += TogglePause;
         saveRelay.OnEvenRaised += HandleSave;
         quitRelay.OnEvenRaised += HandlePseudoQuit;
+        restartRelay.OnEvenRaised += HandlePlay;
     }
     private void OnDisable() {
         mainMenuPlay.OnEvenRaised -= HandlePlay;
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
         inputReader.EscapeEvent -= TogglePause;
         saveRelay.OnEvenRaised -= HandleSave;
         quitRelay.OnEvenRaised -= HandlePseudoQuit;
+        restartRelay.OnEvenRaised -= HandlePlay;
     }
 }
 

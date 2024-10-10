@@ -6,34 +6,42 @@ public class TurretSelect : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] private FloatEvent pointerRelay;
 
     private GameObject currentHoverUI;
-    private bool isUIOpen;
-    private ButtonDataHolder btnData;
-    public void SendBuild(GameObject build)
-    {
+    private ButtonDataHolder currentBtnData;
+
+    public void SendBuild(GameObject build) {
         if (build == null) Debug.Log("sending null build");
         relay.RaiseEvent(build.GetComponent<Build>());
         CloseHoverUI();
     }
+
     public void OnPointerEnter(PointerEventData data) {
-        GameObject btn = data.hovered[0];
-        btn.TryGetComponent<ButtonDataHolder>(out btnData);
-        OpenHoverUI(btnData.hoverUI);
-    }
-    public void OnPointerExit(PointerEventData data) {
-            CloseHoverUI();
-    }
-    private void OpenHoverUI(GameObject hoverUI) {
-        if (isUIOpen) { 
-            currentHoverUI.SetActive(false);
+        GameObject btn = data.pointerEnter; 
+        if (btn.TryGetComponent<ButtonDataHolder>(out var btnData)) {
+            OpenHoverUI(btnData);
         }
-        currentHoverUI = hoverUI;
+    }
+
+    public void OnPointerExit(PointerEventData data) {
+        CloseHoverUI();
+    }
+
+    private void OpenHoverUI(ButtonDataHolder btnData) {
+        if (btnData == currentBtnData) return;
+
+        CloseHoverUI(); 
+
+        currentBtnData = btnData;
+        currentHoverUI = btnData.hoverUI;
         currentHoverUI.SetActive(true);
         pointerRelay.RaiseEvent(btnData.range);
     }
+
     private void CloseHoverUI() {
-        currentHoverUI?.SetActive(false);
-        currentHoverUI = null;
-        isUIOpen = false;
+        if (currentHoverUI != null) {
+            currentHoverUI.SetActive(false);
+            currentHoverUI = null;
+        }
+        currentBtnData = null;
         pointerRelay.RaiseEvent(0);
     }
 }

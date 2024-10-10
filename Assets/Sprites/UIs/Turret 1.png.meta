@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
@@ -103,17 +103,28 @@ TextureImporter:
       name: Turret 1_0
       rect:
         serializedVersion: 2
-        x: 40
+        x: 39
         y: 193
         width: 130
         height: 130
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 43, y: -41}
+        - {x: 65, y: -35}
+        - {x: 65, y: 65}
+        - {x: 35, y: 65}
+        - {x: 11, y: 58}
+        - {x: -20, y: 38}
+        - {x: -44, y: 12}
+        - {x: -59, y: -16}
+        - {x: -65, y: -36}
+        - {x: -65, y: -65}
+        - {x: 34, y: -64}
+      tessellationDetail: 0.267
       bones: []
       spriteID: 683c0697868548270800000000000000
       internalID: 8251817622985819014
