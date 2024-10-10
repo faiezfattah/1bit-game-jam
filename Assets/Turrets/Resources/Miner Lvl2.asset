@@ -16,7 +16,7 @@ MonoBehaviour:
   turretName: Miner_2
   level: 2
   bullet: {fileID: 0}
-  range: 1
+  range: 2
   attackInterval: 1
   bulletSpeed: 0
   bulletLifeTime: 0

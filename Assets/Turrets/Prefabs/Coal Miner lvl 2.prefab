@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8501115609689302425}
   - component: {fileID: 3390701963384590722}
   m_Layer: 0
-  m_Name: Miner lvl 3
+  m_Name: Coal Miner lvl 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,8 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac145315c8d5feb4a9969c151741ca62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 43aea30e64b9d21479b9b2009f0aa538, type: 2}
+  data: {fileID: 11400000, guid: 4713917a539a88248ba3f8d3d69a467c, type: 2}
   economy: {fileID: 11400000, guid: a0f594e514edb674583ee8fa7a19c2de, type: 2}
-  coalPoint: 0
-  ironPoint: 0
+  minerType: 1
+  point: 0
+  gatherPointPerTile: 1
   maxGatherPoint: 10

@@ -1960,6 +1960,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 645616908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1760200141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1760200144}
+  - component: {fileID: 1760200143}
+  - component: {fileID: 1760200145}
+  m_Layer: 5
+  m_Name: Tutorial 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1760200143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760200141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: e75d7244ade68934585b34055314d60e, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 392971805e10e994f9841edc2b168cd4, type: 3}
+  m_SortingOrder: -2
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &1760200144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760200141}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1760200145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760200141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f98d22c64635a74899d3b66c2769851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputReader: {fileID: 11400000, guid: 2a2feb3b7d497fb4cb025944db16ec44, type: 2}
+  mainMenu: {fileID: 1501774754402106939}
+  page1: {fileID: 621091157}
 --- !u!1 &1836287915
 GameObject:
   m_ObjectHideFlags: 0
@@ -8501,6 +8568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileRemovalRelay: {fileID: 11400000, guid: 128aa408886ce5f449d39a2bdccefbdf, type: 2}
   resourceTilemap: {fileID: 1922690839}
+  resourcePointPerTile: 500
 --- !u!1 &2006977732
 GameObject:
   m_ObjectHideFlags: 0
@@ -8666,6 +8734,7 @@ SceneRoots:
   - {fileID: 2336212017349514234}
   - {fileID: 1836287918}
   - {fileID: 621091160}
+  - {fileID: 1760200144}
   - {fileID: 895350527}
   - {fileID: 645616908}
   - {fileID: 519420032}

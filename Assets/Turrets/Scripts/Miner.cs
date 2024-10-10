@@ -18,6 +18,7 @@ public class Miner : Build
     void Start()
     {
         resourceTilemap = GameObject.FindGameObjectWithTag("ResourceMap").GetComponent<Tilemap>();
+        tileManager = resourceTilemap.GetComponent<TilemapManager>();
         gatherTimer = data.attackInterval;
     }
 
@@ -52,7 +53,8 @@ public class Miner : Build
 
             if (tile != null && tile.type == minerType)
             {
-                tileManager.GetResources(gatherPointPerTile);
+                tileManager.GetResources(tilePos, gatherPointPerTile);
+                Debug.Log("Getting resources on: " + tilePos);
             }
         }
     }

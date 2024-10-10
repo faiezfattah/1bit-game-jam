@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
         int increase = Mathf.FloorToInt(gameTime.dayCount / statIncrementOnDayCount);
 
         damage += increase;
-        dropChance = dropChance * increase;
+        dropChance = dropChance + increase;
         currentHealth = maxHealth + increase;
 
         RotateSprite();
@@ -106,17 +106,10 @@ public class Enemy : MonoBehaviour
         int dropCount = Mathf.FloorToInt(chance);
 
         if (chance > 1) chance -= dropCount;
-        if (Random.value < dropChance) dropCount += 1;
+        if (Random.value < chance) dropCount += 1;
 
-        int rand = Random.Range(1, 2);
-        switch (rand) {
-            case 1:
-                economy.AddCoal(dropCount);
-                break;
-            case 2:
-                economy.AddIron(dropCount);
-                break;
-        }
+        economy.AddIron(dropCount);
+        Debug.Log("Dropped Iron: " + dropCount);
     }
     public void SetSpriteAlpha(float alphaValue)
     {
