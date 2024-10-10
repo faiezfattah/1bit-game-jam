@@ -9,7 +9,6 @@ public class Miner : Build
     [SerializeField] private int gatherPointPerTile = 1;
     [SerializeField] private int maxGatherPoint = 5;
 
-
     private static Tilemap resourceTilemap;
     private static TilemapManager tileManager;
     private float gatherTimer;
@@ -51,7 +50,7 @@ public class Miner : Build
 
             if (tile != null && tile.type == minerType)
             {
-                tileManager.GetResources(tilePos, gatherPointPerTile);
+                point += tileManager.GetResources(tilePos, gatherPointPerTile);
             }
         }
     }
