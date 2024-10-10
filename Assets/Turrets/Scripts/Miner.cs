@@ -1,5 +1,3 @@
-using Mono.Cecil;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -54,7 +52,6 @@ public class Miner : Build
             if (tile != null && tile.type == minerType)
             {
                 tileManager.GetResources(tilePos, gatherPointPerTile);
-                Debug.Log("Getting resources on: " + tilePos);
             }
         }
     }

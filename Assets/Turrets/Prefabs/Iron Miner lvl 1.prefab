@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 9079933990639659030, guid: 2eea58e863efeec41a571631f63ee5c2, type: 3}
+  m_Sprite: {fileID: -3342984194639182473, guid: 2a98c92b4af37a9489e39904fd8d079e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: ea2c869940d9a98448397c3b71395d4c, type: 2}
   economy: {fileID: 11400000, guid: a0f594e514edb674583ee8fa7a19c2de, type: 2}
-  minerType: 1
+  minerType: 0
   point: 0
   gatherPointPerTile: 1
   maxGatherPoint: 10

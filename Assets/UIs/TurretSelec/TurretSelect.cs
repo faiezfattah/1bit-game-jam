@@ -20,20 +20,15 @@ public class TurretSelect : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         OpenHoverUI(btnData.hoverUI);
     }
     public void OnPointerExit(PointerEventData data) {
-        CloseHoverUI();
+            CloseHoverUI();
     }
     private void OpenHoverUI(GameObject hoverUI) {
         if (isUIOpen) { 
             currentHoverUI.SetActive(false);
-            currentHoverUI = hoverUI;
-            currentHoverUI.SetActive(true);
-            pointerRelay.RaiseEvent(btnData.range);
         }
-        if (!isUIOpen) {
-            currentHoverUI = hoverUI;
-            currentHoverUI.SetActive(true);
-            pointerRelay.RaiseEvent(btnData.range);
-        }
+        currentHoverUI = hoverUI;
+        currentHoverUI.SetActive(true);
+        pointerRelay.RaiseEvent(btnData.range);
     }
     private void CloseHoverUI() {
         currentHoverUI?.SetActive(false);
