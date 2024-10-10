@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingCoal: 50
   startingIron: 50
-  coalCount: 924
-  ironCount: 9924
+  coalCount: 999999999
+  ironCount: 999999999

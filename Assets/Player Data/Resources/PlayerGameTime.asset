@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8192426bf568d8c49b743f3f686ac3f5, type: 3}
   m_Name: PlayerGameTime
   m_EditorClassIdentifier: 
-  gameTime: 20.378046
-  dayTime: 20.378046
-  clockTurn: 4.23
+  gameTime: 119.50063
+  dayTime: 18.412392
   maxDayTimeInSeconds: 30
-  dayCount: 0
+  dayCount: 101

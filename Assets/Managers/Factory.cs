@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NewMonoBehaviourScript : MonoBehaviour
@@ -13,25 +15,38 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private int minEnemy = 3;
     [SerializeField] private int dayToIncreaseEnemy = 2;
-    IEnumerator SpawningRoutine() {
-        // 1. randomize which pointer to be spawned at CHECK
-        // 2. ramdomize what kind of enemy to be spawned ???
-        // 3. randomize how which enemy CHECK
-        // 4. randomize how many ?
+    [SerializeField] private int maxEnemyPerLane =10;
 
-        Transform spawningPoint = pointer[Randomizer(pointer.Length)].GetComponent<Transform>();
-        GameObject spawningEnemy = regularEnemy[Randomizer(regularEnemy.Length)];
+    private GameObject spawningEnemy;
+    private Transform currentSpawningPoint;
+    IEnumerator SpawningRoutine(int enemiesToSpawn, Vector3 position) {       
 
-
-        int enemiesToSpawn = minEnemy + Mathf.FloorToInt(gameTime.dayCount / dayToIncreaseEnemy);
-
-        for (int i = 0; i < enemiesToSpawn; i++) {
-            Instantiate(spawningEnemy, spawningPoint.transform.position, Quaternion.identity);
+        for (int j = 0; j < enemiesToSpawn; j++) {
+            Instantiate(spawningEnemy, position, Quaternion.identity);
             yield return new WaitForSeconds(spawnInterval);
         }
     }
     private void SpawnEnemy() {
-        StartCoroutine(SpawningRoutine());
+        spawningEnemy = regularEnemy[Randomizer(regularEnemy.Length)];
+        currentSpawningPoint = pointer[Randomizer(pointer.Length)].GetComponent<Transform>();
+
+        int enemiesToSpawn = minEnemy + Mathf.FloorToInt(gameTime.dayCount / dayToIncreaseEnemy);
+
+        if (enemiesToSpawn > maxEnemyPerLane) {
+            while (enemiesToSpawn > maxEnemyPerLane) {
+                StartCoroutine(SpawningRoutine(maxEnemyPerLane, currentSpawningPoint.position));
+                Transform next = pointer[Randomizer(pointer.Length)].GetComponent<Transform>();
+                if (currentSpawningPoint == next) {
+                    while (currentSpawningPoint == next) {
+                        next = pointer[Randomizer(pointer.Length)].GetComponent<Transform>();
+                    }
+                }
+                currentSpawningPoint = next;
+                enemiesToSpawn -= maxEnemyPerLane;
+            }
+        }
+
+        StartCoroutine(SpawningRoutine(enemiesToSpawn, currentSpawningPoint.position));
     }
     private int Randomizer(int max) {
         return Random.Range(0, max);

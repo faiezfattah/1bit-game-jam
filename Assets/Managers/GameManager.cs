@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
     [Header("uis-----------------")]
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private GameObject mainMenuScreen;
+    
+    // TODO: rework these 3 ui to be managed by this
+    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject tutorial1;
+    [SerializeField] private GameObject tutorial2;
     [Header("musics")]
     [SerializeField] private AudioClip game;
     [SerializeField] private AudioClip mainMenu;

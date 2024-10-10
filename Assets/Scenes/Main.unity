@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 621091159}
   - component: {fileID: 621091158}
   m_Layer: 5
-  m_Name: Tutorial
+  m_Name: Tutorial 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1686,6 +1686,7 @@ MonoBehaviour:
   spawnInterval: 2
   minEnemy: 3
   dayToIncreaseEnemy: 2
+  maxEnemyPerLane: 10
 --- !u!4 &1242691803
 Transform:
   m_ObjectHideFlags: 0
@@ -1765,6 +1766,9 @@ MonoBehaviour:
   resetRelay: {fileID: 11400000, guid: 8c6577dfb42f47b43a841446d4a62260, type: 2}
   gameOverScreen: {fileID: 4720258858930935735, guid: 7d697d3a86cc61a4eafc3c1e083e779f, type: 3}
   mainMenuScreen: {fileID: 1501774754402106939}
+  pauseScreen: {fileID: 1836287915}
+  tutorial1: {fileID: 621091157}
+  tutorial2: {fileID: 1760200141}
   game: {fileID: 8300000, guid: 0275ebe56fc1e76448ef9136bd76a8d3, type: 3}
   mainMenu: {fileID: 8300000, guid: 5cf20f7446a0e7a41957c41cd513ed3f, type: 3}
 --- !u!1 &1487071912
