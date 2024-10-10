@@ -15,7 +15,7 @@ MonoBehaviour:
   prefabs: {fileID: 8871531617660945897, guid: be390a212abab90478ab9dc1b956d85d, type: 3}
   turretName: DoubleTurret_2
   level: 2
-  bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
+  bullet: {fileID: 218363788127495138, guid: 1c0a037cc9f551d409cdc16a9bffec9a, type: 3}
   range: 4
   attackInterval: 0.7
   bulletSpeed: 8

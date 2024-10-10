@@ -19,6 +19,9 @@ public class PlayerData
     public List<Vector3IntSerializable> buildPositions = new List<Vector3IntSerializable>();
     public List<string> buildingData = new List<string>();
 
+    public List<Vector3IntSerializable> tilePosition = new List<Vector3IntSerializable>();
+    public List<int> resourceAmount = new List<int>();
+
     public PlayerData(PlayerBuild build, PlayerEconomy economy, PlayerGameTime gameTime)
     {
         ironCount = economy.ironCount;
@@ -34,6 +37,10 @@ public class PlayerData
         {
             buildPositions.Add(new Vector3IntSerializable(entry.Key));
             buildingData.Add((entry.Value.name));
+        }
+        foreach (var entry in build.tileResource) {
+            tilePosition.Add(new Vector3IntSerializable(entry.Key));
+            resourceAmount.Add((entry.Value));
         }
     }
 }

@@ -21,6 +21,7 @@ public static class SaveSystem
         gameTime.ResetGameTime();
         economy.ResetEconomy();
         build.ResetBuild();
+        build.ResetTileResource();
     }
     public static PlayerData LoadPlayer(PlayerBuild build, PlayerEconomy economy, PlayerGameTime gameTime)
     {
@@ -34,6 +35,7 @@ public static class SaveSystem
             stream.Close();
 
             RebuildBuildDictionary(data, build);
+            RebuildTileResourceDictionary(data, build);
 
             gameTime.dayCount = data.dayCount;
             gameTime.dayTime = data.dayTime;
@@ -67,6 +69,15 @@ public static class SaveSystem
             else {
                 Debug.LogWarning($"BuildData not found for {buildingName}");
             }
+        }
+    }
+    private static void RebuildTileResourceDictionary(PlayerData data, PlayerBuild build) {
+        for (int i = 0; i < data.tilePosition.Count; i++) {
+
+            Vector3Int position = data.tilePosition[i].ToVector3Int();
+            int resourceAmount = data.resourceAmount[i];
+
+            build.tileResource.Add(position, resourceAmount);
         }
     }
 }

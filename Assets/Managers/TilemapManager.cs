@@ -1,43 +1,52 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TilemapManager : MonoBehaviour
 {
+    [SerializeField] private PlayerBuild build;
+    [Header("relays --- ")]
     [SerializeField] private VectorIntChannel tileRemovalRelay;
+    [SerializeField] private VoidChannel resetRelay;
+
     [SerializeField] private Tilemap resourceTilemap;
     [SerializeField] private int resourcePointPerTile = 500;
 
-    private Dictionary<Vector3Int, int> tileMapResource = new Dictionary<Vector3Int, int>();
     private void Start() {
         if (resourceTilemap == null) resourceTilemap = GetComponent<Tilemap>();
     }
     public int GetResources(Vector3Int pos, int amount) {
-        RecordResourceChanges(pos, amount);
-        return amount;
-    }
-    private void RecordResourceChanges(Vector3Int pos, int decreaseAmount) {
-        if (tileMapResource.ContainsKey(pos) == false) {
-            tileMapResource.Add(pos, resourcePointPerTile);
-        }
-
-        tileMapResource[pos] -= decreaseAmount;
-
-        if (tileMapResource[pos] <= 0 ) { 
+        if (build.TrackResourceChanges(pos, amount))
+            return amount;
+        else 
             RemoveTile(pos);
-        }
+        return 0;
+
     }
     private void RemoveTile(Vector3Int position) {
         resourceTilemap.SetTile(position, null);
-        tileMapResource.Remove(position);
+        build.tileResource.Remove(position);
 
         Debug.Log("removing tile at: " + position);
     }
+    private void RebuildTileMap() {
+        foreach (Vector3Int Key in build.tileResource.Keys) {
+            if (build.tileResource[Key] <= 0 || build.tileResource == null) {
+                RemoveTile(Key);
+            }
+        }
+    }
+    private void HandleReset() {
+        build.ResetTileResource();
+    }
     private void OnEnable() {
         tileRemovalRelay.OnEventRaised += RemoveTile;
+        resetRelay.OnEvenRaised += HandleReset;
     }
 
     private void OnDisable() {
         tileRemovalRelay.OnEventRaised -= RemoveTile;
+        resetRelay.OnEvenRaised -= HandleReset;
     }
 }

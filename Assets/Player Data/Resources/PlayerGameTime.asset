@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameTime: 70.16749
   dayTime: 61.431538
-  maxDayTimeInSeconds: 100
+  maxDayTimeInSeconds: 30
   dayCount: 1

@@ -8,6 +8,8 @@ public class InputReader : ScriptableObject, Input.IPlayerActions
 {
     private Input inputActions;
 
+    public bool mouseClickIntercept = false;
+
     public event UnityAction<Vector2> MoveEvent;
     public event UnityAction MouseClickEvent;
     public event UnityAction MouseHoldEvent;
@@ -39,7 +41,7 @@ public class InputReader : ScriptableObject, Input.IPlayerActions
     }
     public void OnMouseClick(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if(context.performed && !mouseClickIntercept)
             MouseClickEvent?.Invoke();
     }
     public void OnMouseHold(InputAction.CallbackContext context)

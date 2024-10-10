@@ -8,8 +8,10 @@ public class PlayerBuild : ScriptableObject
 {
     public int maxTowerHealth = 100;
     public int currentTowerHealth;
+    public int resourcePointPerTile = 200;
 
     public Dictionary<Vector3Int, BuildData> buildPlacement = new Dictionary<Vector3Int, BuildData>();
+    public Dictionary<Vector3Int, int> tileResource = new Dictionary<Vector3Int, int>();
     private void OnEnable()
     {
         // debugging purposes
@@ -53,5 +55,28 @@ public class PlayerBuild : ScriptableObject
     public void ResetBuild() {
         buildPlacement.Clear();
         currentTowerHealth = maxTowerHealth;
+    }
+    public void ResetTileResource() {
+        tileResource.Clear();
+    }
+    
+    /// <summary>
+    /// Return if point succesfully gathered
+    /// false: need tile removal
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="decreaseAmount"></param>
+    /// <returns></returns>
+    public bool TrackResourceChanges(Vector3Int pos, int decreaseAmount) {
+        if (tileResource.ContainsKey(pos) == false) {
+            tileResource.Add(pos, resourcePointPerTile);
+        }
+
+        tileResource[pos] -= decreaseAmount;
+
+        if (tileResource[pos] <= 0) {
+            return true;
+        }
+        return false;
     }
 }

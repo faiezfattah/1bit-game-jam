@@ -1,6 +1,9 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,7 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuScreen;
     
     // TODO: rework these 3 ui to be managed by this
-    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private UIDocument pauseScreen;
     [SerializeField] private GameObject tutorial1;
     [SerializeField] private GameObject tutorial2;
     [Header("musics")]
@@ -47,6 +50,11 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
         gameTime.UpdateGameTime();
+
+        //if (mainMenuScreen.activeInHierarchy || gameOverScreen.activeInHierarchy || pauseScreen.enabled || tutorial1.activeInHierarchy || tutorial2.activeInHierarchy) {
+        //    inputReader.mouseClickIntercept = true;
+        //}
+        //else inputReader.mouseClickIntercept = false;
     }
 
     private void Pause(bool value)
@@ -61,6 +69,7 @@ public class GameManager : MonoBehaviour
             isPaused = value;
             musicStop.RaiseEvent(true);
         }
+        inputReader.mouseClickIntercept = value;
     }
     private void TogglePause() {
         Pause(!isPaused);
@@ -103,6 +112,9 @@ public class GameManager : MonoBehaviour
             isGameover = false;
         }
     }
+    private void HandleRestart() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     private void OnEnable() {
         mainMenuPlay.OnEvenRaised += HandlePlay;
@@ -112,7 +124,7 @@ public class GameManager : MonoBehaviour
         inputReader.EscapeEvent += TogglePause;
         saveRelay.OnEvenRaised += HandleSave;
         quitRelay.OnEvenRaised += HandlePseudoQuit;
-        restartRelay.OnEvenRaised += HandlePlay;
+        restartRelay.OnEvenRaised += HandleRestart;
     }
     private void OnDisable() {
         mainMenuPlay.OnEvenRaised -= HandlePlay;
@@ -120,7 +132,7 @@ public class GameManager : MonoBehaviour
         gameoverRelay.OnEvenRaised -= HandleGameOver;
         togglePauseRelay.OnEvenRaised -= TogglePause;
         inputReader.EscapeEvent -= TogglePause;
-        saveRelay.OnEvenRaised -= HandleSave;
+        saveRelay.OnEvenRaised -= HandleRestart;
         quitRelay.OnEvenRaised -= HandlePseudoQuit;
         restartRelay.OnEvenRaised -= HandlePlay;
     }

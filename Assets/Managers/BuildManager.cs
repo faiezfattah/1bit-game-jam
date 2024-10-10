@@ -154,7 +154,6 @@ public class BuildManager : MonoBehaviour
     }
     private void HandleReset() {
         ClearExistingBuildings();
-        Debug.Log("HandeLoad called");
 
         foreach (Vector3Int Key in build.buildPlacement.Keys) {
             GameObject building = build.buildPlacement[Key].prefabs;
@@ -162,9 +161,7 @@ public class BuildManager : MonoBehaviour
             Instantiate(building, grid.GetCellCenterWorld(Key), Quaternion.identity);
             GameObjectPlacement.Add(Key, building);
         }
-
-        isUIOpen = false;
-        pointer.SetOverride(false);
+        CloseMenu();
         GameObjectPlacement.Clear();
     }
     private void ClearExistingBuildings() {
@@ -178,7 +175,6 @@ public class BuildManager : MonoBehaviour
     {
         CloseMenu();
     }
-
 
     private void PlaySFX(AudioClip clip) {
         sfxRelay.RaiseEvent(clip);
