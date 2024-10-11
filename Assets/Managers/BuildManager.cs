@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class BuildManager : MonoBehaviour
@@ -46,8 +47,7 @@ public class BuildManager : MonoBehaviour
         bool hasTurret = build.CheckTurret(pointer.GetGridLocation());
 
         //if (!isUIOpen) selectedLocation = pointer.GetGridLocation();
-        if (isUIOpen) {
-            Debug.Log("second input called on ui point, supposed to close ui");
+        if (isUIOpen && !IsPointerOverUIElement()) {
             CloseMenu();
             return;
         }
@@ -80,10 +80,8 @@ public class BuildManager : MonoBehaviour
             PlaySFX(openMenu);
         }
     }
-    private void OpenTurretMenu(Vector3 gridLocation)
-    {
-        if (!isUIOpen)
-        {
+    private void OpenTurretMenu(Vector3 gridLocation) {
+        if (!isUIOpen) {
             isUIOpen = true;
             currentUI = Instantiate(buildPickerUI, gridLocation, Quaternion.identity, UICanvas.transform);
             Debug.Log("Opening: " + currentUI);
@@ -150,13 +148,15 @@ public class BuildManager : MonoBehaviour
     {
         PlaySFX(buildFailed);
     }
+    private bool IsPointerOverUIElement() {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
     private void CloseMenu() {
-        Debug.Log($"CloseMenu called. isUIOpen: {isUIOpen}, currentUI: {currentUI}");
-        if (isUIOpen)
-        {
+        if (!isUIOpen) return;
+
+        if (isUIOpen) {
             isUIOpen = false;
             if (currentUI != null) {
-                Debug.Log("destroying UI: " + currentUI);
                 Destroy(currentUI);
             }
             currentUI = null;
