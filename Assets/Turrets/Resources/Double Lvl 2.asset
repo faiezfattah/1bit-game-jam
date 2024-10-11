@@ -19,8 +19,8 @@ MonoBehaviour:
   range: 3.5
   attackInterval: 0.8
   bulletSpeed: 8
-  bulletLifeTime: 4
-  rotationSpeed: 120
+  bulletLifeTime: 2
+  rotationSpeed: 75
   damage: 7
   coalPrice: 50
   ironPrice: 50

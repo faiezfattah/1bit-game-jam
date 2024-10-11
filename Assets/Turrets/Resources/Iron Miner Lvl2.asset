@@ -24,4 +24,4 @@ MonoBehaviour:
   damage: 0
   coalPrice: 100
   ironPrice: 100
-  nextData: {fileID: 11400000, guid: 43aea30e64b9d21479b9b2009f0aa538, type: 2}
+  nextData: {fileID: 11400000, guid: 2cb1eee99bf8ae04aa5aa59f2c50b82e, type: 2}

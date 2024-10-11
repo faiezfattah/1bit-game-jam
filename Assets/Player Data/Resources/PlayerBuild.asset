@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerBuild
   m_EditorClassIdentifier: 
   maxTowerHealth: 100
-  currentTowerHealth: 9926516
+  currentTowerHealth: 99999550
   resourcePointPerTile: 200

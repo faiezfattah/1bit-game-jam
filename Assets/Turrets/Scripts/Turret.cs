@@ -38,10 +38,15 @@ public abstract class Turret : Build
         }, false, minBulletPool, maxBulletPool);
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         if (attackArea.radius != data.range)
             attackArea.radius = data.range;
+
+                Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, data.range, enemyLayer);
+        if (enemiesInRange.Length > 0) state = TurretState.Attacking;
+        else state = TurretState.Idle;
+
         if (state == TurretState.Attacking)
             AttackState();
     }
@@ -73,25 +78,18 @@ public abstract class Turret : Build
 
     protected virtual List<Transform> GetTarget()
     {
-        float shortestDistance = data.range;
-        Transform nearestEnemy = null;
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, data.range, enemyLayer);
+        List<Transform> enemiesSortedNear = new List<Transform>();
 
-        List<Transform> enemiesSortedNear = new List<Transform>();        
-
-        foreach (Collider2D enemy in enemiesInRange)
-        {            
+        foreach (Collider2D enemy in enemiesInRange) {
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
-            if (distance < shortestDistance)
-            {
-                shortestDistance = distance;
-                nearestEnemy = enemy.transform;
-                enemiesSortedNear.Insert(0, nearestEnemy);
-            }
-            if (distance > shortestDistance) {
+            int index = enemiesSortedNear.FindIndex(t => Vector2.Distance(transform.position, t.position) > distance);
+            if (index == -1)
                 enemiesSortedNear.Add(enemy.transform);
-            }
+            else
+                enemiesSortedNear.Insert(index, enemy.transform);
         }
+
         return enemiesSortedNear;
     }
 

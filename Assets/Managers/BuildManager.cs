@@ -45,14 +45,20 @@ public class BuildManager : MonoBehaviour
         //Debug.Log("mouse down on: " + ReadSelectecGrid());
         bool hasTurret = build.CheckTurret(pointer.GetGridLocation());
 
-        if (!isUIOpen) selectedLocation = pointer.GetGridLocation();
+        //if (!isUIOpen) selectedLocation = pointer.GetGridLocation();
+        if (isUIOpen) {
+            Debug.Log("second input called on ui point, supposed to close ui");
+            CloseMenu();
+            return;
+        }
+        else selectedLocation = pointer.GetGridLocation();
 
         if (tilemap.GetTile(selectedLocation) != null) {
             PlaySFX(buildFailed);
             return;
         }
 
-        if (hasTurret == false)
+        if (hasTurret == false && !isUIOpen)
             OpenTurretMenu(pointer.GetWorldLocation());
         else OpenUpgradeMenu(pointer.GetWorldLocation());
     }
@@ -80,6 +86,7 @@ public class BuildManager : MonoBehaviour
         {
             isUIOpen = true;
             currentUI = Instantiate(buildPickerUI, gridLocation, Quaternion.identity, UICanvas.transform);
+            Debug.Log("Opening: " + currentUI);
 
             PlaySFX(openMenu);
 
@@ -143,12 +150,15 @@ public class BuildManager : MonoBehaviour
     {
         PlaySFX(buildFailed);
     }
-    private void CloseMenu()
-    {
+    private void CloseMenu() {
+        Debug.Log($"CloseMenu called. isUIOpen: {isUIOpen}, currentUI: {currentUI}");
         if (isUIOpen)
         {
             isUIOpen = false;
-            if (currentUI != null) Destroy(currentUI);
+            if (currentUI != null) {
+                Debug.Log("destroying UI: " + currentUI);
+                Destroy(currentUI);
+            }
             currentUI = null;
             pointer.SetOverride(false);
             pointer.DisableCircle();
