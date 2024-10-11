@@ -1,5 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UIs/HUDs/HUD.uss?fileID=7433441132597879392&amp;guid=5d4610536b30f7046b6b0a5fa112b7d0&amp;type=3#HUD" />
+    <ui:VisualElement style="flex-direction: row; align-items: center; padding-bottom: 4px; margin-left: 0; background-image: url(&quot;project://database/Assets/Sprites/UIs/Border%20Rectt.png?fileID=21300000&amp;guid=72256728638800147b324d5bfc515a5f&amp;type=3#Border Rectt&quot;); background-position-y: top 0; -unity-slice-scale: 0.4px; padding-left: 12px; padding-top: 4px; padding-right: 12px; position: absolute; top: 0; left: 0;">
+        <ui:Label text="Day: " picking-mode="Ignore" class="economy-text" style="-unity-font-definition: url(&quot;project://database/Assets/Sprites/UIs/themevck-text.ttf?fileID=12800000&amp;guid=165f528d8396c44498da37c94028674c&amp;type=3#themevck-text&quot;); color: rgb(217, 185, 130); padding-left: 0;" />
+        <ui:Label text="ssssss" picking-mode="Ignore" class="economy-text" style="-unity-font-definition: url(&quot;project://database/Assets/Sprites/UIs/themevck-text.ttf?fileID=12800000&amp;guid=165f528d8396c44498da37c94028674c&amp;type=3#themevck-text&quot;); color: rgb(217, 185, 130); padding-left: 0;">
+            <Bindings>
+                <ui:DataBinding property="text" data-source-path="dayCount" data-source="project://database/Assets/Player%20Data/Resources/PlayerGameTime.asset?fileID=11400000&amp;guid=322daaf06f6fffb4f956422321dfcaf1&amp;type=2#PlayerGameTime" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:Label>
+    </ui:VisualElement>
     <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 26px; align-self: flex-end;">
         <ui:VisualElement style="flex-grow: 1; align-self: flex-end; width: 106px; height: auto; align-items: flex-end;">
             <ui:ProgressBar title="tower-health-bar" data-source-path="dayTime" name="tower-health-bar" picking-mode="Ignore" style="height: 25px; width: 66%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; padding-right: 0;">
@@ -27,7 +35,7 @@
                     <ui:DataBinding property="text" data-source-path="coalCount" data-source="project://database/Assets/Player%20Data/PlayerEconomy.asset?fileID=11400000&amp;guid=a0f594e514edb674583ee8fa7a19c2de&amp;type=2#PlayerEconomy" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
-            <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Icons/Iron%20Bar.png?fileID=-4056492281781340976&amp;guid=6b6c0fb20161ed440b035a33685314a7&amp;type=3#Iron Bar_0&quot;); height: 12px; width: 16px; margin-left: 14px;" />
+            <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Icons/Iron%20Bar.png?fileID=-4056492281781340976&amp;guid=6b6c0fb20161ed440b035a33685314a7&amp;type=3#Iron Bar_0&quot;); height: 12px; width: 16px; margin-left: 8px;" />
             <ui:Label text="Label" picking-mode="Ignore" class="economy-text" style="height: auto; flex-grow: 0; -unity-font-definition: url(&quot;project://database/Assets/Sprites/UIs/themevck-text.ttf?fileID=12800000&amp;guid=165f528d8396c44498da37c94028674c&amp;type=3#themevck-text&quot;); color: rgb(217, 185, 130); padding-left: 4px;">
                 <Bindings>
                     <ui:DataBinding property="text" data-source-path="ironCount" data-source="project://database/Assets/Player%20Data/PlayerEconomy.asset?fileID=11400000&amp;guid=a0f594e514edb674583ee8fa7a19c2de&amp;type=2#PlayerEconomy" binding-mode="ToTarget" />

@@ -132,8 +132,8 @@ public class BuildManager : MonoBehaviour
         BuildData data = build.buildPlacement[selectedLocation];
         if (data == null) Debug.Log("selling data null");
 
-        economy.AddCoal(Mathf.FloorToInt(data.coalPrice / 4));
-        economy.AddIron(Mathf.FloorToInt(data.ironPrice / 4));
+        economy.AddCoal(Mathf.FloorToInt(data.coalPrice / 2));
+        economy.AddIron(Mathf.FloorToInt(data.ironPrice / 2));
 
         build.RemoveBuild(selectedLocation);
         Destroy(GameObjectPlacement[selectedLocation]);

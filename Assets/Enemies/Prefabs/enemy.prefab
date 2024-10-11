@@ -182,8 +182,8 @@ MonoBehaviour:
   maxHealth: 2
   damage: 1
   attackRate: 3
-  dropChance: 1
-  maxDropChance: 5
+  dropChance: 2
+  maxDropChance: 8
   statIncrementOnDayCount: 3
   speedIncrement: 0.05
   localAudioRelay: {fileID: 11400000, guid: 32269dd5b3cef0d49be1026bf92e2c3d, type: 2}

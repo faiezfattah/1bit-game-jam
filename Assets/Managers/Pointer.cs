@@ -1,5 +1,3 @@
-using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -63,10 +61,8 @@ public class Pointer : MonoBehaviour
     }
     private void OnEnable() {
         requestCircle.OnEventRaised += EnableCircle;
-        inputReader.EscapeEvent += TogglePointer;
     }
     private void OnDisable() {
         requestCircle.OnEventRaised -= EnableCircle;
-        inputReader.EscapeEvent += TogglePointer;
     }
 }

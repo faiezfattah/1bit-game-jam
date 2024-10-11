@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         SaveSystem.SavePlayer(build, economy, gameTime);
         resetRelay.RaiseEvent();
         musicRelay.RaiseEvent(game);
-        Pause(false);
+        Pause(true);
     }
     private void HandleSave() {
         Debug.Log("saved player data");
@@ -102,15 +102,8 @@ public class GameManager : MonoBehaviour
         Pause(true);
     }
     private void HandlePseudoQuit() {
-        mainMenuScreen.SetActive(true);
         SaveSystem.SavePlayer(build, economy, gameTime);
-        Pause(true);
-        musicRelay.RaiseEvent(mainMenu);
-
-        if (isGameover) {
-            Destroy(gameoverUIInstancce);
-            isGameover = false;
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void HandleRestart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
