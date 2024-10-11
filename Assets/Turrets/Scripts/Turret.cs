@@ -14,6 +14,8 @@ public abstract class Turret : Build
     [SerializeField] protected int maxBulletPool = 10000;
     protected ObjectPool<GameObject> bulletPool;
     protected float attackTimer = 0;
+
+    List<Transform> target = new List<Transform>();
     protected virtual void Start()
     {
         enemyLayer = LayerMask.GetMask("Enemy");
@@ -45,14 +47,17 @@ public abstract class Turret : Build
     }
     protected virtual void AttackState() {
 
-        Transform target = GetTarget();
+        target = GetTarget();
 
-        if (target == null) {
+        if (target.Count <= 0 || target == null) {
             state = TurretState.Idle;
             return;
         }
 
-        RotateToTarget(target);
+        if (target[0] != null){
+            RotateToTarget(target[0]);
+        }
+        else target = GetTarget();
 
         Vector2 nozzleLocation = -transform.right;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, nozzleLocation, data.range, enemyLayer);
@@ -66,21 +71,28 @@ public abstract class Turret : Build
     }
     protected abstract void Shoot(Transform shootingTarget);
 
-    protected virtual Transform GetTarget()
+    protected virtual List<Transform> GetTarget()
     {
-        float maxDistance = 0f;
-        Transform furthestEnemy = null;
+        float shortestDistance = data.range;
+        Transform nearestEnemy = null;
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, data.range, enemyLayer);
+
+        List<Transform> enemiesSortedNear = new List<Transform>();        
+
         foreach (Collider2D enemy in enemiesInRange)
-        {
+        {            
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
-            if (distance > maxDistance)
+            if (distance < shortestDistance)
             {
-                maxDistance = distance;
-                furthestEnemy = enemy.transform;
+                shortestDistance = distance;
+                nearestEnemy = enemy.transform;
+                enemiesSortedNear.Insert(0, nearestEnemy);
+            }
+            if (distance > shortestDistance) {
+                enemiesSortedNear.Add(enemy.transform);
             }
         }
-        return furthestEnemy;
+        return enemiesSortedNear;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -88,7 +100,7 @@ public abstract class Turret : Build
         if (state != TurretState.Attacking)
             state = TurretState.Attacking;
     }
-        private void ReleaseBullet(GameObject bullet) {
+    private void ReleaseBullet(GameObject bullet) {
         bulletPool.Release(bullet);
     }
     protected virtual void RotateToTarget(Transform target)

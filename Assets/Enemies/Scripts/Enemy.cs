@@ -14,8 +14,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int damage = 1;
     [SerializeField] private float attackRate = 3;
-    [SerializeField] private float dropChance = 0.05f;
-    [SerializeField] private float maxDropChance = 5;
+    [SerializeField] private int minDropChance = 1;
+    [SerializeField] private int maxDropChance = 5;
+    [SerializeField] private int dropChance;
     [SerializeField] private int statIncrementOnDayCount = 3;
     [SerializeField] private float speedIncrement = 0.1f;
     [Header("Sound")]
@@ -49,7 +50,8 @@ public class Enemy : MonoBehaviour
         int increase = Mathf.FloorToInt(gameTime.dayCount / statIncrementOnDayCount);
 
         damage += increase;
-        dropChance = Mathf.Min(maxDropChance, (dropChance + increase));
+        dropChance = Mathf.Max(minDropChance, (maxDropChance - increase));
+
         speed += increase * speedIncrement;
         attackRate += increase * speedIncrement;
         currentHealth = maxHealth + increase;
@@ -83,7 +85,6 @@ public class Enemy : MonoBehaviour
 
             rb.linearVelocity = (dir * speed);
             yield return new WaitForSeconds(attackRate);
-            Debug.Log("pulling back");
         }
     }
     public void TakeDamage(int damage)
@@ -106,14 +107,8 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
     private void Drops() {
-        float chance = dropChance;
-        int dropCount = Mathf.FloorToInt(chance);
-
-        if (chance > 1) chance -= dropCount;
-        if (Random.value < chance) dropCount += 1;
-
+        int dropCount = Mathf.FloorToInt(dropChance);
         economy.AddIron(dropCount);
-        Debug.Log("Dropped Iron: " + dropCount);
     }
     public void SetSpriteAlpha(float alphaValue)
     {

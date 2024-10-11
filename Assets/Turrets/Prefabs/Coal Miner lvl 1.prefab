@@ -105,4 +105,4 @@ MonoBehaviour:
   minerType: 2
   point: 0
   gatherPointPerTile: 1
-  maxGatherPoint: 10
+  maxGatherPoint: 15

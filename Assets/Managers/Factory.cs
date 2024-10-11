@@ -15,7 +15,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private int minEnemy = 3;
     [SerializeField] private int dayToIncreaseEnemy = 2;
-    [SerializeField] private int maxEnemyPerLane =10;
+    [SerializeField] private int maxEnemyPerLane = 10;
 
     private GameObject spawningEnemy;
     private Transform currentSpawningPoint;
@@ -31,6 +31,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         currentSpawningPoint = pointer[Randomizer(pointer.Length)].GetComponent<Transform>();
 
         int enemiesToSpawn = minEnemy + Mathf.FloorToInt(gameTime.dayCount / dayToIncreaseEnemy);
+        enemiesToSpawn = Mathf.Min(enemiesToSpawn, maxEnemyPerLane * pointer.Length);
 
         if (enemiesToSpawn > maxEnemyPerLane) {
             while (enemiesToSpawn > maxEnemyPerLane) {
