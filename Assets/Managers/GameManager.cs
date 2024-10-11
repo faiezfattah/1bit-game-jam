@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
     private bool isPaused = true;
     private void Start() {
         if (mainMenu == null) Debug.Log("mainmenu not found");
-        musicRelay.RaiseEvent(mainMenu);
         Pause(true);
+        musicRelay.RaiseEvent(mainMenu);
     }
 
     private void Update() {
