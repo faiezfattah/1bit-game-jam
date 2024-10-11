@@ -11,7 +11,6 @@ public class TilemapManager : MonoBehaviour
     [SerializeField] private VoidChannel resetRelay;
 
     [SerializeField] private Tilemap resourceTilemap;
-    [SerializeField] private int resourcePointPerTile = 500;
 
     private void Start() {
         if (resourceTilemap == null) resourceTilemap = GetComponent<Tilemap>();
@@ -19,8 +18,7 @@ public class TilemapManager : MonoBehaviour
     public int GetResources(Vector3Int pos, int amount) {
         if (build.TrackResourceChanges(pos, amount))
             return amount;
-        else 
-            RemoveTile(pos);
+        else RemoveTile(pos);
         return 0;
 
     }

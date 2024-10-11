@@ -75,8 +75,8 @@ public class PlayerBuild : ScriptableObject
         tileResource[pos] -= decreaseAmount;
 
         if (tileResource[pos] <= 0) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

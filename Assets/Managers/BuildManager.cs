@@ -66,7 +66,9 @@ public class BuildManager : MonoBehaviour
             if (data == null) Debug.Log("upgrade data null");
 
             pointer.EnableCircle(data.range);
-            upgradeUI.GetComponent<UpgradeMenu>().Setup(data.level);
+            int price = 0;
+            if (data.nextData != null) price = data.nextData.coalPrice;
+            upgradeUI.GetComponent<UpgradeMenu>().Setup(price, data.level);
             currentUI = Instantiate(upgradeUI, gridLocation, Quaternion.identity, UICanvas.transform);
 
             PlaySFX(openMenu);

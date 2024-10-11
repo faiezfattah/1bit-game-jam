@@ -15,7 +15,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int damage = 1;
     [SerializeField] private float attackRate = 3;
     [SerializeField] private float dropChance = 0.05f;
+    [SerializeField] private float maxDropChance = 5;
     [SerializeField] private int statIncrementOnDayCount = 3;
+    [SerializeField] private float speedIncrement = 0.1f;
     [Header("Sound")]
     [SerializeField] private LocalAudioEvent localAudioRelay;
     [SerializeField] private AudioClip deathClip;
@@ -47,7 +49,9 @@ public class Enemy : MonoBehaviour
         int increase = Mathf.FloorToInt(gameTime.dayCount / statIncrementOnDayCount);
 
         damage += increase;
-        dropChance = dropChance + Mathf.FloorToInt(gameTime.dayCount / (statIncrementOnDayCount * statIncrementOnDayCount));
+        dropChance = Mathf.Min(maxDropChance, (dropChance + increase));
+        speed += increase * speedIncrement;
+        attackRate += increase * speedIncrement;
         currentHealth = maxHealth + increase;
 
         RotateSprite();

@@ -16,11 +16,11 @@ MonoBehaviour:
   turretName: DoubleTurret_1
   level: 1
   bullet: {fileID: 218363788127495138, guid: 1c0a037cc9f551d409cdc16a9bffec9a, type: 3}
-  range: 2
+  range: 3
   attackInterval: 1
-  bulletSpeed: 2
-  bulletLifeTime: 1
-  rotationSpeed: 60
+  bulletSpeed: 5
+  bulletLifeTime: 3
+  rotationSpeed: 90
   damage: 1
   coalPrice: 10
   ironPrice: 10

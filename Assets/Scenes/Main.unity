@@ -28582,7 +28582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e06b5e319ecec47b69826e380d2e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  build: {fileID: 11400000, guid: d516be12fc7fb4c4494caa730be81a88, type: 2}
   tileRemovalRelay: {fileID: 11400000, guid: 128aa408886ce5f449d39a2bdccefbdf, type: 2}
+  resetRelay: {fileID: 11400000, guid: 8c6577dfb42f47b43a841446d4a62260, type: 2}
   resourceTilemap: {fileID: 1922690839}
   resourcePointPerTile: 200
 --- !u!1 &2006977732

@@ -17,7 +17,7 @@ MonoBehaviour:
   level: 1
   bullet: {fileID: 218363788127495138, guid: 5fc96f235c849e54f94c573fd6e30b87, type: 3}
   range: 4
-  attackInterval: 5
+  attackInterval: 3
   bulletSpeed: 10
   bulletLifeTime: 5
   rotationSpeed: 60
