@@ -12,10 +12,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerGameTime gameTime;
     [SerializeField] private PlayerEconomy economy;
     [SerializeField] private PlayerBuild build;
+    
+    [Header("NEW relays------------------")] [SerializeField]
+    private SoundRelay soundRelay;
+    
     [Header("relays------------------")]
-    [SerializeField] private VoidChannel mainMenuPlay;
-    [SerializeField] private VoidChannel mainMenuContinue;
-
     [SerializeField] private AudioChannel musicRelay;
     [SerializeField] private BoolChannel musicStop;
 
@@ -26,48 +27,45 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private VoidChannel saveRelay;
     [SerializeField] private VoidChannel resetRelay; // reset everything, rebuild everything
+    
     [Header("uis-----------------")]
     [SerializeField] private GameObject gameOverScreen;
-    [SerializeField] private GameObject mainMenuScreen;
     
     // TODO: rework these 3 ui to be managed by this
     [SerializeField] private UIDocument pauseScreen;
     [SerializeField] private GameObject tutorial1;
     [SerializeField] private GameObject tutorial2;
+    
     [Header("musics")]
     [SerializeField] private AudioClip game;
-    [SerializeField] private AudioClip mainMenu;
 
     private bool isGameover = false;
     private GameObject gameoverUIInstancce;
 
     private bool isPaused = true;
     private void Start() {
-        if (mainMenu == null) Debug.Log("mainmenu not found");
-        Pause(true);
-        musicRelay.RaiseEvent(mainMenu);
+        Pause(false);
     }
 
     private void Update() {
         gameTime.UpdateGameTime();
-
-        //if (mainMenuScreen.activeInHierarchy || gameOverScreen.activeInHierarchy || pauseScreen.enabled || tutorial1.activeInHierarchy || tutorial2.activeInHierarchy) {
-        //    inputReader.mouseClickIntercept = true;
-        //}
-        //else inputReader.mouseClickIntercept = false;
     }
 
-    private void Pause(bool value)
-    {
+    private void Pause(bool value) {
+        var soundEvent = new SoundEvent {
+            Audioclip = game,
+            Soundtype = SoundType.Music,
+            Type      = value ? SoundEventType.Pause : SoundEventType.Play
+        };
         if (value == false) { 
             Time.timeScale = 1f;
-            musicStop.RaiseEvent(false);
+            soundRelay.RaiseEvent(soundEvent);
             isPaused = value;
         }
         if (value == true) { 
             Time.timeScale = 0f;
             isPaused = value;
-            musicStop.RaiseEvent(true);
+            soundRelay.RaiseEvent(soundEvent);
         }
         inputReader.mouseClickIntercept = value;
     }
@@ -110,8 +108,6 @@ public class GameManager : MonoBehaviour
     }
 
     private void OnEnable() {
-        mainMenuPlay.OnEvenRaised += HandlePlay;
-        mainMenuContinue.OnEvenRaised += HandleLoad;
         gameoverRelay.OnEvenRaised += HandleGameOver;
         togglePauseRelay.OnEvenRaised += TogglePause;
         inputReader.EscapeEvent += TogglePause;
@@ -120,8 +116,6 @@ public class GameManager : MonoBehaviour
         restartRelay.OnEvenRaised += HandleRestart;
     }
     private void OnDisable() {
-        mainMenuPlay.OnEvenRaised -= HandlePlay;
-        mainMenuContinue.OnEvenRaised -= HandleLoad;
         gameoverRelay.OnEvenRaised -= HandleGameOver;
         togglePauseRelay.OnEvenRaised -= TogglePause;
         inputReader.EscapeEvent -= TogglePause;

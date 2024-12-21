@@ -13,11 +13,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource;
 
     [Header("Relays----")]
-    [SerializeField] private AudioChannel sfxRelay;
-    [SerializeField] private AudioChannel musicRelay;
-    [SerializeField] private BoolChannel toggleMusicPlay;
-    [SerializeField] private LocalAudioEvent localAudioRelay;
-
+    [SerializeField] private SoundRelay relay;
+    
     [Header("Sound pool")]
     [SerializeField] private int maxSfxPool = 100;
     protected ObjectPool<AudioSource> localSfxPool;
@@ -69,7 +66,7 @@ public class SoundManager : MonoBehaviour
         musicSource.clip = clip;
         musicSource.Play();
     }
-    private void StopMusic(bool value) {
+    private void PauseMusic(bool value) {
         if (value == true) { 
             musicSource.Pause(); 
         }
@@ -77,21 +74,53 @@ public class SoundManager : MonoBehaviour
             musicSource.UnPause();
         }
     }
+
+    private void StopMusic() {
+        musicSource.Stop();
+    }
+
+    private void ProcessRelay(SoundEvent data) {
+        if (data.Soundtype == SoundType.Music) {
+            ProcessMusic(data);
+            return;
+        };
+        ProcessSFX(data);
+    }
+
+    private void ProcessMusic(SoundEvent data) {
+        switch (data.Type) {
+            case SoundEventType.Play:
+                PlayMusic(data.Audioclip);
+                break;
+            case SoundEventType.Stop:
+                StopMusic();
+                break;
+            case SoundEventType.Pause:
+                PauseMusic(true);
+                break;
+            case SoundEventType.Unpause:
+                PauseMusic(true);
+                break;
+        }
+    }
+
+    private void ProcessSFX(SoundEvent data) {
+        switch (data.Soundtype) {
+            case SoundType.SFX:
+                PlaySFX(data.Audioclip);
+                break;
+            case SoundType.LocalSFX:
+                PlaySFX(data.Audioclip, data.Position);
+                break;
+        }
+    }
     private void HandleDayOverSound() {
         PlaySFX(dayOverClip);
     }
     private void OnEnable() {
-        sfxRelay.OnEventRaised += PlaySFX;
-        toggleMusicPlay.OnEventRaised += StopMusic;
-        musicRelay.OnEventRaised += PlayMusic;
-        localAudioRelay.OnEventRaised += PlaySFX;
-        gameTime.onDayOver += HandleDayOverSound;
+        relay.OnEventRaised += ProcessRelay;
     }    
     private void OnDisable() {
-        sfxRelay.OnEventRaised -= PlaySFX;
-        toggleMusicPlay.OnEventRaised -= StopMusic;
-        musicRelay.OnEventRaised -= PlayMusic;
-        localAudioRelay.OnEventRaised -= PlaySFX;
-        gameTime.onDayOver -= HandleDayOverSound;
+        relay.OnEventRaised -= ProcessRelay;
     }
 }

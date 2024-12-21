@@ -1,13 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public partial class MainScreen : MonoBehaviour
 {
     public VisualElement ui;
-
-    [SerializeField] private VoidChannel playRelay;
-    [SerializeField] private VoidChannel continueRelay;
-
     public Button playButton;
     public Button continueButton;
     public Button quitButton;
@@ -27,11 +24,11 @@ public partial class MainScreen : MonoBehaviour
     }
     private void OnPlayButtonClicked() {
         gameObject.SetActive(false);
-        playRelay.RaiseEvent();
+        SceneManager.LoadScene(0);
     }
     private void OnContinueButtonClicked() {
         gameObject.SetActive(false);
-        continueRelay.RaiseEvent();
+        SceneManager.LoadScene(0);
     }
     private void OnQuitButtonClicked() { 
         Application.Quit();
